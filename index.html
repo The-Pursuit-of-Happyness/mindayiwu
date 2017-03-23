@@ -3,13 +3,100 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=640,initial-scale=0.5,maximum-scale=0.5,minimum-scale=0.5,user-scalable=no">
+    <!--<meta name="viewport" content="width=640,initial-scale=0.5,maximum-scale=0.5,minimum-scale=0.5,user-scalable=no">-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="./static/css/frozen.css">
+    <link rel="stylesheet" href="./static/css/app.css?b=10">
     <title>mindayiwu</title>
 </head>
 
 <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script src=" https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        window.onload = function() {
+            var scale;
+            if (window.innerWidth <= 340) {
+                scale = 0.87;
+            } else if (window.innerWidth <= 378 && window.innerWidth > 340) {
+                scale = 0.93;
+            } else if (window.innerWidth <= 386 && window.innerWidth > 378) {
+                scale = 1.00;
+            } else if (window.innerWidth <= 400 && window.innerWidth > 386) {
+                scale = 1.05;
+            } else if (window.innerWidth <= 416 && window.innerWidth > 400) {
+                scale = 1.09;
+            } else if (window.innerWidth <= 500 && window.innerWidth > 416) {
+                scale = 1.18;
+            } else if (window.innerWidth <= 602 && window.innerWidth > 500) {
+                scale = 1.6;
+            } else if (window.innerWidth <= 642 && window.innerWidth > 602) {
+                scale = 1.7;
+            } else if (window.innerWidth <= 770 && window.innerWidth > 642) {
+                scale = 2;
+            } else if (window.innerWidth > 770) {
+                scale = 2.1;
+            }
+
+            // scale = parseFloat((document.documentElement.clientWidth-50)/320).toFixed(2);
+            // scale = parseFloat((screen.width-55)/320).toFixed(2);
+            // scale = 1 / devicePixelRatio;
+
+            // console.log("------------scale-------"+scale);
+            window.document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=window.innerWidth,initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+            console.log("window.innerWidth" + window.innerWidth);
+
+            //不允许安卓用户调整微信浏览器字体大小
+            (function() {　　
+                if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {　　
+                    handleFontSize();　　
+                } else {　　
+                    if (document.addEventListener) {　　　　
+                        document.addEventListener("WeixinJSBridgeReady", handleFontSize, false);　　
+                    } else if (document.attachEvent) {　　　　
+                        document.attachEvent("WeixinJSBridgeReady", handleFontSize);　　　　
+                        document.attachEvent("onWeixinJSBridgeReady", handleFontSize);　　
+                    }
+                }
+
+                function handleFontSize() {　　 // 设置网页字体为默认大小
+                    　　
+                    WeixinJSBridge.invoke('setFontSizeCallback', {　　
+                        'fontSize': 0　　
+                    });　　 // 重写设置网页字体大小的事件
+                    　　
+                    WeixinJSBridge.on('menu:setfont', function() {　　　　
+                        WeixinJSBridge.invoke('setFontSizeCallback', {　　　　　　
+                            'fontSize': 0　　　　
+                        });　　
+                    });
+                }
+            })();
+            var link_tags = window.document.querySelectorAll("link");
+            for (var i = 0; i < link_tags.length; i++) {
+                if (link_tags[i].href.indexOf('/static/css/app.css') != -1 && getQueryString("version")) {
+                    link_tags[i].setAttribute('href', './static/css/app.css?version=' + getQueryString("version"));
+                }
+            };
+
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+        }
+    </script>
+    <script>
+        define = null;
+        require = null;
+    </script>
 </body>
 
 </html>
