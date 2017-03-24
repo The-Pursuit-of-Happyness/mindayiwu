@@ -1,12 +1,15 @@
 <template>
 	<div class="loginbox">
         <img  class ="logobox" src="../../assets/logo.png">
-        <p class ="title">欢迎登陆</p>
+        <p class ="title">欢迎注册</p>
         <div>
             <input class ="nameinput" placeholder ="请输入用户名" v-model="username" maxlength="20"></input>
-        </div>
+        </div>  a
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
+        </div>
+         <div>
+             <input class ="nameinput" type ="password" placeholder ="请再次输入密码" v-model="password" maxlength="20" minlength="6">
         </div>
         <div class="qrbox">
             <input class ="qrinput" placeholder="图片验证码" v-model ="piccode" maxlength ="4" minlength ="4">
@@ -19,7 +22,7 @@
             </div>
             <button class="forgetpwd">忘记密码？</button>
         </div>
-         <button class ="subbut" @click = "loginIn()">登陆</button>
+         <button class ="subbut" @click = "validate()">登陆</button>
          <button class="regbut" @click ="show()">注册</button>
 	</div>
 </template>
@@ -66,8 +69,31 @@
             //         console.info(response);
             //     })
             // },
-            loginIn(){
-                //校验验证码  
+            showData () 
+            {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: '...',
+                    success:function(data) {
+                        _self.message = JSON.stringify(data);
+                    }
+                });
+            },
+
+            createCode(){  
+                this.code = "";   
+                var codeLength = 4;//验证码的长度  
+                var checkCode = document.getElementById("code");   
+                var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',  
+                'S','T','U','V','W','X','Y','Z');//随机数  
+                for(var i = 0; i < codeLength; i++) {//循环操作  
+                    var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）  
+                    this.code += random[index];//根据索引取得随机数加到code上  
+                } 
+            },
+            //校验验证码  
+            validate(){  
                 var inputCode = this.piccode.toUpperCase(); //取得输入的验证码并转化为大写        
                 if(inputCode.length <= 0) { //若输入的验证码长度为0  
                     alert("请输入验证码！"); //则弹出请输入验证码  
@@ -77,30 +103,10 @@
                     this.createCode();//刷新验证码  
                     this.piccode ='';
                 }
-                else { //输入正确时                      
-                    var _self = this;
-                    $.ajax({
-                        type: 'GET',
-                        url: '...',
-                        success:function(data) {
-                            _self.message = JSON.stringify(data);
-                            console.log(_self.message);
-                            alert("^-^"); //弹出^-^  
-                        }
-                    });
-                }         
-            },
-            createCode(){
-                this.code = "";
-                var codeLength = 4;//验证码的长度 
-                var checkCode = document.getElementById("code");   
-                var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R',  
-                'S','T','U','V','W','X','Y','Z');//随机数  
-                for(var i = 0; i < codeLength; i++) {//循环操作  
-                    var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）  
-                    this.code += random[index];//根据索引取得随机数加到code上  
-                } 
-            },
+                else { //输入正确时  
+                    alert("^-^"); //弹出^-^  
+                }             
+            }, 
             show(){
                 console.log("结果为："+this.username+ this.password + this.piccode + this.code);
             },
