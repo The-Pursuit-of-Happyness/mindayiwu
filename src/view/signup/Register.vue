@@ -4,7 +4,7 @@
         <p class ="title">欢迎注册</p>
         <div>
             <input class ="nameinput" placeholder ="请输入用户名" v-model="username" maxlength="20"></input>
-        </div>  a
+        </div>
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
         </div>

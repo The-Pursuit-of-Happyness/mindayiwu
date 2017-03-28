@@ -80,10 +80,13 @@
                 else { //输入正确时                      
                     var _self = this;
                     $.ajax({
-                        type: 'GET',
-                        url: '...',
+                        type: 'POST',
+                        url: 'http://xxxx/login/login',
+                        data:{'username': _self.username,'password':_self.password},
                         success:function(data) {
+                            alert("^-^"); //弹出^-^  
                             _self.message = JSON.stringify(data);
+                            console.log("hello !!!!!!!");
                             console.log(_self.message);
                             alert("^-^"); //弹出^-^  
                         }
