@@ -3,7 +3,7 @@
         <img  class ="logobox" src="../../assets/logo.png">
         <p class ="title">欢迎注册</p>
         <div>
-            <input class ="nameinput" placeholder ="请输入用户名" v-model="username" maxlength="20"></input>
+            <input class ="nameinput" placeholder ="请输入邮箱" v-model="username" maxlength="20"></input>
         </div>
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
@@ -15,20 +15,11 @@
             <input class ="qrinput" placeholder="图片验证码" v-model ="piccode" maxlength ="4" minlength ="4">
             <button class="qrcodeimg"  id="code" @click="createCode()">{{code}}</button>
         </div>
-        <div class="pwdbox">
-            <div class="rememberpwd" >
-                <input type="checkbox" value="记住密码" id="awesome">
-                <label for="awesome">记住密码</label>
-            </div>
-            <button class="forgetpwd">忘记密码？</button>
-        </div>
-         <button class ="subbut" @click = "validate()">登陆</button>
-         <button class="regbut" @click ="show()">注册</button>
+         <button class="regbut" @click ="register()">注册</button>
 	</div>
 </template>
 
 <script>
-    // import { modified_ios_title } from '../utils';
     import {mapGetters} from 'vuex';
 	export default {
         data (){
@@ -41,46 +32,10 @@
                 message:'',
 			}
 		},
-         computed: mapGetters({
-            getWallet:'getWallet'
-        }),
         created () {
            this.createCode();
-            // this.$store.dispatch('getWallet').then(() => {
-            //     console.log("Action::dispatch('getWallet') ==> this.getWallet: ");
-            //     if(this.getWallet.code == 200){
-            //         this.accountBalance = parseFloat(this.getWallet.data.balance).toFixed(2);
-            //     }else{
-            //     }
-            // });
-
          },
          methods: {
-            // submit(){
-            //     var url="json.jsp";
-            //     var _self=this;
-            //     $.get(url,function(data){
-            //         _self.data=eval("(" + data +")");
-            //     })
-            //      this.$http.get(url).then(function(data){
-            //         var json=data.body;
-            //         this.data=eval("(" + json +")");
-            //     },function(response){
-            //         console.info(response);
-            //     })
-            // },
-            showData () 
-            {
-                var _self = this;
-                $.ajax({
-                    type: 'GET',
-                    url: '...',
-                    success:function(data) {
-                        _self.message = JSON.stringify(data);
-                    }
-                });
-            },
-
             createCode(){  
                 this.code = "";   
                 var codeLength = 4;//验证码的长度  
@@ -93,7 +48,10 @@
                 } 
             },
             //校验验证码  
-            validate(){  
+            register(){
+                var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;
+                var email = "example@qq.com";
+                console.log(reg.test(email)); // true
                 var inputCode = this.piccode.toUpperCase(); //取得输入的验证码并转化为大写        
                 if(inputCode.length <= 0) { //若输入的验证码长度为0  
                     alert("请输入验证码！"); //则弹出请输入验证码  
@@ -104,12 +62,22 @@
                     this.piccode ='';
                 }
                 else { //输入正确时  
-                    alert("^-^"); //弹出^-^  
+                    var _self = this;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://xxxx/login/register',
+                        data:{'username': _self.username,'password':_self.password},
+                        success:function(data) {
+                            _self.message = JSON.stringify(data);
+                            sessionStorage.setItem('accessToken', data.access_token)
+                            sessionStorage.setItem('userName',_self.username)
+                            console.log("hello !!!!!!!");
+                            console.log(_self.message);
+                            alert("^-^"); //弹出^-^  
+                        }
+                    });
                 }             
             }, 
-            show(){
-                console.log("结果为："+this.username+ this.password + this.piccode + this.code);
-            },
         },
 	}
 </script>
@@ -165,62 +133,13 @@
         width:120px;
         margin-left:10px;
         background:#eeeeee;
-    }
-    .pwdbox{
-        margin-top:10px;
-        margin-bottom:10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .rememberpwd{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width:160px;
-    }
-    input[type="checkbox"] + label::before {
-        content: '\a0'; /* 不换行空格 */
-        display: inline-block;
-        vertical-align: .2em;
-        width: .8em;
-        height: .8em;
-        margin-right: .4em;
-        border-radius: .2em;
-        background: silver;
-        text-indent: .15em;
-        line-height: .65;
-    }
-    input[type="checkbox"]:checked + label::before {
-        font-size:16px;
-        content: '\2713';
-        background: yellowgreen;
-    }
-    input[type="checkbox"] {
-        position: absolute;
-        clip: rect(0,0,0,0);
-    }
-    input[type="checkbox"]:focus + label::before {
-        box-shadow: 0 0 .1em .1em #58a;
-    }
-    .forgetpwd{
-         width:160px;
-         height:30px;
-    }
-    .subbut{
-        text-align:center;
-        font-size:16px;
-        width:160px;
-        height:44px;
-        margin-right:10px;
-        border:solid 1px black;
-    }
+    }       
     .regbut{
         text-align:center;
         font-size:16px;
-        width:160px;
+        margin-top:20px;
+        width:360px;
         height:44px;
-        margin-left:10px;
         border:solid 1px black;
     }
 </style>

@@ -1,22 +1,39 @@
 <template>
-  <div class="login">
-   <img src="../../assets/logo.png">
-    <div class ="accountbox">
-        <label>账号：</label><input></input>
-    </div>
-    <div class="passwordbox">
-    <label>密码：</label><input type="password"></input>
-    </div>
-    <div class="submitbox">
-        <button>登录</button>
-        <button>注册</button>
-    </div>
+  <div class="home">
+        <div class="aui-nav" id="footer" style="border-top: 1px solid #dbdbdb;z-index:9">
+            <ul class="aui-bar-tab" id="parent">
+                <li >
+                    <img src="../assets/home-active.png" />
+                    <p class="aui-text-danger">
+                        首页
+                    </p>
+                </li>
+                <li>
+                    <img src="../assets/home-active.png" />
+                    <p>
+                        发现
+                    </p>
+                </li>
+                <li>
+                    <img src="../assets/home-active.png" />
+                    <p>
+                        收藏
+                    </p>
+                </li>
+                <li >
+                    <img src="../assets/home-active.png"/>
+                    <p>
+                        我的
+                    </p>
+                </li>
+            </ul>
+        </div>
   </div>
 </template>
 
 <script>
     export default {
-        name: 'login',
+        name: 'home',
         data() {
             return {
                 msg: '',
@@ -27,16 +44,33 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .accountbox {
-        margin: 5px;
+    #footer{
+        width: 100%;
+        max-width: 640px;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        overflow: hidden;
+        background-color: #FFF;
+        border-top: medium none #ECEDED;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
     }
-    
-    .passwordbox {
-        margin: 5px;
+    ul{
+		height:80px;
+		margin:0;
+		padding:10px;
+		list-style-type:none;
+	}
+    img{
+        margin:0;
+        padding:0;
+        width:40px;
     }
-    
-    .submitbox {
-        margin: 5px;
-        padding: 5px;
+    li{
+        float: left;
+        width: 25%;
+        text-align: center;
+        height: 100%;
     }
 </style>

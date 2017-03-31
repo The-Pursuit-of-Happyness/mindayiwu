@@ -20,7 +20,7 @@
             <button class="forgetpwd">忘记密码？</button>
         </div>
          <button class ="subbut" @click = "loginIn()">登陆</button>
-         <button class="regbut" @click ="show()">注册</button>
+         <button class="regbut" @click ="register()">注册</button>
 	</div>
 </template>
 
@@ -86,6 +86,8 @@
                         success:function(data) {
                             alert("^-^"); //弹出^-^  
                             _self.message = JSON.stringify(data);
+                            sessionStorage.setItem('accessToken', data.access_token)
+                            sessionStorage.setItem('userName',_self.username)
                             console.log("hello !!!!!!!");
                             console.log(_self.message);
                             alert("^-^"); //弹出^-^  
@@ -104,8 +106,8 @@
                     this.code += random[index];//根据索引取得随机数加到code上  
                 } 
             },
-            show(){
-                console.log("结果为："+this.username+ this.password + this.piccode + this.code);
+            register(){
+                this.$router.push("/Register");
             },
         },
 	}
