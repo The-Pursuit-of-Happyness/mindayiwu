@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-        <div class="aui-nav" id="footer" style="border-top: 1px solid #dbdbdb;z-index:9">
+        <div class="aui-nav">
             <ul class="aui-bar-tab" id="parent">
                 <li >
                     <img src="../assets/home-active.png" />
@@ -44,7 +44,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    #footer{
+    .home{
+        width: 100%;
+        max-width: 640px;
+        margin:0 auto;
+    }
+    .aui-nav{
         width: 100%;
         max-width: 640px;
         height: 60px;
@@ -55,11 +60,11 @@
         border-top: medium none #ECEDED;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
         z-index: 10;
+        margin:0 auto;
     }
     ul{
 		height:80px;
 		margin:0;
-		padding:10px;
 		list-style-type:none;
 	}
     img{
