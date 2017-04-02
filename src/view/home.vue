@@ -1,30 +1,30 @@
 <template>
   <div class="home">
-        <div class="aui-nav">
+        <div class="footer">
             <ul class="aui-bar-tab" id="parent">
                 <li >
-                    <img src="../assets/home-active.png" />
-                    <p class="aui-text-danger">
+                    <a href="Home">
+                    <div class="background-style mainpage"></div>
                         首页
-                    </p>
+                    </a>
                 </li>
                 <li>
-                    <img src="../assets/home-active.png" />
-                    <p>
-                        发现
-                    </p>
+                    <a href="Recordpage">
+                    <div class="background-style recordpage"></div>
+                        记录
+                    </a>
                 </li>
                 <li>
-                    <img src="../assets/home-active.png" />
-                    <p>
-                        收藏
-                    </p>
+                     <a href="Orderpage">
+                    <div class="background-style orderpage"></div>
+                        订单
+                    </a>
                 </li>
-                <li >
-                    <img src="../assets/home-active.png"/>
-                    <p>
+                <li >               
+                 <a href="Mypage">
+                    <div class="background-style mypage"></div>
                         我的
-                    </p>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -32,6 +32,14 @@
 </template>
 
 <script>
+    $('.footer ul li a').click(function(e){
+        e.preventDefault();
+        //修改li的active的位置
+        $(this).parent().addClass('active').siblings('.active').removeClass('active');
+        //修改右侧主体中的div的active的位置
+        var id = $(this).attr('href');
+        $(id).addClass('active').siblings('.active').removeClass('active');
+    });
     export default {
         name: 'home',
         data() {
@@ -49,7 +57,7 @@
         max-width: 640px;
         margin:0 auto;
     }
-    .aui-nav{
+    .footer{
         width: 100%;
         max-width: 640px;
         height: 60px;
@@ -67,15 +75,50 @@
 		margin:0;
 		list-style-type:none;
 	}
-    img{
-        margin:0;
-        padding:0;
-        width:40px;
+    a{
+        color:#777;
+        height:100%;
+        display:block;
+        text-align:center;
+    }
+    .home a:active{
+        color:#2ad2c9;
+    }
+    .background-style{
+        background-image:url('../assets/footer-icon.png');
+        background-repeat:no-repeat;
+        background-size:30px auto;
+        height:31px;
+        margin:5px auto auto;
+    }
+    .mainpage{        
+        background-position: center -124px;
+    }
+
+    .mainpage:active{
+        background-position: center 0;
+    }
+    .recordpage{
+        background-position: center -156px;
+    }
+    .recordpage:active{
+        background-position: center -31px;
+    }
+    .orderpage{
+        background-position: center -187px;
+    }
+    .orderpage:active{
+        background-position: center -62px;
+    }
+    .mypage{
+        background-position: center -218px;
+    }
+    .mypage:active{
+        background-position: center -93px;
     }
     li{
         float: left;
-        width: 25%;
-        text-align: center;
+        width: 25%;        
         height: 100%;
     }
 </style>
