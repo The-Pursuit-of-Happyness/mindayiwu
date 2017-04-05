@@ -41,7 +41,7 @@
         data() {
             return {
                 currentpage:0,
-                height: window.innerHeight,
+                height: window.clientHeight,
             }
         }
     }
@@ -60,7 +60,6 @@
         height: 60px;
         position: fixed;
         bottom: 0;
-        left: 0;
         overflow: hidden;
         background-color: #FFF;
         border-top: medium none #ECEDED;
