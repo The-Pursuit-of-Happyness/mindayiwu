@@ -1,14 +1,12 @@
 <template>
-  <div class="home">
-        <p class="content">首页</p>
-        <input placeholder="aaaaa"></input>
-        <div style="width:200px;height:1200px;background:pink;"></div>
+  <div class="orderpage">
+        <p class="content">订单</p>
   </div>
 </template>
 
 <script>
     export default {
-        name: 'home',
+        name: 'orderpage',
         data() {
             return {
                 msg: '',
@@ -22,7 +20,7 @@
     .content{
         font-size:16px;
     }
-    .home{
+    .orderpage{
         width: 100%;
         max-width: 640px;
         margin:0 auto;

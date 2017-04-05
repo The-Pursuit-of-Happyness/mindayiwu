@@ -1,14 +1,12 @@
 <template>
-  <div class="home">
-        <p class="content">首页</p>
-        <input placeholder="aaaaa"></input>
-        <div style="width:200px;height:1200px;background:pink;"></div>
+  <div class="mypage">
+        <p class="content">我的</p>
   </div>
 </template>
 
 <script>
     export default {
-        name: 'home',
+        name: 'mypage',
         data() {
             return {
                 msg: '',
@@ -22,7 +20,7 @@
     .content{
         font-size:16px;
     }
-    .home{
+    .mypage{
         width: 100%;
         max-width: 640px;
         margin:0 auto;

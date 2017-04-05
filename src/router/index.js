@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Hello from 'components/Hello'
 import Login from 'view/signup/Login'
 import Register from 'view/signup/Register'
-import Home from 'view/Home'
+import Footermenu from 'view/Footermenu'
 
 Vue.use(Router)
 
@@ -18,7 +18,7 @@ export default new Router({
         component: Register
     }, {
         path: '/',
-        name: 'Home',
-        component: Home
+        name: 'Footermenu',
+        component: Footermenu
     }]
 })
