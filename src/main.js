@@ -14,6 +14,9 @@ Vue.component('recordpage', recordpage); //statement recordpage
 Vue.component('orderpage', orderpage); //statement orderpage
 Vue.component('mypage', mypage); //statement mypage
 
+import slider from './view/components/Slider';
+Vue.component('slider', slider);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

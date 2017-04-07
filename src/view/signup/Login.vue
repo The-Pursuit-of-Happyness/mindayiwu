@@ -77,23 +77,30 @@
                     this.createCode();//刷新验证码  
                     this.piccode ='';
                 }
-                else { //输入正确时                      
+                else { //输入正确时 
                     var _self = this;
+                    var loginParam = {};
+                    loginParam.username = this.username;
+                    loginParam.userpassword = this.password;
+                    var objs = [];
+                    objs.push(loginParam);
+                    objs.push(loginParam);
+                    objs = JSON.stringify(objs);
                     $.ajax({
-                        type: 'POST',
-                        url: 'http://xxxx/login/login',
-                        data:{'username': _self.username,'password':_self.password},
-                        success:function(data) {
-                            alert("^-^"); //弹出^-^  
-                            _self.message = JSON.stringify(data);
-                            sessionStorage.setItem('accessToken', data.access_token)
-                            sessionStorage.setItem('userName',_self.username)
-                            console.log("hello !!!!!!!");
-                            console.log(_self.message);
-                            alert("^-^"); //弹出^-^  
-                        }
+                    type: 'POST',
+                    url: 'http://xxxx/login/login',
+                    data:objs,
+                    success:function(data) {
+                    alert("^-^"); //弹出^-^ 
+                    _self.message = JSON.stringify(data);
+                    sessionStorage.setItem('accessToken', data.access_token)
+                    sessionStorage.setItem('userName',_self.username)
+                    console.log("hello !!!!!!!");
+                    console.log(_self.message);
+                    alert("^-^"); //弹出^-^ 
+                    }
                     });
-                }         
+                }
             },
             createCode(){
                 this.code = "";
