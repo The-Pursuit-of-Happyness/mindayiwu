@@ -1,6 +1,14 @@
 <template>
   <div class="orderpage">
         <p class="content">订单</p>
+        <orderitem></orderitem>
+        <space></space>
+        <orderitem></orderitem>
+        <space></space>
+        <orderitem></orderitem>
+        <space></space>
+        <orderitem></orderitem>
+        <div class="bottombox"></div>
   </div>
 </template>
 
@@ -24,5 +32,10 @@
         width: 100%;
         max-width: 640px;
         margin:0 auto;
+    }
+    .bottombox{
+        height:60px;
+        width:100%;
+        max-width:640px;
     }
 </style>

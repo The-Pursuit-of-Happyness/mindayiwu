@@ -1,6 +1,15 @@
 <template>
   <div class="home">
       <slider></slider>
+      <space></space>
+      <recommenitem></recommenitem>
+      <space></space>
+      <recommenitem></recommenitem>
+      <space></space>
+      <recommenitem></recommenitem>
+      <space></space>
+      <recommenitem></recommenitem>
+      <div class="bottombox"></div>
   </div>
 </template>
 
@@ -30,5 +39,10 @@
     .home{
         max-width: 640px;
         margin:0 auto;
+    }
+    .bottombox{
+        height:60px;
+        width:100%;
+        max-width:640px;
     }
 </style>

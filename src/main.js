@@ -15,7 +15,13 @@ Vue.component('orderpage', orderpage); //statement orderpage
 Vue.component('mypage', mypage); //statement mypage
 
 import slider from './view/components/Slider';
+import orderitem from './view/components/OrderItem';
+import space from './view/components/Space';
+import recommenitem from './view/components/RecommenItem';
 Vue.component('slider', slider);
+Vue.component('orderitem', orderitem);
+Vue.component('space', space);
+Vue.component('recommenitem', recommenitem);
 
 /* eslint-disable no-new */
 new Vue({

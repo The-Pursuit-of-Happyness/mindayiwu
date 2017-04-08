@@ -180,7 +180,7 @@
         var rightIndex=index+1
         $('.list-li>li').css({'background-color':'#F9263E'})
         $('.list-li>li').eq(index).css({'background-color':'orange'})
-        $('.dian').animate({'width':SCREEN_WIDTH+'px'},2000)
+        $('.dian').animate({'width':SCREEN_WIDTH+'px'},1000)
         $('.dian').animate({'width':0+'px'},100)
         if(index<=0){
           index=0
@@ -270,7 +270,7 @@
       user-select: none;
       -webkit-user-select: none;
       overflow: hidden;
-      position:absolute;
+      position:relative;
   }
   .sliderPanel{
       width:100%;
@@ -278,7 +278,7 @@
       height:150px;
   }
   .transitionAni{
-    transition: all 0.8s cubic-bezier(.23,1,.32,1);
+    transition: all 1s ease-in-out;
     /*transition: transform 1s;*/
   }
   .sliderBar{
