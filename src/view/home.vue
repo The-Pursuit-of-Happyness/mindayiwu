@@ -2,49 +2,49 @@
   <div class="home">
       <slider></slider>
       <div class="classifybox">
-          <div class="classifyitem">
+          <div class="classifyitem" @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/book.jpg">
                 <p class ="classifyname">图书</p>
               </div>
           </div>         
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/card.jpg">
                 <p class ="classifyname">卡券</p>
               </div>
           </div>
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/cloth.jpg">
                 <p class ="classifyname">服装</p>
               </div>
           </div>
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/gift.jpg">
                 <p class ="classifyname">礼品</p>
               </div>
           </div>
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/sport.jpg">
                 <p class ="classifyname">运动装备</p>
               </div>
           </div>
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/electronics.jpg">
                 <p class ="classifyname">电子设备</p>
               </div>
           </div>
-         <div class="classifyitem">
+         <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/commodity.jpg">
                 <p class ="classifyname">日用百货</p>
               </div>
           </div>
-          <div class="classifyitem">
+          <div class="classifyitem"  @click="seeClassify()">
               <div>
                 <img class="classifyimg" src="../assets/other.jpg">
                 <p class ="classifyname">其他</p>
@@ -52,7 +52,7 @@
           </div>
           
       </div>
-      <recommenitem onclick="seeDetails"></recommenitem>
+      <recommenitem></recommenitem>
       <space></space>
       <recommenitem></recommenitem>
       <space></space>
@@ -73,14 +73,10 @@
         },
         created() {
 
-            //init 
-            this.init();
         },
         methods: {
-            //初始化页面
-            init() {},
-            seeDetails(){
-                this.$router.push('/ProductDetailsPage');
+            seeClassify(){
+                this.$router.push('/ClassifyPage');
             },
         }
     }

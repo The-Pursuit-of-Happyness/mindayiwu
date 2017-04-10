@@ -1,4 +1,4 @@
-<!--推荐商品组件 -->
+<!--分类商品组件 -->
 
 <template>
   <div class ="classifyitem">
@@ -9,7 +9,7 @@
     <div class="bottom">
         <p class="price">$ 3.50</p>
         <div class="button">
-            <p class="seemore">查看详情</p>
+            <p class="seemore" @click="seeDetails()">查看详情</p>
             <img class="nexticon" src="../../assets/next.png">
         </div>
     </div>   
@@ -25,7 +25,9 @@
      
     },
     methods:{    
-     
+        seeDetails(){
+            this.$router.push('/ProductDetailsPage');
+        },
     }
   })
 

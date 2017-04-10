@@ -5,7 +5,7 @@ import Login from 'view/signup/Login'
 import Register from 'view/signup/Register'
 import Footermenu from 'view/Footermenu'
 import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
-
+import ClassifyPage from 'view/purchase/ClassifyPage'
 Vue.use(Router)
 
 export default new Router({
@@ -25,5 +25,9 @@ export default new Router({
         path: '/ProductDetailsPage',
         name: 'ProductDetailsPage',
         component: ProductDetailsPage
+    }, {
+        path: '/ClassifyPage',
+        name: 'ClassifyPage',
+        component: ClassifyPage
     }]
 })

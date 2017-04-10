@@ -19,11 +19,13 @@ import orderitem from './view/components/OrderItem';
 import space from './view/components/Space';
 import recommenitem from './view/components/RecommenItem';
 import classifyitem from './view/components/ClassifyItem';
+import evaluate from './view/components/Evaluate';
 Vue.component('slider', slider);
 Vue.component('orderitem', orderitem);
 Vue.component('space', space);
 Vue.component('recommenitem', recommenitem);
 Vue.component('classifyitem', classifyitem);
+Vue.component('evaluate', evaluate);
 
 /* eslint-disable no-new */
 new Vue({
