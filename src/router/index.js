@@ -4,6 +4,7 @@ import Hello from 'components/Hello'
 import Login from 'view/signup/Login'
 import Register from 'view/signup/Register'
 import Footermenu from 'view/Footermenu'
+import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
 
 Vue.use(Router)
 
@@ -20,5 +21,9 @@ export default new Router({
         path: '/',
         name: 'Footermenu',
         component: Footermenu
+    }, {
+        path: '/ProductDetailsPage',
+        name: 'ProductDetailsPage',
+        component: ProductDetailsPage
     }]
 })

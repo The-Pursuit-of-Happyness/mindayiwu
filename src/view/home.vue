@@ -4,56 +4,55 @@
       <div class="classifybox">
           <div class="classifyitem">
               <div>
-                <img class="classifyimg" src="../assets/logo.png">
+                <img class="classifyimg" src="../assets/book.jpg">
                 <p class ="classifyname">图书</p>
+              </div>
+          </div>         
+          <div class="classifyitem">
+              <div>
+                <img class="classifyimg" src="../assets/card.jpg">
+                <p class ="classifyname">卡券</p>
+              </div>
+          </div>
+          <div class="classifyitem">
+              <div>
+                <img class="classifyimg" src="../assets/cloth.jpg">
+                <p class ="classifyname">服装</p>
+              </div>
+          </div>
+          <div class="classifyitem">
+              <div>
+                <img class="classifyimg" src="../assets/gift.jpg">
+                <p class ="classifyname">礼品</p>
+              </div>
+          </div>
+          <div class="classifyitem">
+              <div>
+                <img class="classifyimg" src="../assets/sport.jpg">
+                <p class ="classifyname">运动装备</p>
+              </div>
+          </div>
+          <div class="classifyitem">
+              <div>
+                <img class="classifyimg" src="../assets/electronics.jpg">
+                <p class ="classifyname">电子设备</p>
               </div>
           </div>
          <div class="classifyitem">
               <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
+                <img class="classifyimg" src="../assets/commodity.jpg">
+                <p class ="classifyname">日用百货</p>
               </div>
           </div>
           <div class="classifyitem">
               <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>
-         <div class="classifyitem">
-              <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>
-          <div class="classifyitem">
-              <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>
-          <div class="classifyitem">
-              <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>
-          <div class="classifyitem">
-              <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>
-          <div class="classifyitem">
-              <div>
-                <img class="classifyimg" src="../assets/logo.png">
-                <p class ="classifyname">图书</p>
+                <img class="classifyimg" src="../assets/other.jpg">
+                <p class ="classifyname">其他</p>
               </div>
           </div>
           
       </div>
-      <space></space>
-      <recommenitem></recommenitem>
+      <recommenitem onclick="seeDetails"></recommenitem>
       <space></space>
       <recommenitem></recommenitem>
       <space></space>
@@ -80,6 +79,9 @@
         methods: {
             //初始化页面
             init() {},
+            seeDetails(){
+                this.$router.push('/ProductDetailsPage');
+            },
         }
     }
 </script>
@@ -113,7 +115,7 @@
         justify-content: center;
         /* android 4.4 */
     }
-    
+   
     .classifyimg {
         width: 30px;
         height: 30px;

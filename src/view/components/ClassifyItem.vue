@@ -1,14 +1,14 @@
 <!--推荐商品组件 -->
 
 <template>
-  <div class ="recommenditem">
+  <div class ="classifyitem">
     <div class="topbox">
         <img class="goodsimg" src="../../assets/goods3.jpg">
     </div>
     <p class="name"><span class="type">[ 经典款 ]</span> 彩色荧光笔</p>
     <div class="bottom">
         <p class="price">$ 3.50</p>
-        <div class="button" @click="seeDetails">
+        <div class="button">
             <p class="seemore">查看详情</p>
             <img class="nexticon" src="../../assets/next.png">
         </div>
@@ -25,18 +25,17 @@
      
     },
     methods:{    
-        seeDetails(){
-            this.$router.push('/ProductDetailsPage');
-        },
+     
     }
   })
 
 </script>
 <style scoped>
-  .recommenditem{
+  .classifyitem{
       background:white;
+      margin-bottom:5px;
       width:100%;
-      max-width:640px;
+      max-width:320px;
       height:270px;
       user-select: none;
       -webkit-user-select: none;
@@ -47,18 +46,18 @@
       border-top:solid 1px #e5e5e5;
       height:200px;
       width:100%;
-      max-width:640px;
+      max-width:320px;
   }
   .goodsimg{
       width:100%;
-      max-width:640px;
+      max-width:320px;
       height:200px;
   }
   .name{
       text-align:left;
       display:block;
       width:100%;
-      max-width:640px;
+      max-width:320px;
       height:30px;
       padding:5px;
       margin-left:10px;
@@ -69,7 +68,7 @@
   }
   .bottom{
       width:100%;
-      max-width:640px;
+      max-width:320px;
       height:40px;
       display:flex; 
        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
