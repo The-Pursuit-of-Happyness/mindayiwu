@@ -88,8 +88,8 @@
   .button{
       font-weight:bold;
       color:white;
-      width:80px;
-      height:30px;
+      width:75px;
+      height:25px;
       font-size:14px;
       line-height:30px;
       border-radius:5px;

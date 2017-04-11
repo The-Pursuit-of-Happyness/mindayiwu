@@ -87,14 +87,14 @@
   .button{
       font-weight:bold;
       color:white;
-      width:80px;
-      height:30px;
+      width:75px;
+      height:25px;
       font-size:14px;
       line-height:30px;
       border-radius:5px;
       background:#2ad2c9;
       margin-right:15px;
-      margin-bottom:10px;
+      margin-bottom:13px;
       text-align:center;
        display:flex; 
        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */

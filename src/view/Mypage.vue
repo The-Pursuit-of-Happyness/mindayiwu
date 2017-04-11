@@ -22,17 +22,32 @@
             <p class="username">轻轻的我走了</p>
         </div>
         <space></space>
-        <div class="contentbox">
-
+        <div class="shopandcart">
+            <div class="shopcarbox">
+                <img class="shopicon" src="../assets/shop.png">
+                <p>我的货架</p>
+            </div>
+            <div class="shopcarbox">
+                <img class="shopicon" src="../assets/shopcar.png">
+                <p>我的购物车</p>
+            </div>
         </div>
+        <space></space>
+        <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
+        <linkitem title="我的收藏" :imgurl="saveicon"></linkitem>
+        <div class="bottombox"></div>
   </div>
 </template>
 
 <script>
+    import shopIcon from '../assets/shop.png';
+    import saveIcon from '../assets/save.png';
     export default {
         name: 'mypage',
         data() {
             return {
+                shopicon:shopIcon,
+                saveicon:saveIcon,
                 msg: '',
                 userIcon:'',
             }
@@ -72,8 +87,26 @@
         font-size:16px;
         color:#2ad2c9;
     }
-    .contentbox{
-        height:400px;
-        background:orange;
+    .shopandcart{
+        height:80px;
+         display:flex;
+        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;/* Chrome 21+ */
+        -ms-flex-align: center;/* WP IE 10 */
+        align-items: center;/* android 4.4 */
+        justify-content:space-between;
+    }
+    .shopcarbox{
+        width:50%;
+        height:80px;
+    }
+    .shopicon{
+        width:40px;
+        height:40px;
+    }
+    .bottombox{
+        height:60px;
+        width:100%;
+        max-width:640px;
     }
 </style>

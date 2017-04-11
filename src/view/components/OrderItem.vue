@@ -52,7 +52,7 @@
   .orderitem{
       width:100%;
       max-width:640px;
-      height:202px;
+      height:212px;
       user-select: none;
       -webkit-user-select: none;
       overflow: hidden;
@@ -101,7 +101,7 @@
   .contentbox{
       width:100%;
       max-width:640px;
-      height:90px;
+      height:100px;
       background:#fafafa;
       display:flex;    
       justify-content: space-between;/* android 4.4 */
@@ -109,7 +109,7 @@
  
   .goodsbox{
       text-align:left;
-      padding-top:5px;
+      padding-top:10px;
       display:flex;
   }
   .goodsimg{

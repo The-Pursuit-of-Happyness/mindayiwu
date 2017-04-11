@@ -90,9 +90,10 @@
     }
     
     .classifybox {
+        padding-top:10px;
         width: 100%;
         max-width: 640px;
-        height: 120px;
+        height: 140px;
     }
     
     .classifyitem {
@@ -113,17 +114,17 @@
     }
    
     .classifyimg {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
     }
     
     .classifyname {
-        font-size: 10px;
+        font-size: 12px;
         color: #2ad2c9;
     }
     
     .bottombox {
-        height: 60px;
+        height: 70px;
         width: 100%;
         max-width: 640px;
         text-align: left;
