@@ -6,11 +6,12 @@ import Register from 'view/signup/Register'
 import Footermenu from 'view/Footermenu'
 import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
 import ClassifyPage from 'view/purchase/ClassifyPage'
+import ShopPage from 'view/shop/ShopPage'
 Vue.use(Router)
 
 export default new Router({
     routes: [{
-        path: '/Login',
+        path: '/',
         name: 'Login',
         component: Login
     }, {
@@ -18,7 +19,7 @@ export default new Router({
         name: 'Register',
         component: Register
     }, {
-        path: '/',
+        path: '/Footermenu',
         name: 'Footermenu',
         component: Footermenu
     }, {
@@ -29,5 +30,9 @@ export default new Router({
         path: '/ClassifyPage',
         name: 'ClassifyPage',
         component: ClassifyPage
+    }, {
+        path: '/ShopPage',
+        name: 'ShopPage',
+        component: ShopPage
     }]
 })

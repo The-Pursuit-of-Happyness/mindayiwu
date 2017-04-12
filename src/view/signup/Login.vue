@@ -3,7 +3,7 @@
         <img  class ="logobox" src="../../assets/logo.png">
         <p class ="title">欢迎登陆</p>
         <div>
-            <input class ="nameinput" placeholder ="请输入用户名" v-model="username" maxlength="20"></input>
+            <input class ="nameinput" placeholder ="请输入邮箱" v-model="username" maxlength="20"></input>
         </div>
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
@@ -24,9 +24,7 @@
 	</div>
 </template>
 
-<script>
-    // import { modified_ios_title } from '../utils';
-    import {mapGetters} from 'vuex';
+<script>   
 	export default {
         data (){
 			return {                
@@ -38,34 +36,10 @@
                 message:'',
 			}
 		},
-         computed: mapGetters({
-            getWallet:'getWallet'
-        }),
         created () {
            this.createCode();
-            // this.$store.dispatch('getWallet').then(() => {
-            //     console.log("Action::dispatch('getWallet') ==> this.getWallet: ");
-            //     if(this.getWallet.code == 200){
-            //         this.accountBalance = parseFloat(this.getWallet.data.balance).toFixed(2);
-            //     }else{
-            //     }
-            // });
-
          },
          methods: {
-            // submit(){
-            //     var url="json.jsp";
-            //     var _self=this;
-            //     $.get(url,function(data){
-            //         _self.data=eval("(" + data +")");
-            //     })
-            //      this.$http.get(url).then(function(data){
-            //         var json=data.body;
-            //         this.data=eval("(" + json +")");
-            //     },function(response){
-            //         console.info(response);
-            //     })
-            // },
             loginIn(){
                 //校验验证码  
                 var inputCode = this.piccode.toUpperCase(); //取得输入的验证码并转化为大写        
@@ -79,26 +53,27 @@
                 }
                 else { //输入正确时 
                     var _self = this;
-                    var loginParam = {};
-                    loginParam.username = this.username;
-                    loginParam.userpassword = this.password;
-                    var objs = [];
-                    objs.push(loginParam);
-                    objs.push(loginParam);
-                    objs = JSON.stringify(objs);
                     $.ajax({
-                    type: 'POST',
-                    url: 'http://xxxx/login/login',
-                    data:objs,
-                    success:function(data) {
-                    alert("^-^"); //弹出^-^ 
-                    _self.message = JSON.stringify(data);
-                    sessionStorage.setItem('accessToken', data.access_token)
-                    sessionStorage.setItem('userName',_self.username)
-                    console.log("hello !!!!!!!");
-                    console.log(_self.message);
-                    alert("^-^"); //弹出^-^ 
-                    }
+                        type: 'POST',
+                        url: 'http://xxxx/login/login',
+                        data:{'username':_self.username,'userpassword':_self.password},
+                        success:function(data) {
+                            if(data.code == 200){
+                                _self.message = JSON.stringify(data);
+                                sessionStorage.setItem('accessToken', data.data.token);
+                                sessionStorage.setItem('userName',_self.username);
+                                this.$router.push('/Footermenu');                
+                            }else{
+                                var message = '错误:';
+                                if(data.data.passworderror.length>0){
+                                   message+=data.data.passworderror; 
+                                }
+                                if(data.data.usernameerror.length>0){
+                                    message+=data.data.usernameerror; 
+                                }
+                                alert(message);                                 
+                            }                            
+                        }
                     });
                 }
             },

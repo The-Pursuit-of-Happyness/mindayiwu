@@ -24,17 +24,22 @@
         <space></space>
         <div class="shopandcart">
             <div class="shopcarbox">
-                <img class="shopicon" src="../assets/shop.png">
-                <p>我的货架</p>
+                <div>
+                    <img class="shopicon" src="../assets/shop.png">
+                    <p>我的货架</p>
+                </div>
             </div>
             <div class="shopcarbox">
-                <img class="shopicon" src="../assets/shopcar.png">
-                <p>我的购物车</p>
+                <div>
+                    <img class="shopicon" src="../assets/shopcar.png">
+                    <p>我的购物车</p>
+                </div>
             </div>
         </div>
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
         <linkitem title="我的收藏" :imgurl="saveicon"></linkitem>
+        <shopgoodsitem></shopgoodsitem>
         <div class="bottombox"></div>
   </div>
 </template>
@@ -99,6 +104,12 @@
     .shopcarbox{
         width:50%;
         height:80px;
+         display:flex;
+        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;/* Chrome 21+ */
+        -ms-flex-align: center;/* WP IE 10 */
+        align-items: center;/* android 4.4 */
+        justify-content:center;
     }
     .shopicon{
         width:40px;
