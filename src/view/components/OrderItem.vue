@@ -108,6 +108,7 @@
   }
  
   .goodsbox{
+      background:#fafafa;
       text-align:left;
       padding-top:10px;
       display:flex;

@@ -72,7 +72,6 @@
             }
         },
         created() {
-
         },
         methods: {
             seeClassify(){

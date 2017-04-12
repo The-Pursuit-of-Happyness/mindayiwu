@@ -44,7 +44,11 @@
             <div>
                 <div class="save"></div>
                 <p>收藏</p>
-            </div> 
+            </div>
+             <div @click="enterShop()">
+                <div class="entershop"></div>
+                <p>店铺</p>
+            </div>
             <p class="buy">立即购买</p>
         </div>
         <div class="bottombox"></div>
@@ -63,6 +67,9 @@
         methods: {
             backHome(){
                 this.$router.replace('/');
+            },
+            enterShop(){
+                this.$router.replace('/ShopPage');
             },
         }
     }
@@ -202,6 +209,13 @@
     }
     .note{
          background-image:url('../../assets/note.png');
+        background-repeat:no-repeat;
+        background-size:25px auto;
+         height:25px;
+        margin-top:5px;
+    }
+    .entershop{
+         background-image:url('../../assets/shop.png');
         background-repeat:no-repeat;
         background-size:25px auto;
          height:25px;

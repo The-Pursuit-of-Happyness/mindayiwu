@@ -37,12 +37,12 @@
 			}
 		},
         created () {
-           this.createCode();
+            this.createCode();
          },
          methods: {
             loginIn(){
                 //校验验证码  
-                var inputCode = this.piccode.toUpperCase(); //取得输入的验证码并转化为大写        
+                var inputCode = this.piccode.toUpperCase(); //取得输入的验证码并转化为大写
                 if(inputCode.length <= 0) { //若输入的验证码长度为0  
                     alert("请输入验证码！"); //则弹出请输入验证码  
                 }         

@@ -29,7 +29,7 @@
                     <p>我的货架</p>
                 </div>
             </div>
-            <div class="shopcarbox">
+            <div class="shopcarbox" @click="shoppingcart()">
                 <div>
                     <img class="shopicon" src="../assets/shopcar.png">
                     <p>我的购物车</p>
@@ -38,8 +38,7 @@
         </div>
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
-        <linkitem title="我的收藏" :imgurl="saveicon"></linkitem>
-        <shopgoodsitem></shopgoodsitem>
+        <linkitem title="我的收藏" :imgurl="saveicon"></linkitem>        
         <div class="bottombox"></div>
   </div>
 </template>
@@ -55,6 +54,11 @@
                 saveicon:saveIcon,
                 msg: '',
                 userIcon:'',
+            }
+        },
+        methods:{
+            shoppingcart(){
+                this.$router.replace("ShoppingCart");
             }
         }
     }

@@ -7,11 +7,12 @@ import Footermenu from 'view/Footermenu'
 import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
 import ClassifyPage from 'view/purchase/ClassifyPage'
 import ShopPage from 'view/shop/ShopPage'
+import ShoppingCart from 'view/purchase/ShoppingCart'
 Vue.use(Router)
 
 export default new Router({
     routes: [{
-        path: '/',
+        path: '/Login',
         name: 'Login',
         component: Login
     }, {
@@ -19,7 +20,7 @@ export default new Router({
         name: 'Register',
         component: Register
     }, {
-        path: '/Footermenu',
+        path: '/',
         name: 'Footermenu',
         component: Footermenu
     }, {
@@ -34,5 +35,9 @@ export default new Router({
         path: '/ShopPage',
         name: 'ShopPage',
         component: ShopPage
+    }, {
+        path: '/ShoppingCart',
+        name: 'ShoppingCart',
+        component: ShoppingCart
     }]
 })

@@ -1,20 +1,8 @@
 <template>
-    <div class="shoppage">       
+    <div class="shoppingcart"> 
+        <p class="title">购物车({{cartnum}})</p>
         <div class="topbox">
-             <div class="shopbox">          
-                    <img class="shopicon" src="../../assets/head.jpg">
-                    <p class="shopname">开心就好的小店</p>
-            </div>
-        </div>
-        <div class="goodsbox">
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
+            <shoppingcartitem></shoppingcartitem>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
@@ -32,6 +20,7 @@
     export default{        
         data(){
             return{
+                cartnum:5,
                 height: window.clientHeight,
             }
         },
@@ -44,48 +33,27 @@
 </script>
 
 <style scoped>
-    .shoppage{
+    .shoppingcart{
         width:100%;
         max-width:640px;
     }
-    .topbox{        
+    .title{
+        height:30px;
         width:100%;
-        height:60px;
-    }   
-    .shopbox{
-        width:100%;
-        background:#ccc;
-        opacity:0.9;
-        position: fixed;
-        z-index:1;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);    
-        height:60px;
-         display:flex;
+        font-size:16px;
+        background:#2ad2c9;
+        border-bottom: medium none #ECEDED;
+        display:flex;
         -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
         -webkit-align-items: center;/* Chrome 21+ */
         -ms-flex-align: center;/* WP IE 10 */
         align-items: center;/* android 4.4 */
-        justify-content: flex-start;/* android 4.4 */
-         overflow: hidden;
-         border-bottom: medium none #ECEDED;        
+        justify-content: center;/* android 4.4 */
     }
-    .shopicon{
-        margin-left:15px;
-        width:40px;
-        height:40px;
-    }
-    .shopname{
-        margin-left:15px;
-        font-size:16px;
-        font-weight:bold;
-    }
-    .goodsbox{
-        background:#f1f1f1;
-         -webkit-column-count:2;
-         -moz-column-count:2;
-         column-count:2; /*列数*/
-         column-gap:5px;
-    }
+    .topbox{        
+        width:100%;
+        height:60px;
+    }    
     .bottombox{
         z-index:1;
         height:60px;
