@@ -1,5 +1,5 @@
 <template>
-    <div class="shoppage">       
+    <div class="myshop">       
         <div class="topbox">
              <div class="shopbox">          
                 <img class="shopicon" src="../../assets/head.jpg">
@@ -44,7 +44,7 @@
 </script>
 
 <style scoped>
-    .shoppage{
+    .myshop{
         width:100%;
         max-width:640px;
     }

@@ -194,21 +194,21 @@
         margin-left:15px;
     }
     .backhome{
-        background-image:url('../../assets/backhome.png');
+        background-image:url('./../../assets/backhome.png');
         background-repeat:no-repeat;
         background-size:25px auto;
         height:25px;
         margin-top:5px;
     }
     .save{
-         background-image:url('../../assets/save.png');
+         background-image:url('./../../assets/save.png');
         background-repeat:no-repeat;
         background-size:25px auto;
          height:25px;
         margin-top:5px;
     }
     .note{
-         background-image:url('../../assets/note.png');
+         background-image:url('./../../assets/note.png');
         background-repeat:no-repeat;
         background-size:25px auto;
          height:25px;

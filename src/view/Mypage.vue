@@ -22,7 +22,7 @@
             <p class="username">轻轻的我走了</p>
         </div>
         <space></space>
-        <div class="shopandcart">
+        <div class="shopandcart" @click="myshop()">
             <div class="shopcarbox">
                 <div>
                     <img class="shopicon" src="../assets/shop.png">
@@ -59,7 +59,10 @@
         methods:{
             shoppingcart(){
                 this.$router.replace("ShoppingCart");
-            }
+            },
+            myshop(){
+                this.$router.replace("MyShop");
+            },
         }
     }
 </script>

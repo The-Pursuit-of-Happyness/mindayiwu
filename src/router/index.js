@@ -8,6 +8,7 @@ import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
 import ClassifyPage from 'view/purchase/ClassifyPage'
 import ShopPage from 'view/shop/ShopPage'
 import ShoppingCart from 'view/purchase/ShoppingCart'
+import MyShop from 'view/shop/MyShop'
 Vue.use(Router)
 
 export default new Router({
@@ -39,5 +40,9 @@ export default new Router({
         path: '/ShoppingCart',
         name: 'ShoppingCart',
         component: ShoppingCart
+    }, {
+        path: '/MyShop',
+        name: 'MyShop',
+        component: MyShop
     }]
 })

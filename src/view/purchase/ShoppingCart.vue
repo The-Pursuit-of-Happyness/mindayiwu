@@ -1,9 +1,14 @@
 <template>
-    <div class="shoppingcart"> 
+    <div class="shoppingcart">        
         <p class="title">购物车({{cartnum}})</p>
+        <div class="filltop"></div>
         <div class="topbox">
             <shoppingcartitem></shoppingcartitem>
-        </div>
+            <shoppingcartitem></shoppingcartitem>
+            <shoppingcartitem></shoppingcartitem>
+            <shoppingcartitem></shoppingcartitem>
+        </div>    
+        <div class="fillbottom"></div>    
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
@@ -11,8 +16,7 @@
                 <li class="item border">店铺简介</li>
                 <li class="item">联系卖家</li>
             </ul>
-        </div>
-        <div class="fillbottom"></div>
+        </div>        
     </div>
 </template>
 
@@ -37,12 +41,20 @@
         width:100%;
         max-width:640px;
     }
-    .title{
-        height:30px;
+    .filltop{
+        height:40px;
         width:100%;
+        max-width:640px;
+    }
+    .title{
+        height:40px;
+        width:100%;
+        max-width:640px;
         font-size:16px;
         background:#2ad2c9;
         border-bottom: medium none #ECEDED;
+        position: fixed;
+        z-index:1;
         display:flex;
         -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
         -webkit-align-items: center;/* Chrome 21+ */
@@ -52,12 +64,14 @@
     }
     .topbox{        
         width:100%;
-        height:60px;
+        max-width:640px;
+        height:auto;
     }    
     .bottombox{
         z-index:1;
         height:60px;
         width:100%;
+        max-width:640px;
         background:white;
         position: fixed;
         bottom: 0;

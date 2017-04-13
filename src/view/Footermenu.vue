@@ -84,7 +84,7 @@
         color:#2ad2c9;
     }
     .background-style{
-        background-image:url('../assets/footer-icon.png');
+        background-image:url('./../assets/footer-icon.png');
         background-repeat:no-repeat;
         background-size:30px auto;
         height:31px;

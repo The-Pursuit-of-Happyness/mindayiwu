@@ -1,18 +1,22 @@
-<!--推荐商品组件 -->
+<!--购物车商品组件 -->
 
 <template>
   <div class ="shoppingcartitem">
-    <div class="topbox">
-        <img class="goodsimg" src="../../assets/goods3.jpg">
-    </div>
-    <p class="name"><span class="type">[ 经典款 ]</span> 彩色荧光笔</p>
-    <div class="bottom">
-        <p class="price">$ 3.50</p>
-        <div class="button" @click="seeDetails">
-            <p class="seemore">查看详情</p>
+     <div class="topbox">
+        <div class="shopbox">
+            <input class="radio" type="radio"></input>
+            <img class="shopicon" src="../../assets/shopicon.jpg">
+            <p class="shopname">萌物小宠</p>
             <img class="nexticon" src="../../assets/next.png">
         </div>
-    </div>   
+        <p class="edit">编辑</p>
+     </div>
+    <div class="contentbox">
+        <cartitem></cartitem>
+        <cartitem></cartitem>
+        <cartitem></cartitem>
+    </div>
+    <space></space>
   </div>
 </template>
 <script>
@@ -22,7 +26,7 @@
       }
     },
     mounted:function(){
-     
+        
     },
     methods:{    
         seeDetails(){
@@ -37,78 +41,53 @@
       background:white;
       width:100%;
       max-width:640px;
-      height:270px;
+      height:auto;
       user-select: none;
       -webkit-user-select: none;
       overflow: hidden;
       position:relative;
   }
-  .topbox{
+   .topbox{
       border-top:solid 1px #e5e5e5;
-      height:200px;
-      width:100%;
-      max-width:640px;
-  }
-  .goodsimg{
-      width:100%;
-      max-width:640px;
-      height:200px;
-  }
-  .name{
-      text-align:left;
-      display:block;
-      width:100%;
-      max-width:640px;
-      height:30px;
-      padding:5px;
-      margin-left:10px;
-      font-size:16px;
-  }
-  .type{
-      font-weight:bold;
-  }
-  .bottom{
-      width:100%;
-      max-width:640px;
       height:40px;
-      display:flex; 
-       -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
+      width:100%;
+      max-width:640px;
+      display:flex;
+      -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
       -webkit-align-items: center;/* Chrome 21+ */
       -ms-flex-align: center;/* WP IE 10 */
-      align-items: center;/* android 4.4 */   
+      align-items: center;/* android 4.4 */
       justify-content: space-between;/* android 4.4 */
   }
-  .price{
-      margin-left:15px;
-      font-size:16px;
-      color:red;
-      font-weight:bold;
-  }
-  .button{
-      font-weight:bold;
-      color:white;
-      width:75px;
-      height:25px;
-      font-size:14px;
-      line-height:30px;
-      border-radius:5px;
-      background:#2ad2c9;
-      margin-right:15px;
-      margin-bottom:13px;
-      text-align:center;
-       display:flex; 
-       -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
+  .shopbox{
+       display:flex;
+      -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
       -webkit-align-items: center;/* Chrome 21+ */
       -ms-flex-align: center;/* WP IE 10 */
       align-items: center;/* android 4.4 */
   }
+  .radio{
+      margin-left:15px;
+  }
+  .shopicon{
+      margin-left:15px;
+      width:30px;
+      height:30px;
+  }
+  .shopname{
+      display:inline-block;
+      font-size:14px;
+      margin-left:10px;
+      margin-right:10px;
+  }
   .nexticon{
-      margin-left:5px;
-      width:6px;
+      width:8px;
       height:auto;
   }
-  .seemore{
-      display:block;
-      margin-left:5px;
+  .edit{
+      font-size:14px;
+      color:#2ad2c9;
+      float:right;
+      margin-right:15px;
   }
 </style>

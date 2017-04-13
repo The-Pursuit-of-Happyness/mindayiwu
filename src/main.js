@@ -22,7 +22,8 @@ import classifyitem from './view/components/ClassifyItem';
 import evaluate from './view/components/Evaluate';
 import linkitem from './view/components/LinkItem';
 import shopgoodsitem from './view/components/ShopGoodsItem';
-import shoppingcartitem from './view/components/ShoppingCartItem'
+import shoppingcartitem from './view/components/ShoppingCartItem';
+import cartitem from './view/components/cartitem';
 Vue.component('slider', slider);
 Vue.component('orderitem', orderitem);
 Vue.component('space', space);
@@ -32,6 +33,7 @@ Vue.component('evaluate', evaluate);
 Vue.component('linkitem', linkitem);
 Vue.component('shopgoodsitem', shopgoodsitem);
 Vue.component('shoppingcartitem', shoppingcartitem);
+Vue.component('cartitem', cartitem);
 
 /* eslint-disable no-new */
 new Vue({
