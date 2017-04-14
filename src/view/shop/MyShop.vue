@@ -7,21 +7,18 @@
             </div>
         </div>
         <div class="goodsbox">
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
-            <shopgoodsitem></shopgoodsitem>
+            <myshopgoodsitem></myshopgoodsitem>
+            <space></space>
+             <myshopgoodsitem></myshopgoodsitem>
+             <space></space>
+              <myshopgoodsitem></myshopgoodsitem>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <li class="item">宝贝分类</li>
-                <li class="item border">店铺简介</li>
-                <li class="item">联系卖家</li>
+                <li class="item">货架管理</li>
+                <li class="item border">店铺介绍</li>
+                <li class="item" @click ="newProduct()">新品上架</li>
             </ul>
         </div>
         <div class="fillbottom"></div>
@@ -38,6 +35,9 @@
         methods:{
             backHome:function(){
                 this.$router.replace("/");
+            },
+            newProduct:function(){
+                this.$router.push('/NewProduct');
             }
         }
     }
@@ -82,10 +82,6 @@
     }
     .goodsbox{
         background:#f1f1f1;
-         -webkit-column-count:2;
-         -moz-column-count:2;
-         column-count:2; /*列数*/
-         column-gap:5px;
     }
     .bottombox{
         z-index:1;

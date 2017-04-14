@@ -22,8 +22,8 @@
             <p class="username">轻轻的我走了</p>
         </div>
         <space></space>
-        <div class="shopandcart" @click="myshop()">
-            <div class="shopcarbox">
+        <div class="shopandcart">
+            <div class="shopcarbox" @click="myshop()">
                 <div>
                     <img class="shopicon" src="../assets/shop.png">
                     <p>我的货架</p>

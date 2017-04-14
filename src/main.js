@@ -24,6 +24,7 @@ import linkitem from './view/components/LinkItem';
 import shopgoodsitem from './view/components/ShopGoodsItem';
 import shoppingcartitem from './view/components/ShoppingCartItem';
 import cartitem from './view/components/cartitem';
+import myshopgoodsitem from './view/components/MyShopGoodsItem';
 Vue.component('slider', slider);
 Vue.component('orderitem', orderitem);
 Vue.component('space', space);
@@ -34,6 +35,7 @@ Vue.component('linkitem', linkitem);
 Vue.component('shopgoodsitem', shopgoodsitem);
 Vue.component('shoppingcartitem', shoppingcartitem);
 Vue.component('cartitem', cartitem);
+Vue.component('myshopgoodsitem', myshopgoodsitem);
 
 /* eslint-disable no-new */
 new Vue({
