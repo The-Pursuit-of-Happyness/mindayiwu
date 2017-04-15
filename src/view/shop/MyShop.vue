@@ -17,7 +17,7 @@
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
                 <li class="item">货架管理</li>
-                <li class="item border">店铺介绍</li>
+                <li class="item border" @click="testupload()">店铺介绍</li>
                 <li class="item" @click ="newProduct()">新品上架</li>
             </ul>
         </div>
@@ -38,6 +38,9 @@
             },
             newProduct:function(){
                 this.$router.push('/NewProduct');
+            },
+            testupload:function(){
+                this.$router.push('/TestUpload');
             }
         }
     }
