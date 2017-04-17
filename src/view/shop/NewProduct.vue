@@ -44,18 +44,23 @@
             <div class="startleft">
                 <label class="title">图片</label>                
             </div>
-            <div>
-                <img class="goodsimg" src="">
-                <img class="goodsimg" src="">
-                <img class="goodsimg" src="">
-            </div>
-            <div class="camera-area">
-                <form enctype="multipart/form-data" method="post">
-                    <img id="img" class="iconimg">
-                    <input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    <div class="upload-progress"><span></span></div>
-                 </form>
-                <div class="thumb"></div>
+            <div class="addimg">
+                <div class="imgbox">
+                    <img class="goodsimg" src="../../assets/addimg.png">
+                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                </div>
+                <div class="imgbox">
+                    <img class="goodsimg" src="../../assets/addimg.png">
+                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                </div>
+                <div class="imgbox">
+                    <img class="goodsimg" src="../../assets/addimg.png">
+                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                </div>
+                <div class="imgbox">
+                    <img class="goodsimg" src="../../assets/addimg.png">
+                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                </div>
             </div>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
@@ -177,9 +182,36 @@
         width:80%;
         height:100px;
     }
-    .goodsimg{
-        width:120px;
-        height:120px;
+    .addimg{
+        width:100%;
+        max-width:640px;
+        height:auto;
+        background:#f1f1f1;
+         -webkit-column-count:2;
+         -moz-column-count:2;
+         column-count:2; /*列数*/
+    }
+    .imgbox{
+        border:solid 1px #ccc;
+        position:relative;
+        width:90%;
+        margin-left:5%;
+        margin-right:5px;
+        margin-bottom:10px;
+        height:auto;        
+    }
+    .goodsimg{        
+       width:100%;
+       height:auto;        
+    }
+    .fileupload{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:auto; 
+        min-height:170px;
+        opacity:0;
     }
     .iconimg{
         width:100%;
