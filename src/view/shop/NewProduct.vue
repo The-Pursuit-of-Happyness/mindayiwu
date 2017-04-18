@@ -66,7 +66,7 @@
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <li class="item">返回货架</li>
+                <li class="item" @click="backShop()">返回货架</li>
                 <li class="item border">放弃编辑</li>
                 <li class="item">上架</li>
             </ul>
@@ -89,6 +89,9 @@
         methods:{
             backHome:function(){
                 this.$router.replace("/");
+            },
+            backShop:function(){
+                this.$router.replace('MyShop');
             },
            viewimg($event){
                 var currentObj = event.currentTarget;//获取当前的input标签

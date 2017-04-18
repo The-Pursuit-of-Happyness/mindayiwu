@@ -10,6 +10,9 @@ import ShopPage from 'view/shop/ShopPage'
 import ShoppingCart from 'view/purchase/ShoppingCart'
 import MyShop from 'view/shop/MyShop'
 import NewProduct from 'view/shop/NewProduct'
+import ManageShelf from 'view/shop/ManageShelf'
+import ShopMessage from 'view/shop/ShopMessage'
+import MyCollection from 'view/other/MyCollection'
 Vue.use(Router)
 
 export default new Router({
@@ -49,5 +52,17 @@ export default new Router({
         path: '/NewProduct',
         name: 'NewProduct',
         component: NewProduct
+    }, {
+        path: '/ManageShelf',
+        name: 'ManageShelf',
+        component: ManageShelf
+    }, {
+        path: '/ShopMessage',
+        name: 'ShopMessage',
+        component: ShopMessage
+    }, {
+        path: '/MyCollection',
+        name: 'MyCollection',
+        component: MyCollection
     }]
 })

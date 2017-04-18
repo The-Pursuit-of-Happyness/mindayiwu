@@ -1,5 +1,5 @@
 <template>
-    <div class="myshop">       
+    <div class="shopmessage">       
         <div class="topbox">
              <div class="shopbox">          
                 <img class="shopicon" src="../../assets/head.jpg">
@@ -7,18 +7,21 @@
             </div>
         </div>
         <div class="goodsbox">
-            <myshopgoodsitem></myshopgoodsitem>
-            <space></space>
-             <myshopgoodsitem></myshopgoodsitem>
-             <space></space>
-              <myshopgoodsitem></myshopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
+            <shopgoodsitem></shopgoodsitem>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <li class="item" @click="manageShelf()">货架管理</li>
-                <li class="item border" @click="shopMessage()">店铺介绍</li>
-                <li class="item" @click ="newProduct()">新品上架</li>
+                <li class="item">宝贝分类</li>
+                <li class="item border">店铺简介</li>
+                <li class="item">联系卖家</li>
             </ul>
         </div>
         <div class="fillbottom"></div>
@@ -35,22 +38,13 @@
         methods:{
             backHome:function(){
                 this.$router.replace("/");
-            },
-            newProduct:function(){
-                this.$router.push('/NewProduct');
-            },
-            manageShelf:function(){
-                this.$router.push('/ManageShelf');
-            },
-            shopMessage:function(){
-                this.$router.push('/ShopMessage');
             }
         }
     }
 </script>
 
 <style scoped>
-    .myshop{
+    .shopmessage{
         width:100%;
         max-width:640px;
     }
@@ -67,7 +61,7 @@
         z-index:1;
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);    
         height:60px;
-         display:flex;
+        display:flex;
         -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
         -webkit-align-items: center;/* Chrome 21+ */
         -ms-flex-align: center;/* WP IE 10 */
@@ -88,6 +82,10 @@
     }
     .goodsbox{
         background:#f1f1f1;
+         -webkit-column-count:2;
+         -moz-column-count:2;
+         column-count:2; /*列数*/
+         column-gap:5px;
     }
     .bottombox{
         z-index:1;

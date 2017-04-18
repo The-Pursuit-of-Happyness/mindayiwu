@@ -38,7 +38,8 @@
         </div>
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
-        <linkitem title="我的收藏" :imgurl="saveicon"></linkitem>        
+        <linkitem  title="我的收藏" :imgurl="saveicon"></linkitem>
+        <button @click ="mycollection()">查看</button>     
         <div class="bottombox"></div>
   </div>
 </template>
@@ -63,6 +64,9 @@
             myshop(){
                 this.$router.replace("MyShop");
             },
+            mycollection(){
+                this.$router.replace("MyCollection");
+            }
         }
     }
 </script>
