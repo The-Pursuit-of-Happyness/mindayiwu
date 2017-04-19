@@ -1,8 +1,20 @@
 <template>   
   <div class="productdetailspage">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="productimage" src="../../assets/goods1.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../../assets/goods2.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../../assets/goods3.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../../assets/goods4.png"></div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!--
         <div>
             <img class="productimage" src="../../assets/goods3.jpg">
         </div>
+        -->
         <p class="name">精品签字笔，七彩炫酷，秀出时尚</p>
         <div class="pricebox">
             <p class="price">$ 3.50</p>
@@ -71,6 +83,16 @@
             enterShop(){
                 this.$router.replace('/ShopPage');
             },
+        }, 
+        mounted () {
+            console.log('挂载好了')
+            var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            pagination: '.swiper-pagination',
+            autoplay:2000,
+            })
+            console.log(mySwiper)
         }
     }
 </script>

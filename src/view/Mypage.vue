@@ -39,7 +39,7 @@
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
         <linkitem  title="我的收藏" :imgurl="saveicon"></linkitem>          
-
+        <button @click ="mycollection()">查看</button> 
         <button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>   
         <div class="bottombox"></div>
   </div>
