@@ -38,8 +38,9 @@
         </div>
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
-        <linkitem  title="我的收藏" :imgurl="saveicon"></linkitem>
-        <button @click ="mycollection()">查看</button>     
+        <linkitem  title="我的收藏" :imgurl="saveicon"></linkitem>          
+
+        <button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>   
         <div class="bottombox"></div>
   </div>
 </template>
@@ -66,6 +67,9 @@
             },
             mycollection(){
                 this.$router.replace("MyCollection");
+            },
+            login(){
+                this.$router.replace("Login");
             }
         }
     }
@@ -130,5 +134,12 @@
         height:60px;
         width:100%;
         max-width:640px;
+    }
+
+    .login{
+        margin-top:30px;
+        width:100%;
+        max-width:640px;
+        height:40px;
     }
 </style>

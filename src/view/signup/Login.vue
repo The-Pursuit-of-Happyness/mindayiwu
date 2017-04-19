@@ -3,7 +3,7 @@
         <img  class ="logobox" src="../../assets/logo.png">
         <p class ="title">欢迎登陆</p>
         <div>
-            <input class ="nameinput" placeholder ="请输入邮箱" v-model="username" maxlength="20"></input>
+            <input class ="nameinput" placeholder ="请输入邮箱" v-model="useremail" maxlength="20"></input>
         </div>
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
@@ -30,7 +30,7 @@
 			return {                
                 action_option1: '否', 
                 code :"",
-                username:'',
+                useremail:'',
                 password:'',
                 piccode:'',
                 message:'',
@@ -52,29 +52,35 @@
                     this.piccode ='';
                 }
                 else { //输入正确时 
-                    var _self = this;
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://xxxx/login/login',
-                        data:{'username':_self.username,'userpassword':_self.password},
-                        success:function(data) {
-                            if(data.code == 200){
-                                _self.message = JSON.stringify(data);
-                                sessionStorage.setItem('accessToken', data.data.token);
-                                sessionStorage.setItem('userName',_self.username);
-                                this.$router.push('/Footermenu');                
-                            }else{
-                                var message = '错误:';
-                                if(data.data.passworderror.length>0){
-                                   message+=data.data.passworderror; 
-                                }
-                                if(data.data.usernameerror.length>0){
-                                    message+=data.data.usernameerror; 
-                                }
-                                alert(message);                                 
-                            }                            
-                        }
-                    });
+                    var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/; var email = "example@qq.com"; console.log(reg.test(email)); // true
+                    if(reg.test(this.useremail)){
+                        var _self = this;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://xxxx/login/login',
+                            data:{'useremail':_self.useremail,'userpassword':_self.password},
+                            success:function(data) {
+                                console.log(data);
+                                if(data.code == 200){
+                                    _self.message = JSON.stringify(data);
+                                    sessionStorage.setItem('accessToken', data.data.token);
+                                    sessionStorage.setItem('useremail',_self.useremail);
+                                    _self.$router.push('/Footermenu');                
+                                }else{
+                                    var message = '错误:';
+                                    if(data.data.passworderror.length>0){
+                                    message+=data.data.passworderror; 
+                                    }
+                                    if(data.data.usernameerror.length>0){
+                                        message+=data.data.usernameerror; 
+                                    }
+                                    alert(message);                                 
+                                }                            
+                            }
+                        });
+                    }else{
+                        alert("邮箱格式不正确！！！");
+                    }                    
                 }
             },
             createCode(){
