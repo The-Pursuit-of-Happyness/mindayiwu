@@ -1,6 +1,20 @@
 <template>
   <div class="home">
+  <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo1.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo2.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo3.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo4.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo5.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo6.jpg"></div>
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+  <!--
       <slider></slider>
+  -->
       <div class="classifybox">
           <div class="classifyitem" @click="seeClassify()">
               <div>
@@ -77,6 +91,20 @@
             seeClassify(){
                 this.$router.push('/ClassifyPage');
             },
+        },
+        mounted () {
+            var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            className:'swiper-pagination-bullet',
+            paginationBulletRender: function (swiper, index, className) {
+                return '<span  class="' + className + '" style="width:18px;height:18px;color:white;background:#2ad2c9;">' + (index + 1) + '</span>';
+            },
+            autoplay:3000,
+            autoplayDisableOnInteraction : false,
+            })
         }
     }
 </script>
@@ -128,4 +156,9 @@
         max-width: 640px;
         text-align: left;
     }
+    .productimage{
+        width:100%;
+        height:150px;
+        max-width:640px;
+    } 
 </style>

@@ -7,10 +7,9 @@
     </div>
     <p class="name"><span class="type">[ 经典款 ]</span> 彩色荧光笔</p>
     <div class="bottom">
-        <p class="price">$ 3.50</p>
+        <p class="price">￥ 3.50</p>
         <div class="button">
-            <p class="seemore" @click="seeDetails()">查看详情</p>
-            <img class="nexticon" src="../../assets/next.png">
+            <p class="seemore" @click="seeDetails()">查看详情</p>            
         </div>
     </div>   
   </div>
@@ -38,7 +37,7 @@
       margin-bottom:5px;
       width:100%;
       max-width:320px;
-      height:270px;
+      height:auto;
       user-select: none;
       -webkit-user-select: none;
       overflow: hidden;
@@ -46,14 +45,15 @@
   }
   .topbox{
       border-top:solid 1px #e5e5e5;
-      height:200px;
+      height:auto;
       width:100%;
       max-width:320px;
   }
   .goodsimg{
       width:100%;
       max-width:320px;
-      height:200px;
+      min-height:120px;
+      height:auto;
   }
   .name{
       text-align:left;
@@ -102,14 +102,6 @@
       -webkit-align-items: center;/* Chrome 21+ */
       -ms-flex-align: center;/* WP IE 10 */
       align-items: center;/* android 4.4 */
-  }
-  .nexticon{
-      margin-left:5px;
-      width:6px;
-      height:auto;
-  }
-  .seemore{
-      display:block;
-      margin-left:5px;
+      justify-content:center;
   }
 </style>
