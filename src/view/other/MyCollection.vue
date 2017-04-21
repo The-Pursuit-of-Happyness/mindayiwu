@@ -1,65 +1,69 @@
 <template>
     <div class="mycollection">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">Slide 1</div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
-                <div class="swiper-slide">Slide 4</div>
-                <div class="swiper-slide">Slide 5</div>
-                <div class="swiper-slide">Slide 6</div>
-            </div>
-            <!-- 如果需要分页器 -->
-            <div class="swiper-pagination"></div>
-            
-            <!-- 如果需要导航按钮 -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-            
-            <!-- 如果需要滚动条 -->
-            <div class="swiper-scrollbar"></div>
+        <div class="topbox"></div>
+        <p class="title">我的收藏夹</p> 
+        <space></space>       
+        <div v-for="collectionItem of collectionItems">
+             <collectionitem :goodsimage = "collectionItem.img" :goodsname = "collectionItem.goodsname" :price = "collectionItem.price"></collectionitem>
         </div>
     </div>
 </template>
 
 <script>  
-//   import Swiper from '../../../static/js/swiper-3.4.2.jquery.min.js'
-//  require('../../../static/css/swiper-3.4.2.min.css')  
     export default{
         data:function(){
             return{
-
+                collectionItems:[],
             }
         },
          created() {
-        },
-       
-        methods:{
-            init:function(){
-            },
+             this.loadCollection();
         },
         components: {},
-        mounted () {
-            console.log('挂载好了')
-            var mySwiper = new Swiper('.swiper-container', {
-            direction: 'horizontal',
-            loop: true,
-            pagination: '.swiper-pagination',
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-                // 如果需要滚动条
-            scrollbar: '.swiper-scrollbar',
-            autoplay:2000,
-            })
-            console.log(mySwiper)
-        }
+        methods: {
+            seeClassify(){
+                this.$router.push('/ClassifyPage');
+            },
+            loadCollection : function(me){
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: '../../static/json/goodsinfo.json',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.code == 200){
+                            _self.collectionItems = data.data.recommendItems;
+                        }
+                    },
+                    error: function(xhr, type){
+                        console.log('Ajax error!');
+                    }
+                });
+            }
+        },
     }
 </script>
 
 <style scoped>
-    .swiper-container {
+    .mycollection {
         width:100%;
         max-width: 640px;
-        height: 300px;
-    }  
+    }
+    .topbox{
+        width:100%;
+        max-width:640px;
+        height:40px;
+    }
+    .title{
+        position: fixed;
+        top:0;
+        z-index:10;
+        display:block;
+        width:100%;
+        max-width:640px;
+        height:40px;
+        font-size:18px;
+        line-height:40px;
+        background:white;
+    }
 </style>

@@ -66,31 +66,47 @@
           </div>
           
       </div>
-      <recommenitem></recommenitem>
-      <space></space>
-      <recommenitem></recommenitem>
-      <space></space>
-      <recommenitem></recommenitem>
-      <space></space>
-      <recommenitem></recommenitem>
+      <div v-for="recommenditem of recommendItems">
+            <recommenitem :goodsimage ="recommenditem.img" :type="recommenditem.type" :goodsname="recommenditem.goodsname" :price="recommenditem.price"></recommenitem>
+            <space></space>
+      </div>
       <div class="bottombox"></div>
   </div>
 </template>
 
 <script>
+    import imgurl from './../assets/goods3.jpg';
     export default {
         name: 'home',
         data() {
             return {
                 msg: '',
+                recommendItems:[]
             }
         },
         created() {
+            this.loadDownFn();
         },
         methods: {
             seeClassify(){
                 this.$router.push('/ClassifyPage');
             },
+            loadDownFn : function(me){
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: '../../static/json/goodsinfo.json',
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.code == 200){
+                            _self.recommendItems = data.data.recommendItems;
+                        }
+                    },
+                    error: function(xhr, type){
+                        console.log('Ajax error!');
+                    }
+                });
+            }
         },
         mounted () {
             var mySwiper = new Swiper('.swiper-container', {
@@ -151,7 +167,7 @@
     }
     
     .bottombox {
-        height: 70px;
+        height: 55px;
         width: 100%;
         max-width: 640px;
         text-align: left;

@@ -1,13 +1,18 @@
 <!--推荐商品组件 -->
-
+<!--
+    goodsimage:商品图片
+    type:商品类型
+    goodsname:商品名称
+    price:商品价格
+-->
 <template>
   <div class ="recommenditem">
     <div class="topbox">
-        <img class="goodsimg" src="../../assets/goods3.jpg">
+        <img class="goodsimg" :src ="goodsimage">
     </div>
-    <p class="name"><span class="type">[ 经典款 ]</span> 彩色荧光笔</p>
+    <p class="name"><span class="type">[ {{type}} ]</span> {{goodsname}}</p>
     <div class="bottom">
-        <p class="price">$ 3.50</p>
+        <p class="price">$ {{price}}</p>
         <div class="button" @click="seeDetails">
             <p class="seemore">查看详情</p>
             <img class="nexticon" src="../../assets/next.png">
@@ -17,6 +22,7 @@
 </template>
 <script>
   export default({
+    props: ['goodsimage','type','goodsname','price'],
     data:function(){
       return{        
       }

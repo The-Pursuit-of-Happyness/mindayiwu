@@ -1,0 +1,32 @@
+{
+
+    "code": 200,
+    "message": "successful",
+    "data": {
+        "recommendItems": [{
+                "img": "http://d8.yihaodianimg.com/N05/M00/24/DF/CgQI0lQ3umiAYat_AAMa5tG_TXY20001_80x80.jpg",
+                "type": "经典款",
+                "goodsname": "魅族MX新款",
+                "price": "3.50"
+            },
+            {
+                "img": "http://d7.yihaodianimg.com/N06/M06/A3/BE/CgQIzlSrnfaAHAzvAAJ8k2SN73Q20901_80x80.jpg",
+                "type": "纪念款",
+                "goodsname": "五彩签字笔",
+                "price": "6.00"
+            },
+            {
+                "img": "http://d6.yihaodianimg.com/N06/M0B/10/41/CgQIzlUGpeeAXg4zAAOEHqy2RVU97901_80x80.jpg",
+                "type": "经典款",
+                "goodsname": "新款手机",
+                "price": "7.50"
+            },
+            {
+                "img": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492774813013&di=962de4c1e5f62433b26add5915c11116&imgtype=0&src=http%3A%2F%2Fimg2.3lian.com%2Fimg2007%2F7%2F17%2F697410062cj.jpg",
+                "type": "经典款",
+                "goodsname": "时尚网球拍",
+                "price": "78.50"
+            }
+        ]
+    }
+}
