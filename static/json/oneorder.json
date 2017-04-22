@@ -1,0 +1,37 @@
+{
+
+    "code": 200,
+    "message": "successful",
+    "data": {
+        "orderInfos": [{
+                "shopicon": "http://a1.att.hudong.com/56/70/01200000031761134399700658652_s.jpg",
+                "shopname": "良心铺子",
+                "status": "1",
+                "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492841930458&di=9d96abba3e0554a18db52b91fa2559d9&imgtype=0&src=http%3A%2F%2Fimg2.gomein.net.cn%2Fimage%2Fprodimg%2Fproduction_image%2F201211%2F1104960555%2F1000221605_210.jpg",
+                "goodsname": "签字笔",
+                "goodsinfo": "来自韩国的工艺",
+                "price": "2.50",
+                "number": "2"
+            }, {
+                "shopicon": "http://f1.diyitui.com/e5/a4/c8/4a/73/f7/b3/88/1b/a7/37/c6/37/a1/df/97.jpg",
+                "shopname": "怪蜀黍家的小店",
+                "status": "2",
+                "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492841632622&di=4498d7f118f1775ea86972fa1806862e&imgtype=0&src=http%3A%2F%2Fimg.yichao.cn%2Fuploads%2Fgoods%2F2016041616161133_sml.jpg",
+                "goodsname": "时尚太阳镜",
+                "goodsinfo": "炎炎夏日，秀出你的时尚，爱眼镜，更眼睛",
+                "price": "99.80",
+                "number": "1"
+            },
+            {
+                "shopicon": "http://f1.diyitui.com/e5/a4/c8/4a/73/f7/b3/88/1b/a7/37/c6/37/a1/df/97.jpg",
+                "shopname": "牛衣库",
+                "status": "1",
+                "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=109796721,3925504117&fm=23&gp=0.jpg",
+                "goodsname": "蓝色牛仔连衣裙",
+                "goodsinfo": "展现你的魔鬼身",
+                "price": "66.50",
+                "number": "1"
+            }
+        ]
+    }
+}

@@ -5,6 +5,7 @@
         <space></space>       
         <div v-for="collectionItem of collectionItems">
              <collectionitem :goodsimage = "collectionItem.img" :goodsname = "collectionItem.goodsname" :price = "collectionItem.price"></collectionitem>
+             <smallspace></smallspace>
         </div>
     </div>
 </template>

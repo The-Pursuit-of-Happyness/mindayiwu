@@ -1,30 +1,38 @@
 <!--订单组件 -->
 
+<!--订单状态
+1-待支付
+2-待发货
+3-待收货
+4-待评价
+5-交易完成
+6-订单已删除
+ -->
 <template>
   <div class ="orderitem">
      <div class="topbox">
      <div class="shopbox">
-        <img class="shopicon" src="../../assets/shopicon.jpg">
-        <p class="shopname">猜猜我是谁小店</p>
+        <img class="shopicon" :src="orderitem.shopicon">
+        <p class="shopname">{{orderitem.shopname}}</p>
         <img class="nexticon" src="../../assets/next.png">
         </div>
-        <p class="status">交易成功</p>
+        <p class="status">{{orderstate}}</p>
      </div>
      <div class ="contentbox">
         <div class="goodsbox">
-            <img class="goodsimg" src="../../assets/goods1.jpg">
+            <img class="goodsimg" :src="orderitem.goodsimg">
             <div class="goodsinfobox">
-                <p class="goodsname">精品收纳盒</p>
-                <p class="goodsinfo">颜色：蓝色 型号：小号</p>
+                <p class="goodsname">{{orderitem.goodsname}}</p>
+                <p class="goodsinfo">{{orderitem.goodsinfo}}</p>
             </div>
         </div>
         <div class="goodsnumbox">
-            <p>价格：￥20.5</p>
-            <p>数量：x 1</p>
+            <p>价格：￥{{orderitem.price}}</p>
+            <p>数量：x {{orderitem.number}}</p>
         </div>
      </div>
      <div class ="bottombox">
-        <p class="sumbox">共1件商品 合计：￥20.50</p>
+        <p class="sumbox">共{{orderitem.number}}件商品 合计：￥{{totalprice}}</p>
         <div class="operatebox">
             <p class="button">删除订单</p>
             <p class="button">评价</p>
@@ -34,17 +42,36 @@
 </template>
 <script>
   export default({
-    props: ['orderid'],
-    data:function(){
-      return{        
+    props:['orderitem'],
+    data:function(){      
+      return{
+          totalprice:'',
+          orderstate:'',
       }
-    },
-    mounted:function(){
-     
-    },
-    methods:{    
-     
-    }
+    }, 
+    created(){
+        this.totalprice = parseFloat((this.orderitem.price*this.orderitem.number)).toFixed(2);
+        //set order state
+        switch(this.orderitem.status){
+            case "1":
+            this.orderstate ="待支付";
+            break;
+            case "2":
+            this.orderstate ="待发货";
+            break;
+            case "3":
+            this.orderstate ="待收货";
+            break;
+            case "4":
+            this.orderstate = "待评价";
+            break;
+            case "5":
+            this.orderstate  ="交易完成";
+            break;
+        }
+    },  
+    mounted:function(){     
+    },    
   })
 
 </script>
