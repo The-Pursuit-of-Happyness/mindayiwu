@@ -95,7 +95,7 @@
                 var _self = this;
                 $.ajax({
                     type: 'GET',
-                    url: '../../static/json/goodsinfo.json',
+                    url: './static/json/goodsinfo.json',
                     dataType: 'json',
                     success: function(data){
                         if(data.code == 200){

@@ -21,7 +21,6 @@
                 <smallspace></smallspace>
             </div>
         </div>
-        <space></space>
         <div class="bottombox"></div>
   </div>
 </template>
@@ -43,7 +42,7 @@
                 var _self = this;
                     $.ajax({
                         type: 'GET',
-                        url: '../../static/json/orderitem.json',
+                        url: './static/json/orderitem.json',
                         dataType: 'json',
                         success: function(data){
                             if(data.code == 200){

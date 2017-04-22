@@ -15,19 +15,19 @@
         <div class="footer" :style="{'top':(height-12) + 'px'}">
             <ul>
                 <li @click="currentpage = 0;" v-bind:class="[{ 'activemenu': currentpage ==0  }, 'normalmenu']">
-                   <div class="background-style mainpage" v-bind:class="[{ 'mainpage-active': currentpage ==0  }, 'normalmenu']"></div>
+                   <div :style ="img" class="background-style mainpage" v-bind:class="[{ 'mainpage-active': currentpage ==0  }, 'normalmenu']" ></div>
                         首页
                 </li>
                 <li  @click="currentpage = 1;" v-bind:class="[{ 'activemenu': currentpage ==1 }, 'normalmenu']">
-                <div class="background-style recordpage" v-bind:class="[{ 'recordpage-active': currentpage ==1  }, 'normalmenu']"></div>
+                <div :style ="img" class="background-style recordpage" v-bind:class="[{ 'recordpage-active': currentpage ==1  }, 'normalmenu']"></div>
                        记录
                 </li>
                 <li  @click="currentpage = 2;" v-bind:class="[{ 'activemenu': currentpage ==2  }, 'normalmenu']">
-                <div class="background-style orderpage" v-bind:class="[{ 'orderpage-active': currentpage ==2  }, 'normalmenu']"></div>
+                <div :style ="img" class="background-style orderpage" v-bind:class="[{ 'orderpage-active': currentpage ==2  }, 'normalmenu']"></div>
                        订单
                 </li>
                 <li  @click="currentpage = 3;" v-bind:class="[{ 'activemenu': currentpage ==3 }, 'normalmenu']">
-                 <div class="background-style mypage" v-bind:class="[{ 'mypage-active': currentpage ==3  }, 'normalmenu']"></div>
+                 <div :style ="img" class="background-style mypage" v-bind:class="[{ 'mypage-active': currentpage ==3  }, 'normalmenu']"></div>
                        我的
                 </li>
             </ul>
@@ -40,6 +40,11 @@
         name: 'footermenu',
         data() {
             return {
+                img: {
+                    backgroundImage: "url(" + require("../assets/footer-icon.png") + ")",
+                    backgroundRepeat:"no-repeat",
+                    backgroundSize: "30px auto",
+                },
                 currentpage:0,
                 height: window.clientHeight,
             }
@@ -84,7 +89,6 @@
         color:#2ad2c9;
     }
     .background-style{
-        background-image:url('./../assets/footer-icon.png');
         background-repeat:no-repeat;
         background-size:30px auto;
         height:31px;
