@@ -4,7 +4,7 @@
         <home></home>
     </div>    
      <div v-if='currentpage ==1'>
-        <recordpage></recordpage>
+        <searchgoods></searchgoods>
     </div>
      <div v-if='currentpage ==2'>
         <orderpage></orderpage>
@@ -42,10 +42,10 @@
             return {
                 img: {
                     backgroundImage: "url(" + require("../assets/footer-icon.png") + ")",
-                    backgroundRepeat:"no-repeat",
+                    backgroundRepeat: "no-repeat",
                     backgroundSize: "30px auto",
                 },
-                currentpage:0,
+                currentpage: 0,
                 height: window.clientHeight,
             }
         }
@@ -54,12 +54,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .footermenu{
+    .footermenu {
         width: 100%;
         max-width: 640px;
-        margin:0 auto;
+        margin: 0 auto;
     }
-    .footer{
+    
+    .footer {
         width: 100%;
         max-width: 640px;
         height: 60px;
@@ -71,56 +72,70 @@
         box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
         z-index: 10;
     }
-    ul{
-		height:80px;
-		margin:0;
-		list-style-type:none;
-	}
-    a{
-        color:#777;
-        height:100%;
-        display:block;
-        text-align:center;
+    
+    ul {
+        height: 80px;
+        margin: 0;
+        list-style-type: none;
     }
-    .normalmenu{
-        color:#777;
+    
+    a {
+        color: #777;
+        height: 100%;
+        display: block;
+        text-align: center;
     }
-    .activemenu{        
-        color:#2ad2c9;
+    
+    .normalmenu {
+        color: #777;
     }
-    .background-style{
-        background-repeat:no-repeat;
-        background-size:30px auto;
-        height:31px;
-        margin:5px auto auto;
+    
+    .activemenu {
+        color: #2ad2c9;
     }
-    .mainpage{        
+    
+    .background-style {
+        background-repeat: no-repeat;
+        background-size: 30px auto;
+        height: 31px;
+        margin: 5px auto auto;
+    }
+    
+    .mainpage {
         background-position: center -124px;
     }
-     .mainpage-active{
+    
+    .mainpage-active {
         background-position: center 0;
     }
-    .recordpage{
+    
+    .recordpage {
         background-position: center -156px;
     }
-    .recordpage-active{
+    
+    .recordpage-active {
         background-position: center -31px;
     }
-    .orderpage{
+    
+    .orderpage {
         background-position: center -187px;
     }
-    .orderpage-active{
+    
+    .orderpage-active {
         background-position: center -62px;
     }
-    .mypage{
+    
+    .mypage {
         background-position: center -218px;
     }
-    .mypage-active{
+    
+    .mypage-active {
         background-position: center -93px;
     }
-    li{
+    
+    li {
         float: left;
-        width: 25%;        
+        width: 25%;
         height: 100%;
     }
 </style>

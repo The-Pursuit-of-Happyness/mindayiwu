@@ -39,7 +39,8 @@
         <space></space>
         <linkitem title="我的货架" :imgurl="shopicon"></linkitem>
         <router-link to="/MyCollection" class="none"><linkitem  title="我的收藏" :imgurl="saveicon"></linkitem></router-link>
-        <button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>   
+        <button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>
+        <button class="weui-btn weui-btn_primary login"  @click ="search()">搜索</button> 
         <div class="bottombox"></div>
   </div>
 </template>
@@ -51,97 +52,121 @@
         name: 'mypage',
         data() {
             return {
-                shopicon:shopIcon,
-                saveicon:saveIcon,
+                shopicon: shopIcon,
+                saveicon: saveIcon,
                 msg: '',
-                userIcon:'',
+                userIcon: '',
             }
         },
-        methods:{
-            shoppingcart(){
+        methods: {
+            shoppingcart() {
                 this.$router.replace("ShoppingCart");
             },
-            myshop(){
+            myshop() {
                 this.$router.replace("MyShop");
             },
-            mycollection(){
+            mycollection() {
                 this.$router.replace("MyCollection");
             },
-            login(){
+            login() {
                 this.$router.replace("Login");
+            },
+            search() {
+                this.$router.replace("SearchGoods");
             }
         }
     }
 </script>
 
-<style  src="../../static/css/weui.css"></style>
+<style src="../../static/css/weui.css"></style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .content{
-        font-size:16px;
+    .content {
+        font-size: 16px;
     }
-    .mypage{
+    
+    .mypage {
         width: 100%;
         max-width: 640px;
-        margin:0 auto;
+        margin: 0 auto;
     }
-    .topbox{
-        height:90px;
-        background:#fafafa;
-         display:flex;
-        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
-        -webkit-align-items: center;/* Chrome 21+ */
-        -ms-flex-align: center;/* WP IE 10 */
-        align-items: center;/* android 4.4 */
+    
+    .topbox {
+        height: 90px;
+        background: #fafafa;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
     }
-    .headimage{
-        margin-left:15px;
-        float:left;
-        width:60px;
-        height:60px;
-        border-radius:30px;
+    
+    .headimage {
+        margin-left: 15px;
+        float: left;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
     }
-    .username{
-        margin-left:15px;
-        font-size:16px;
-        color:#2ad2c9;
+    
+    .username {
+        margin-left: 15px;
+        font-size: 16px;
+        color: #2ad2c9;
     }
-    .shopandcart{
-        height:80px;
-         display:flex;
-        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
-        -webkit-align-items: center;/* Chrome 21+ */
-        -ms-flex-align: center;/* WP IE 10 */
-        align-items: center;/* android 4.4 */
-        justify-content:space-between;
+    
+    .shopandcart {
+        height: 80px;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
+        justify-content: space-between;
     }
-    .shopcarbox{
-        width:50%;
-        height:80px;
-         display:flex;
-        -webkit-box-align: center;/* android 2.1-3.0, ios 3.2-4.3 */
-        -webkit-align-items: center;/* Chrome 21+ */
-        -ms-flex-align: center;/* WP IE 10 */
-        align-items: center;/* android 4.4 */
-        justify-content:center;
+    
+    .shopcarbox {
+        width: 50%;
+        height: 80px;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
+        justify-content: center;
     }
-    .shopicon{
-        width:40px;
-        height:40px;
+    
+    .shopicon {
+        width: 40px;
+        height: 40px;
     }
-    .bottombox{
-        height:60px;
-        width:100%;
-        max-width:640px;
+    
+    .bottombox {
+        height: 60px;
+        width: 100%;
+        max-width: 640px;
     }
-
-    .login{
-        margin-top:30px;
-        width:100%;
-        max-width:640px;
-        height:40px;
+    
+    .login {
+        margin-top: 30px;
+        width: 100%;
+        max-width: 640px;
+        height: 40px;
     }
     /*项目条文字样式*/
+    
     .none {
         color: #202020;
         text-decoration: none;

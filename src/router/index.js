@@ -13,6 +13,7 @@ import NewProduct from 'view/shop/NewProduct'
 import ManageShelf from 'view/shop/ManageShelf'
 import ShopMessage from 'view/shop/ShopMessage'
 import MyCollection from 'view/other/MyCollection'
+import SearchGoods from 'view/other/SearchGoods'
 Vue.use(Router)
 
 export default new Router({
@@ -64,5 +65,9 @@ export default new Router({
         path: '/MyCollection',
         name: 'MyCollection',
         component: MyCollection
+    }, {
+        path: '/SearchGoods',
+        name: 'SearchGoods',
+        component: SearchGoods
     }]
 })

@@ -6,11 +6,11 @@ import VueRouter from 'vue-router';
 import router from './router'
 
 import home from './view/Home'; // import home
-import recordpage from './view/Recordpage' //import recordpage
+import searchgoods from './view/SearchGoods' //import recordpage
 import orderpage from './view/Orderpage' //import orderpage
 import mypage from './view/mypage' //import mypage
 Vue.component('home', home); // statement home
-Vue.component('recordpage', recordpage); //statement recordpage
+Vue.component('searchgoods', searchgoods); //statement searchgoods
 Vue.component('orderpage', orderpage); //statement orderpage
 Vue.component('mypage', mypage); //statement mypage
 
