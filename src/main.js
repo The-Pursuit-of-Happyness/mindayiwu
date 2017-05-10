@@ -41,6 +41,17 @@ Vue.component('myshopgoodsitem', myshopgoodsitem);
 Vue.component('collectionitem', collectionitem);
 Vue.component('smallspace', smallspace);
 
+
+import {
+    Cell,
+    Search,
+    Checklist
+} from 'mint-ui';
+
+Vue.component(Checklist.name, Checklist);
+Vue.component(Search.name, Search);
+Vue.component(Cell.name, Cell);
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

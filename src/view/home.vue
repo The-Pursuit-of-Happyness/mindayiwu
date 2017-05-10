@@ -81,45 +81,45 @@
         data() {
             return {
                 msg: '',
-                recommendItems:[]
+                recommendItems: []
             }
         },
         created() {
             this.loadDownFn();
         },
         methods: {
-            seeClassify(){
+            seeClassify() {
                 this.$router.push('/ClassifyPage');
             },
-            loadDownFn : function(me){
+            loadDownFn: function(me) {
                 var _self = this;
                 $.ajax({
                     type: 'GET',
                     url: './static/json/goodsinfo.json',
                     dataType: 'json',
-                    success: function(data){
-                        if(data.code == 200){
+                    success: function(data) {
+                        if (data.code == 200) {
                             _self.recommendItems = data.data.recommendItems;
                         }
                     },
-                    error: function(xhr, type){
+                    error: function(xhr, type) {
                         console.log('Ajax error!');
                     }
                 });
             }
         },
-        mounted () {
+        mounted() {
             var mySwiper = new Swiper('.swiper-container', {
-            direction: 'horizontal',
-            loop: true,
-            pagination: '.swiper-pagination',
-            paginationClickable: true,
-            className:'swiper-pagination-bullet',
-            paginationBulletRender: function (swiper, index, className) {
-                return '<span  class="' + className + '" style="width:18px;height:18px;color:white;background:#2ad2c9;">' + (index + 1) + '</span>';
-            },
-            autoplay:3000,
-            autoplayDisableOnInteraction : false,
+                direction: 'horizontal',
+                loop: true,
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                className: 'swiper-pagination-bullet',
+                paginationBulletRender: function(swiper, index, className) {
+                    return '<span  class="' + className + '" style="width:18px;height:18px;color:white;background:#2ad2c9;">' + (index + 1) + '</span>';
+                },
+                autoplay: 3000,
+                autoplayDisableOnInteraction: false,
             })
         }
     }
@@ -133,7 +133,7 @@
     }
     
     .classifybox {
-        padding-top:10px;
+        padding-top: 10px;
         width: 100%;
         max-width: 640px;
         height: 140px;
@@ -155,7 +155,7 @@
         justify-content: center;
         /* android 4.4 */
     }
-   
+    
     .classifyimg {
         width: 35px;
         height: 35px;
@@ -172,9 +172,10 @@
         max-width: 640px;
         text-align: left;
     }
-    .productimage{
-        width:100%;
-        height:150px;
-        max-width:640px;
-    } 
+    
+    .productimage {
+        width: 100%;
+        height: 150px;
+        max-width: 640px;
+    }
 </style>

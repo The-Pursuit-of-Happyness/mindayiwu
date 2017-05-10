@@ -20,7 +20,7 @@
                 </li>
                 <li  @click="currentpage = 1;" v-bind:class="[{ 'activemenu': currentpage ==1 }, 'normalmenu']">
                 <div :style ="img" class="background-style recordpage" v-bind:class="[{ 'recordpage-active': currentpage ==1  }, 'normalmenu']"></div>
-                       记录
+                       搜索
                 </li>
                 <li  @click="currentpage = 2;" v-bind:class="[{ 'activemenu': currentpage ==2  }, 'normalmenu']">
                 <div :style ="img" class="background-style orderpage" v-bind:class="[{ 'orderpage-active': currentpage ==2  }, 'normalmenu']"></div>

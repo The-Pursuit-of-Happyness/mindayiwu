@@ -1,9 +1,17 @@
 <template>
-    <div id="searchgoods">
-        <div class="topbox">
-            <input placeholder="搜索商品" class="searchinput"></intput>
-        </div>
-        <div class="contentbox">
+    <div id="searchgoods">        
+        <mt-search
+            v-model="searchtext"
+            cancel-text="取消"
+            placeholder="搜索商品"
+            style="height:6vh;">
+            <mt-cell
+                v-for="item in result"
+                :title="item.title"
+                :value="item.value">
+            </mt-cell>
+        </mt-search>
+        <div v-if="isshowcontent" class="contentbox">
             <div class="leftbox">
                 <div v-for="type of types">
                     <a class="typeitem">
@@ -12,14 +20,14 @@
                     </a>
                 </div>
             </div>
-            <div class="rightbox" :style="{'height':(height-130) + 'px'}">
+            <div class="rightbox">
                 <div v-for="type of types">
                     <p class="typesname">{{type.name}}</p>
                     <div v-for="item of items" class="items">
                         <div class="itembox">
                             <img :src="item.iconurl" class="itemicon">
                             <p>{{item.name}}</p>                            
-                        <div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,6 +41,8 @@
         name: "searchgoods",
         data() {
             return {
+                searchtext: '',
+                isshowcontent: true,
                 height: window.clientHeight,
                 types: [{
                     name: '日用百货',
@@ -75,11 +85,36 @@
                     name: '衣服',
                     iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
                 }, ],
+                result: [{
+                    title: 'item1',
+                    value: 'link1'
+                }, {
+                    title: 'item2',
+                    value: 'link2'
+                }, {
+                    title: 'item3',
+                    value: 'link3'
+                }, {
+                    title: 'item4',
+                    value: 'link4'
+                }, {
+                    title: 'item5',
+                    value: 'link5'
+                }, ],
             }
         },
         methods: {
 
-        }
+        },
+        created() {
+
+        },
+        watch: {
+            // 如果 question 发生改变，这个函数就会运行
+            searchtext: function() {
+                this.isshowcontent = this.searchtext.length == '' ? true : false;
+            }
+        },
     }
 </script>
 
@@ -122,6 +157,7 @@
         background: #f1f1f1;
         width: 30%;
         height: auto;
+        max-height: 85vh;
     }
     
     .typename {
@@ -149,8 +185,9 @@
     }
     
     .rightbox {
-        float: left;
         width: 70%;
+        height: 100%;
+        max-height: 85vh;
         overflow-y: scroll;
         overflow-x: hidden;
     }
