@@ -6,7 +6,7 @@
             <input class ="nameinput" placeholder ="请输入邮箱" v-model="useremail" maxlength="20"></input>
         </div>
         <div>
-             <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
+             <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="4">
         </div>
         <div class="qrbox">
             <input class ="qrinput" placeholder="图片验证码" v-model ="piccode" maxlength ="4" minlength ="4">
@@ -57,7 +57,7 @@
                         var _self = this;
                         $.ajax({
                             type: 'POST',
-                            url: 'http://xxxx/login/login',
+                            url: 'http://10.145.0.15/login/login',
                             data: {
                                 'useremail': _self.useremail,
                                 'userpassword': _self.password
@@ -68,7 +68,7 @@
                                     _self.message = JSON.stringify(data);
                                     sessionStorage.setItem('accessToken', data.data.token);
                                     sessionStorage.setItem('useremail', _self.useremail);
-                                    _self.$router.push('/Footermenu');
+                                    _self.$router.push('/');
                                 } else {
                                     alert(data.message);
                                 }
