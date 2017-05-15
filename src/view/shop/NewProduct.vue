@@ -57,7 +57,7 @@
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                 </div>
-                <div class="imgbox">
+                <div class="imgbox"> 
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                 </div>
@@ -87,7 +87,7 @@
                 goodsname: '铅笔',
                 goodstype: '1',
                 goodsinfo: '啊啊啊啊',
-                price: '14.20',
+                price: 14.05,
                 number: '8',
                 phone: '14443578878',
                 address: '大连',
@@ -115,9 +115,18 @@
                 }
             },
             upload: function() {
+                var _self = this;
                 var inputs = $("input.fileupload");
                 for (var i = 0; i < inputs.length; i++) {
-                    this.photos.push(inputs[i].files[0]);
+                    //图片转base64上传
+                    var file = inputs[i].files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(e) {
+                            _self.photos.push(this.result);
+                        }
+                    }
                 }
                 console.log(this.photos);
                 var _self = this;
