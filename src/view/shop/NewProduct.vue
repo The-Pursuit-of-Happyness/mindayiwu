@@ -47,12 +47,13 @@
             </div>
             <div class="startleft">
                 <label class="title">图片</label>                
-            </div>
+            </div>            
             <div class="addimg">
                 <div class="imgbox">
                     <img class="goodsimg" src="../../assets/addimg.png">
-                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                    <input type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
                 </div>
+                <!--
                 <div class="imgbox">
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
@@ -65,6 +66,7 @@
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                 </div>
+                -->
             </div>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
@@ -119,27 +121,31 @@
                 var inputs = $("input.fileupload");
                 for (var i = 0; i < inputs.length; i++) {
                     //图片转base64上传
-                    var file = inputs[i].files[0];
-                    if (file) {
+                    var file = inputs[i].files;
+                    var leng = file.length;
+                    for (var i = 0; i < leng; i++) {
                         var reader = new FileReader();
-                        reader.readAsDataURL(file);
+                        reader.readAsDataURL(file[i]);
                         reader.onload = function(e) {
                             _self.photos.push(this.result);
                         }
                     }
                 }
+                var obj = {};
+                obj.images = this.photos;
                 console.log(this.photos);
                 var _self = this;
                 $.ajax({
                     type: 'POST',
                     url: 'http://10.145.0.15/goods/addGoods',
+                    dataType: "json",
                     data: {
                         "barterCommodityname": _self.goodsname,
                         "barterSellingprice": _self.price,
                         "barterContactinformation": _self.phone,
                         "barterCommodityquantity": _self.number,
                         "barterCommodityaddress": _self.address,
-                        "multipartFile": _self.photos,
+                        "multipartFile": obj,
                         "barterDescriptioninform": _self.goodsinfo,
                         "barterCategoryid": _self.goodstype,
                     },
