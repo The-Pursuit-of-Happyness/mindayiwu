@@ -1,17 +1,31 @@
 <template>
     <div id="upload">
         <div class="imgbox">
-            <img class="goodsimg" src="../../assets/addimg.png">
-            <input type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <img class="goodsimg" src="../../assets/addimg.png">
+                <input id="multipartFile" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+            </form>
         </div>
+        <img id="img1">
         <button class="weui-btn weui-btn_primary" @click="upload()">上传</button>
     </div>
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {
+                height: window.clientHeight,
+                goodsname: '铅笔',
+                goodstype: '1',
+                goodsinfo: '啊啊啊啊',
+                price: 14.05,
+                number: '8',
+                phone: '14443578878',
+                address: '大连',
                 photos: [],
             }
         },
@@ -24,11 +38,12 @@
                 var file = event.target.files || event.dataTransfer.files;
                 var leng = file.length;
                 for (var i = 0; i < leng; i++) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file[i]);
-                    reader.onload = function(e) {
-                        _self.photos.push(e.target.result);
-                    };
+                    // var reader = new FileReader();
+                    // reader.readAsDataURL(file[i]);
+                    // reader.onload = function(e) {
+                    //     _self.photos.push(e.target.result);
+                    // };
+                    _self.photos.push(file[i]);
                 }
 
                 function setImagePreview(docObj, imgObjPreview) {
@@ -38,7 +53,48 @@
                     }
                 }
             },
+
             upload: function() {
+                var _self = this;
+                var formData = new FormData();
+                var files = $('#multipartFile')[0].files;
+                var length = files.length;
+                for (var i = 0; i < length; i++)
+                    formData.append('file', files[i]);
+                //var  formData  =  new  FormData($( "#multipartFile" )[0]);  
+                var obj = {};
+                obj.barterCommodityname = "fsdfsdfsdfsdfsd";
+                obj.barterSellingprice = _self.price;
+                obj.barterContactinformation = _self.phone;
+                obj.barterCommodityquantity = _self.number;
+                obj.barterCommodityaddress = _self.address;
+                obj.barterDescriptioninform = _self.goodsinfo;
+                obj.barterCategoryid = _self.goodstype;
+                console.log(formData);
+                console.log(obj);
+                $.ajax({
+                    url: port + 'goods/addGoods',
+                    type: 'POST',
+                    data: {
+                        formData
+                    },
+                    // data: {
+                    //     "barterCommodityname": _self.goodsname,
+                    //     "barterSellingprice": _self.price,
+                    //     "barterContactinformation": _self.phone,
+                    //     "barterCommodityquantity": _self.number,
+                    //     "barterCommodityaddress": _self.address,
+                    //     formData,
+                    //     "barterDescriptioninform": _self.goodsinfo,
+                    //     "barterCategoryid": _self.goodstype,
+                    // },
+
+                    // processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data);
+                    }
+                }).done(function(res) {}).fail(function(res) {});
                 var _self = this;
                 // var inputs = $("input.fileupload");
                 // for (var i = 0; i < inputs.length; i++) {
@@ -53,26 +109,25 @@
                 //         }
                 //     }
                 // }
-                var obj = {};
-                obj.images = this.photos;
-                console.log(this.photos);
-                var _self = this;
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://10.145.0.15/goods/addGoods',
-                    dataType: "json",
-                    data: {
-                        "uploadFile": _self.photos,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        if (data.code == 200) {
-                            console.log("success!!");
-                        } else {
-                            alert(data.message);
-                        }
-                    }
-                });
+                // var obj = {};
+                // obj.images = this.photos;
+                // console.log(this.photos);
+                // var _self = this;
+                // $.ajax({
+                //     type: 'POST',
+                //     url: port + 'goods/addGoods',
+                //     contentType: false,
+                //     processData: false,
+                //     data: uploadFile,
+                //     success: function(data) {
+                //         console.log(data);
+                //         if (data.code == 200) {
+                //             console.log("success!!");
+                //         } else {
+                //             alert(data.message);
+                //         }
+                //     }
+                // });
             }
         }
     }
