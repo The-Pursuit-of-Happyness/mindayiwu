@@ -58,6 +58,7 @@
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                 </div>
+                
                 <div class="imgbox"> 
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
@@ -116,10 +117,12 @@
                     }
                 }
             },
+            /*采用formData形式上传图片和表单数据*/
             upload: function() {
                 var _self = this;
                 var inputs = $("input.fileupload");
                 for (var i = 0; i < inputs.length; i++) {
+                    /*
                     //图片转base64上传
                     var file = inputs[i].files;
                     var leng = file.length;
@@ -129,30 +132,45 @@
                         reader.onload = function(e) {
                             _self.photos.push(this.result);
                         }
+                    }*/
+                    var file = inputs[i];
+                    if (inputs[i].files[0]) {
+                        this.photos.push(file.files[0]);
+                        console.log(file.files[0]);
                     }
                 }
-                var obj = {};
-                obj.images = this.photos;
                 console.log(this.photos);
+                var formData = new FormData();
+                formData.append('file', $("input.fileupload")[0].files[0]);
+                formData.append('barterCommodityname', _self.goodsname);
+                formData.append('barterSellingprice', _self.price);
+                formData.append('barterContactinformation', _self.phone);
+                formData.append('barterCommodityquantity', _self.number);
+                formData.append('barterCommodityaddress', _self.address);
+                formData.append('barterDescriptioninform', _self.goodsinfo);
+                formData.append('barterCategoryid', _self.goodstype);
                 var _self = this;
                 $.ajax({
                     type: 'POST',
-                    url: 'http://10.145.0.15/goods/addGoods',
+                    url: 'http://10.145.0.05/goods/addGoods',
                     dataType: "json",
-                    data: {
-                        "barterCommodityname": _self.goodsname,
-                        "barterSellingprice": _self.price,
-                        "barterContactinformation": _self.phone,
-                        "barterCommodityquantity": _self.number,
-                        "barterCommodityaddress": _self.address,
-                        "multipartFile": obj,
-                        "barterDescriptioninform": _self.goodsinfo,
-                        "barterCategoryid": _self.goodstype,
-                    },
+                    data: formData,
+                    // data: {
+                    //     "barterCommodityname": _self.goodsname,
+                    //     "barterSellingprice": _self.price,
+                    //     "barterContactinformation": _self.phone,
+                    //     "barterCommodityquantity": _self.number,
+                    //     "barterCommodityaddress": _self.address,
+                    //     "multipartFile": obj,
+                    //     "barterDescriptioninform": _self.goodsinfo,
+                    //     "barterCategoryid": _self.goodstype,
+                    // },
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
-                            console.log("success!!");
+                            console.log("success");
                             // _self.$router.push('/');
                         } else {
                             alert(data.message);

@@ -3,7 +3,7 @@
         <div class="imgbox">
             <form id="uploadForm" enctype="multipart/form-data">
                 <img class="goodsimg" src="../../assets/addimg.png">
-                <input id="multipartFile" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+                <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
             </form>
         </div>
         <img id="img1">
@@ -53,31 +53,40 @@
                     }
                 }
             },
-
             upload: function() {
                 var _self = this;
+                var files = $('#file')[0];
+                console.log(files); 
                 var formData = new FormData();
-                var files = $('#multipartFile')[0].files;
-                var length = files.length;
-                for (var i = 0; i < length; i++)
-                    formData.append('file', files[i]);
-                //var  formData  =  new  FormData($( "#multipartFile" )[0]);  
+                formData.append('file', $('#file')[0].files[0]);
+
                 var obj = {};
-                obj.barterCommodityname = "fsdfsdfsdfsdfsd";
+                obj.barterCommodityname = _self.goodsname;
                 obj.barterSellingprice = _self.price;
                 obj.barterContactinformation = _self.phone;
                 obj.barterCommodityquantity = _self.number;
                 obj.barterCommodityaddress = _self.address;
                 obj.barterDescriptioninform = _self.goodsinfo;
                 obj.barterCategoryid = _self.goodstype;
+
+                // formData.append('barterGoodsVo', JSON.stringify(obj));
+                // formData.append('barterGoodsVo', $.param(obj));
+                // formData.append('name', '1234567');
+
+                formData.append('barterCommodityname', _self.goodsname);
+                formData.append('barterSellingprice', _self.price);
+                formData.append('barterContactinformation', _self.phone);
+                formData.append('barterCommodityquantity', _self.number);
+                formData.append('barterCommodityaddress', _self.address);
+                formData.append('barterDescriptioninform', _self.goodsinfo);
+                formData.append('barterCategoryid', _self.goodstype);
+
                 console.log(formData);
                 console.log(obj);
                 $.ajax({
                     url: port + 'goods/addGoods',
                     type: 'POST',
-                    data: {
-                        formData
-                    },
+                    data: formData,
                     // data: {
                     //     "barterCommodityname": _self.goodsname,
                     //     "barterSellingprice": _self.price,
@@ -89,7 +98,7 @@
                     //     "barterCategoryid": _self.goodstype,
                     // },
 
-                    // processData: false,
+                    processData: false,
                     contentType: false,
                     success: function(data) {
                         console.log(data);
