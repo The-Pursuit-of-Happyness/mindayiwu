@@ -49,16 +49,18 @@
                 <label class="title">图片</label>                
             </div>            
             <div class="addimg">
+                <form>
                 <div class="imgbox">
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
                 </div>
-                <!--
+                
                 <div class="imgbox">
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                 </div>
-                
+                </form>
+                <!--
                 <div class="imgbox"> 
                     <img class="goodsimg" src="../../assets/addimg.png">
                     <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
@@ -120,6 +122,7 @@
             /*采用formData形式上传图片和表单数据*/
             upload: function() {
                 var _self = this;
+                var formData = new FormData();
                 var inputs = $("input.fileupload");
                 for (var i = 0; i < inputs.length; i++) {
                     /*
@@ -135,13 +138,14 @@
                     }*/
                     var file = inputs[i];
                     if (inputs[i].files[0]) {
-                        this.photos.push(file.files[0]);
+                        formData.append("file", file.files[0], file.files[0].name);
+                        //this.photos.push(file.files[0]);
                         console.log(file.files[0]);
                     }
                 }
                 console.log(this.photos);
-                var formData = new FormData();
-                formData.append('file', $("input.fileupload")[0].files[0]);
+
+                //formData.append("file", $("form").getFormData());
                 formData.append('barterCommodityname', _self.goodsname);
                 formData.append('barterSellingprice', _self.price);
                 formData.append('barterContactinformation', _self.phone);
