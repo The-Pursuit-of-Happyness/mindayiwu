@@ -8,68 +8,74 @@
             </div>
         </div>
         <div class="goodsbox">
-            <div class="startleft namebox">
-                <label class="title">商品名称：</label><input class="noborder" v-model="goodsname" placeholder="请输入商品名称">
-            </div>
-            <div class="startleft goodstypebox">
-                <label class="title">商品类型：</label>
-                <select v-model="goodstype">
-                    <option value="请选择">请选择</option>
-                    <option value="图书">图书</option>
-                    <option value="卡券">卡券</option>
-                    <option value="服装">服装</option>
-                    <option value="礼品">礼品</option>
-                    <option value="运动装备">运动装备</option>
-                    <option value="电子设备">电子设备</option>
-                    <option value="日用百货">日用百货</option>
-                    <option value="其他">其他</option>
-                </select>
-            </div>           
-            <div class="startleft describebox">
-                <label class="title">商品描述</label>              
-            </div class="startleft">
-             <textarea class="describeinfo" v-model="goodsinfo"></textarea>
-            <div class="startleft">
-                <label class="title">单价:</label>
-                <input class="noborder" placeholder="请输入单价" v-model="price">
-            </div>
-            <div class="startleft">
-                <label class="title">数量:</label>
-                <input class="noborder" placeholder="请输入数量" v-model="number">
-            </div>
-            <div class="startleft">
-                <label class="title">联系电话:</label>
-                <input class="noborder" placeholder="请输入手机号" v-model="phone">
-            </div>
-            <div class="startleft">
-                <label class="title">地址:</label>
-                <input class="noborder" placeholder="请输入地址" v-model="address">
-            </div>
-            <div class="startleft">
-                <label class="title">图片</label>                
-            </div>            
-            <div class="addimg">
-                <form>
-                <div class="imgbox">
-                    <img class="goodsimg" src="../../assets/addimg.png">
-                    <input type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+            <p class="formtitle">商品基本信息</p>
+            <div class="messagebox">            
+                <div class="startleft namebox">
+                    <label class="title">商品名称：</label><input class="noborder" v-model="goodsname" placeholder="请输入商品名称">
                 </div>
-                
-                <div class="imgbox">
-                    <img class="goodsimg" src="../../assets/addimg.png">
-                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+
+                <div class="startleft">
+                    <label class="title">商品单价：</label>
+                    <input class="noborder" placeholder="请输入单价" v-model="price">
                 </div>
-                </form>
-                <!--
-                <div class="imgbox"> 
-                    <img class="goodsimg" src="../../assets/addimg.png">
-                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                <div class="startleft">
+                    <label class="title">商品数量：</label>
+                    <input class="noborder" type="number" min="0" max ="100" placeholder="请输入数量" v-model="number">
                 </div>
-                <div class="imgbox">
-                    <img class="goodsimg" src="../../assets/addimg.png">
-                    <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                <div class="startleft">
+                    <label class="title">联系电话：</label>
+                    <input class="noborder" placeholder="请输入手机号" v-model="phone">
                 </div>
-                -->
+                <div class="startleft">
+                    <label class="title">联系地址：</label>
+                    <input class="noborder" placeholder="请输入地址" v-model="address">
+                </div>
+                <div class="startleft goodstypebox">
+                    <label class="title">商品类型：</label>
+                    <select v-model="goodstype">
+                        <option value="请选择">请选择</option>
+                        <option value="图书">图书</option>
+                        <option value="卡券">卡券</option>
+                        <option value="服装">服装</option>
+                        <option value="礼品">礼品</option>
+                        <option value="运动装备">运动装备</option>
+                        <option value="电子设备">电子设备</option>
+                        <option value="日用百货">日用百货</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </div>
+            <div class="messagebox">        
+                <div class="startleft describebox">
+                    <label class="title">商品描述</label>              
+                </div>
+                <textarea class="describeinfo" v-model="goodsinfo"></textarea>
+            </div>
+            <div class="messagebox">
+                <div class="startleft">
+                    <label class="title">图片</label>   
+                </div>            
+                <div class="addimg">
+                    <div class="imgbox">
+                        <img class="goodsimg" src="../../assets/addimg.png">
+                        <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+                    </div>
+                    
+                    <div class="imgbox">
+                        <img class="goodsimg" src="../../assets/addimg.png">
+                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                    </div>               
+                    <!--
+                    <div class="imgbox"> 
+                        <img class="goodsimg" src="../../assets/addimg.png">
+                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                    </div>
+                    <div class="imgbox">
+                        <img class="goodsimg" src="../../assets/addimg.png">
+                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
+                    </div>
+                    -->
+                </div>
             </div>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
@@ -96,6 +102,7 @@
                 number: '8',
                 phone: '14443578878',
                 address: '大连',
+                uuid: 'abcdefg123456',
                 photos: [],
             }
         },
@@ -153,6 +160,7 @@
                 formData.append('barterCommodityaddress', _self.address);
                 formData.append('barterDescriptioninform', _self.goodsinfo);
                 formData.append('barterCategoryid', _self.goodstype);
+                formData.append('barterUserid', _self.uuid);
                 var _self = this;
                 $.ajax({
                     type: 'POST',
@@ -181,6 +189,102 @@
                         }
                     }
                 });
+            },
+            uploadtest: function() {
+                var _self = this;
+                /*单张图片上传
+                var inputs = $("input.fileupload");
+                for (var i = 0; i < inputs.length; i++) {
+                    //图片转base64上传
+                    var file = inputs[i].files;
+                    var leng = file.length;
+                    for (var i = 0; i < leng; i++) {
+                        if (file[i]) {
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file[i]);
+                            reader.onload = function(e) {
+                                var event = this;
+                                _self.photos.push(JSON.stringify(this.result));
+                                console.log(event.result);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'http://10.145.0.05/goods/addGoodsBase64',
+                                    dataType: "json",
+                                    data: {
+                                        "base64": event.result,
+                                    },
+                                    success: function(data) {
+                                        console.log(data);
+                                    }
+                                });
+                            }
+                        }
+
+                    }
+                }*/
+                $.ajax({
+                    async: false,
+                    beforeSend: function() {
+                        var inputs = $("input.fileupload");
+                        _self.photos = [];
+                        for (var i = 0; i < inputs.length; i++) {
+                            //图片转base64上传
+                            var file = inputs[i].files;
+                            if (file[0]) {
+                                var reader = new FileReader();
+                                reader.readAsDataURL(file[0]);
+                                reader.onload = function(e) {
+                                    //var URL = window.URL || window.webkitURL;
+                                    // var blob = URL.createObjectURL(file);
+                                    // var base64;
+
+                                    // var img = new Image();
+                                    // img.src = blob;
+                                    // img.onload = function() {
+                                    //     var that = this;
+
+                                    //     //生成比例
+                                    //     var w = that.width,
+                                    //         h = that.height,
+                                    //         scale = w / h;
+                                    //         w = wid || w;
+                                    //         h = w / scale;
+
+                                    //     //生成canvas
+                                    //     var canvas = document.createElement('canvas');
+                                    //     var ctx = canvas.getContext('2d');
+                                    //     $(canvas).attr({
+                                    //         width: w,
+                                    //         height: h
+                                    //     });
+                                    //     ctx.drawImage(that, 0, 0, w, h);
+
+                                    //     // 生成base64            
+                                    //     base64 = canvas.toDataURL('image/jpeg', quality || 0.8);
+                                    _self.photos.push(e.target.result);
+                                }
+                            }
+                        }
+                        console.log(_self.photos);
+                    },
+                    type: 'POST',
+                    url: 'http://10.145.0.05/goods/addGoodsBase64',
+                    dataType: "json",
+                    traditional: true,
+                    data: {
+                        "base64": _self.photos,
+                    },
+                    // processData: false,
+                    // contentType: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            console.log("success");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
             }
         }
     }
@@ -199,6 +303,7 @@
     
     .startleft {
         display: flex;
+        margin-bottom: 5px;
         -webkit-box-align: center;
         /* android 2.1-3.0, ios 3.2-4.3 */
         -webkit-align-items: center;
@@ -253,18 +358,31 @@
         height: auto;
     }
     
+    .messagebox {
+        border: solid 1px #ccc;
+        border-radius: 8px;
+        margin: 15px;
+        padding: 5px;
+    }
+    
     .namebox {
         width: 100%;
-        height: 40px;
         max-width: 640px;
     }
     
+    .formtitle {
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    
     .title {
-        font-size: 14px;
+        font-size: 16px;
         margin-left: 15px;
     }
     
     .noborder {
+        font-size: 16px;
         border: none;
         border-bottom: solid 1px #ccc;
     }
@@ -281,9 +399,11 @@
     }
     
     .describeinfo {
-        margin-top: 10px;
-        width: 80%;
+        margin-top: 5px;
+        width: 90%;
         height: 100px;
+        resize: none;
+        border: solid 1px #ccc;
     }
     
     .addimg {
