@@ -68,13 +68,28 @@
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         name: 'productdetailspage',
         data() {
             return {
                 currentpage: 0,
                 height: window.clientHeight,
+                goodsid: '',
             }
+        },
+        computed: mapGetters({
+            currentgoodsid: 'currentgoodsid',
+        }),
+        created() {
+            console.log("商品详情页面：" + this.currentgoodsid);
+            this.goodsid = this.currentgoodsid;
+            this.getGoodsInfo();
         },
         methods: {
             backHome() {
@@ -82,6 +97,23 @@
             },
             enterShop() {
                 this.$router.replace('/ShopPage');
+            },
+
+            getGoodsInfo: function() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + _self.goodsid + "/lookupId",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data.data);
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
             },
         },
         mounted() {

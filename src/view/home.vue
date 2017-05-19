@@ -67,7 +67,7 @@
           
       </div>
       <div v-for="recommenditem of recommendItems">
-            <recommenitem :goodsimage ="recommenditem.img" :type="recommenditem.type" :goodsname="recommenditem.goodsname" :price="recommenditem.price"></recommenitem>
+            <recommenitem :goodsimage ="recommenditem.img" :goodstype="recommenditem.goodstype" :goodsname="recommenditem.goodsname" :price="recommenditem.price" :goodsid ="recommenditem.id"></recommenitem>
             <space></space>
       </div>
       <div class="bottombox"></div>
@@ -76,6 +76,9 @@
 
 <script>
     import imgurl from './../assets/goods3.jpg';
+    import {
+        WEB_SERVER as port
+    } from '../config';
     export default {
         name: 'home',
         data() {
@@ -85,6 +88,7 @@
             }
         },
         created() {
+            this.getRecommend();
             this.loadDownFn();
         },
         methods: {
@@ -106,7 +110,32 @@
                         console.log('Ajax error!');
                     }
                 });
-            }
+            },
+            getRecommend: function() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + '/goods/diagramList',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            for (var obj of data.data.record_list) {
+                                var goods = {};
+                                goods.img = obj.barter_showpictures;
+                                goods.goodstype = obj.barter_severalnew;
+                                goods.goodsname = obj.barter_commodityname;
+                                goods.price = obj.barter_sellingprice;
+                                goods.id = obj.barter_commoditynumber;
+                                _self.recommendItems.push(goods);
+                            }
+                            console.log(data.data.record_list);
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
         },
         mounted() {
             var mySwiper = new Swiper('.swiper-container', {

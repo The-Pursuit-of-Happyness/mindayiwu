@@ -32,15 +32,29 @@
                 <div class="startleft goodstypebox">
                     <label class="title">商品类型：</label>
                     <select v-model="goodstype">
-                        <option value="请选择">请选择</option>
-                        <option value="图书">图书</option>
-                        <option value="卡券">卡券</option>
-                        <option value="服装">服装</option>
-                        <option value="礼品">礼品</option>
-                        <option value="运动装备">运动装备</option>
-                        <option value="电子设备">电子设备</option>
-                        <option value="日用百货">日用百货</option>
-                        <option value="其他">其他</option>
+                        <option value="-1">请选择</option>
+                        <option value="1">图书</option>
+                        <option value="2">卡券</option>
+                        <option value="3">服装</option>
+                        <option value="4">礼品</option>
+                        <option value="5">运动装备</option>
+                        <option value="6">电子设备</option>
+                        <option value="7">日用百货</option>
+                        <option value="8">其他</option>
+                    </select>
+                </div>
+                <div class="startleft goodstypebox">
+                    <label class="title">商品成色：</label>
+                    <select v-model="secondhand">
+                        <option value="-1">请选择</option>
+                        <option value="1">全新</option>
+                        <option value="2">九九新</option>
+                        <option value="3">九五新</option>
+                        <option value="4">九成新</option>
+                        <option value="5">八成新</option>
+                        <option value="6">七成新</option>
+                        <option value="7">六成新</option>
+                        <option value="8">其他</option>
                     </select>
                 </div>
             </div>
@@ -101,17 +115,21 @@
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {
                 height: window.clientHeight,
-                goodsname: '铅笔',
-                goodstype: '1',
-                goodsinfo: '啊啊啊啊',
-                price: 14.05,
+                goodsname: '魅族手机',
+                goodstype: '8',
+                goodsinfo: '这是一款时尚而又新颖的手机，方便灵活，拍照神器。',
+                price: 2100.00,
                 number: '8',
-                phone: '14443578878',
-                address: '大连',
+                phone: '15898195729',
+                address: '大连市大连民族大学金石滩校区',
+                secondhand: '2',
                 uuid: 'abcdefg123456',
                 photos: [],
                 photosUrl: [],
@@ -365,11 +383,12 @@
                 formData.append('barterDescriptioninform', _self.goodsinfo);
                 formData.append('barterCategoryid', _self.goodstype);
                 formData.append('barterUserid', _self.uuid);
+                formData.append('barterSeveralnew', _self.secondhand);
                 console.log(_self.photos);
                 var _self = this;
                 $.ajax({
                     type: 'POST',
-                    url: 'http://10.145.0.05/goods/addGoods',
+                    url: port + 'goods/addGoods',
                     dataType: "json",
                     data: formData,
                     processData: false,
