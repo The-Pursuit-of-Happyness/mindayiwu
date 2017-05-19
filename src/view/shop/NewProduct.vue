@@ -13,7 +13,6 @@
                 <div class="startleft namebox">
                     <label class="title">商品名称：</label><input class="noborder" v-model="goodsname" placeholder="请输入商品名称">
                 </div>
-
                 <div class="startleft">
                     <label class="title">商品单价：</label>
                     <input class="noborder" placeholder="请输入单价" v-model="price">
@@ -53,19 +52,20 @@
             </div>
             <div class="messagebox">
                 <div class="startleft">
-                    <label class="title">图片</label>   
+                    <label class="title">图片</label>
+                    <p class="deleteinfo">(点击选中的图片即可删除)</p> 
                 </div>            
-                <div class="addimg">
-                    <div class="imgbox">
-                        <img class="goodsimg" src="../../assets/addimg.png">
+                <div class="addimg" id="addimg">
+                    <div v-if="photos.length<3" class="imgbox">
+                        <img class="imgadd" src="../../assets/addimg.png">
                         <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
                     </div>
-                    
+                    <!--
                     <div class="imgbox">
                         <img class="goodsimg" src="../../assets/addimg.png">
                         <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                     </div>               
-                    <!--
+                    
                     <div class="imgbox"> 
                         <img class="goodsimg" src="../../assets/addimg.png">
                         <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
@@ -78,12 +78,22 @@
                 </div>
             </div>
         </div>
+        <div class="weui-mask" v-if="isdelete"></div>
+        <div class="weui-dialog weui-skin_android" v-if="isdelete">
+            <div class="weui-dialog__bd">                
+                   确定删除图片？                
+            </div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="deleteimg()">确定</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isdelete = false;">取消</a>
+            </div>
+        </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
                 <li class="item" @click="backShop()">返回货架</li>
                 <li class="item border">放弃编辑</li>
-                <li class="item" @click="upload()">上架</li>
+                <li class="item" @click="upload2()">上架</li>
             </ul>
         </div>
         <div class="fillbottom"></div>
@@ -104,6 +114,10 @@
                 address: '大连',
                 uuid: 'abcdefg123456',
                 photos: [],
+                photosUrl: [],
+                isdelete: false,
+                currentimg: null,
+                currentindex: -1,
             }
         },
         created() {},
@@ -114,17 +128,66 @@
             backShop: function() {
                 this.$router.replace('MyShop');
             },
-            viewimg($event) {
-                var currentObj = event.currentTarget; //获取当前的input标签
-                var img = currentObj.parentNode.children[0]; //找到要预览的图片img标签，亦可动态生成
-                setImagePreview(currentObj, img);
+            // viewimg($event) {
+            //     var currentObj = event.currentTarget; //获取当前的input标签
+            //     var img = currentObj.parentNode.children[0]; //找到要预览的图片img标签，亦可动态生成
+            //     setImagePreview(currentObj, img);
 
-                function setImagePreview(docObj, imgObjPreview) {
-                    if (docObj.files && docObj.files[0]) {
-                        imgObjPreview.style.display = 'block';
-                        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-                    }
+            //     function setImagePreview(docObj, imgObjPreview) {
+            //         if (docObj.files && docObj.files[0]) {
+            //             imgObjPreview.style.display = 'block';
+            //             imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            //         }
+            //     }
+            // },
+            viewimg($event) {
+                var _self = this;
+                var currentObj = event.currentTarget; //获取当前的input标签
+                var img = new Image(); //currentObj.parentNode.children[0]; //找到要预览的图片img标签，亦可动态生成
+                if (currentObj.files && currentObj.files[0]) {
+                    img.className = "imgstyle";
+                    img.style.width = "90%";
+                    img.style.height = "auto";
+                    img.style.marginBottom = "5px";
+                    img.style.maxHeight = "300px";
+                    var urls = window.URL.createObjectURL(currentObj.files[0]);
+                    img.src = urls;
+                    img.onclick = function() {
+                        for (var i = 0; i < _self.photosUrl.length; i++) {
+                            if (this.src == _self.photosUrl[i]) {
+                                // _self.photosUrl.splice(i, 1);
+                                // _self.photos.splice(i, 1);
+                                // this.remove(this);
+                                _self.isdelete = true;
+                                _self.currentindex = i;
+                                _self.currentimg = this;
+                                console.log("delete");
+                            }
+                        }
+                    };
+                    // $(img).dblclick(function() {
+                    //     for (var i = 0; i < _self.photosUrl.length; i++) {
+                    //         if (this.src == _self.photosUrl[i]) {
+                    //             console.log(_self.photosUrl.length);
+                    //             console.log(_self.photos.length);
+                    //             _self.photosUrl.splice(i, 1);
+                    //             _self.photos.splice(i, 1);
+                    //             this.remove(this);
+                    //             console.log(i);
+                    //         }
+                    //     }
+                    //     console.log("delete");
+                    // });
+                    this.photos.push(currentObj.files[0]);
+                    this.photosUrl.push(urls);
+                    $("#addimg").prepend(img);
                 }
+            },
+            deleteimg: function() {
+                this.photosUrl.splice(this.currentindex, 1);
+                this.photos.splice(this.currentindex, 1);
+                this.currentimg.remove(this.currentimg);
+                this.isdelete = false;
             },
             /*采用formData形式上传图片和表单数据*/
             upload: function() {
@@ -285,7 +348,42 @@
                         }
                     }
                 });
-            }
+            },
+            /*采用formData形式上传图片和表单数据*/
+            upload2: function() {
+                var _self = this;
+                var formData = new FormData();
+                var images = _self.photos;
+                for (var i = 0; i < images.length; i++) {
+                    formData.append("file", images[i], images[i].name);
+                }
+                formData.append('barterCommodityname', _self.goodsname);
+                formData.append('barterSellingprice', _self.price);
+                formData.append('barterContactinformation', _self.phone);
+                formData.append('barterCommodityquantity', _self.number);
+                formData.append('barterCommodityaddress', _self.address);
+                formData.append('barterDescriptioninform', _self.goodsinfo);
+                formData.append('barterCategoryid', _self.goodstype);
+                formData.append('barterUserid', _self.uuid);
+                console.log(_self.photos);
+                var _self = this;
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://10.145.0.05/goods/addGoods',
+                    dataType: "json",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            console.log("success");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
         }
     }
 </script>
@@ -410,11 +508,6 @@
         width: 100%;
         max-width: 640px;
         height: auto;
-        background: #f1f1f1;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        column-count: 2;
-        /*列数*/
     }
     
     .imgbox {
@@ -422,29 +515,27 @@
         position: relative;
         width: 90%;
         margin-left: 5%;
-        margin-right: 5px;
-        margin-bottom: 10px;
         height: auto;
     }
     
-    .goodsimg {
-        width: 100%;
-        height: auto;
+    .deleteinfo {
+        display: block;
+        color: red;
+        margin-left: 5px;
+    }
+    
+    .imgadd {
+        width: 180px;
+        height: 180px;
     }
     
     .fileupload {
         position: absolute;
+        left: 19%;
         top: 0;
-        left: 0;
-        width: 100%;
-        height: auto;
-        min-height: 170px;
+        width: 180px;
+        height: 180px;
         opacity: 0;
-    }
-    
-    .iconimg {
-        width: 100%;
-        height: auto;
     }
     
     .bottombox {
