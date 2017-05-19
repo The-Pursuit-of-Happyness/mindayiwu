@@ -2,7 +2,9 @@
   <div class="classifypage">
       <p class="title">{{type}}</p>
       <div class="filltop"></div>
+      <div></div>
         <div class="items">
+            <classifyitem></classifyitem>
             <classifyitem></classifyitem>
             <classifyitem></classifyitem>
             <classifyitem></classifyitem>
@@ -11,14 +13,9 @@
             <classifyitem></classifyitem>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
-            <ul class="bottommenu">
-                <li class="item" @click="backHome()">首页</li>
-                <li class="item">宝贝分类</li>
-                <li class="item border">店铺简介</li>
-                <li class="item">联系卖家</li>
-            </ul>
+            <p class="backhome" @click="backhome()">返回首页</p>
         </div> 
-        <div class="bottombox"></div>
+        <div class="fillbottom"></div>
   </div>
 </template>
 
@@ -31,12 +28,10 @@
         data() {
             return {
                 height: window.clientHeight,
-                type: 'aaa',
-                msg: '',
+                type: '其他',
             }
         },
         created() {
-            console.log("bbbb:" + this.currenttype);
             if (Number.parseInt(this.currenttype)) {
                 switch (Number.parseInt(this.currenttype)) {
                     case 1:
@@ -71,6 +66,11 @@
         computed: mapGetters({
             currenttype: 'currenttype',
         }),
+        methods: {
+            backhome: function() {
+                this.$router.replace("/");
+            }
+        }
     }
 </script>
 
@@ -80,6 +80,7 @@
         width: 100%;
         max-width: 640px;
         margin: 0 auto;
+        clear: both;
     }
     
     .title {
@@ -112,16 +113,39 @@
     
     .items {
         background: #f1f1f1;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        column-count: 2;
-        /*列数*/
-        column-gap: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 10px;
+        clear: both;
     }
     
-    .bottombox {
+    .fillbottom {
         height: 60px;
         width: 100%;
         max-width: 640px;
+    }
+    
+    .bottombox {
+        height: 50px;
+        width: 100%;
+        max-width: 640px;
+        background: white;
+        position: fixed;
+        bottom: 0;
+        overflow: hidden;
+        border-top: medium none #ECEDED;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+    }
+    
+    .backhome {
+        line-height: 50px;
+        font-size: 18px;
+    }
+    
+    .backhome:active {
+        background: #2ad2c9;
+        font-size: 20px;
+        color: white;
     }
 </style>

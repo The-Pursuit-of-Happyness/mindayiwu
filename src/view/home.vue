@@ -152,33 +152,6 @@
         height: 140px;
     }
     
-    .classifyitem {
-        width: 25%;
-        height: 60px;
-        float: left;
-        display: flex;
-        -webkit-box-align: center;
-        /* android 2.1-3.0, ios 3.2-4.3 */
-        -webkit-align-items: center;
-        /* Chrome 21+ */
-        -ms-flex-align: center;
-        /* WP IE 10 */
-        align-items: center;
-        /* android 4.4 */
-        justify-content: center;
-        /* android 4.4 */
-    }
-    
-    .classifyimg {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .classifyname {
-        font-size: 12px;
-        color: #2ad2c9;
-    }
-    
     .bottombox {
         height: 55px;
         width: 100%;

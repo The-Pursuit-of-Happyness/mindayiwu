@@ -73,6 +73,7 @@
         width: 25%;
         height: 60px;
         display: flex;
+        float: left;
         -webkit-box-align: center;
         /* android 2.1-3.0, ios 3.2-4.3 */
         -webkit-align-items: center;
