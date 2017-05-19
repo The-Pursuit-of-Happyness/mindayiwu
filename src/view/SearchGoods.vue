@@ -119,6 +119,12 @@
 </script>
 
 <style scoped>
+    #searchgoods {
+        margin: 0;
+        padding: 0;
+        min-height: 500px;
+    }
+    
     .topbox {
         width: 100%;
         max-width: 640px;

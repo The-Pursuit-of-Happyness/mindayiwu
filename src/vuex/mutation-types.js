@@ -5,6 +5,8 @@
 
 //currentid
 export const CURRENT_GOODS_ID = 'CURRENT_GOODS_ID';
+//currenttype
+export const CURRENT_TYPE = "CURRENT_TYPE";
 
 //cookie
 export const RECEIVE_COOKIE = 'RECEIVE_COOKIE';

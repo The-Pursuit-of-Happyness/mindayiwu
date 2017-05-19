@@ -29,6 +29,7 @@ import cartitem from './view/components/cartitem';
 import myshopgoodsitem from './view/components/MyShopGoodsItem';
 import collectionitem from './view/components/CollectionItem';
 import smallspace from './view/components/Smallspace';
+import typeitem from './view/components/Typeitem';
 Vue.component('slider', slider);
 Vue.component('orderitem', orderitem);
 Vue.component('space', space);
@@ -42,6 +43,7 @@ Vue.component('cartitem', cartitem);
 Vue.component('myshopgoodsitem', myshopgoodsitem);
 Vue.component('collectionitem', collectionitem);
 Vue.component('smallspace', smallspace);
+Vue.component('typeitem', typeitem);
 
 
 import {

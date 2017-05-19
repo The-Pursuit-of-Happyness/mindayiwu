@@ -2,8 +2,12 @@ import * as types from '../mutation-types';
 
 // initial state
 const state = {
+    //存储当前商品
     currentgoodsid: null,
-    // //存储当前商品
+
+    //存储当前类型
+    currenttype: null,
+    // 
     // getCurrentGoods: null,
     // getCurrentGoodsStatus: null,
 };
@@ -25,7 +29,12 @@ const mutations = {
     [types.CURRENT_GOODS_ID](state, { goodsid }) {
         state.currentgoodsid = goodsid;
         console.log("modules--goodid" + goodsid)
-    }
+    },
+
+    [types.CURRENT_TYPE](state, { typeid }) {
+        state.currenttype = typeid;
+        console.log("modules--typeid" + typeid)
+    },
 };
 
 export default {

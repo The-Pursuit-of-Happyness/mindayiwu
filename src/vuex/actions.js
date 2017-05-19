@@ -15,6 +15,13 @@ export const saveGoodsId = ({ commit, state }, goodsid) => {
     });
 };
 
+export const saveType = ({ commit, state }, typeid) => {
+    return new Promise((resolve, reject) => {
+        console.log("action:" + typeid);
+        commit(types.CURRENT_TYPE, { typeid });
+    });
+};
+
 
 
 //cookie

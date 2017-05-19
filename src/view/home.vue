@@ -15,56 +15,10 @@
   <!--
       <slider></slider>
   -->
-      <div class="classifybox">
-          <div class="classifyitem" @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/book.jpg">
-                <p class ="classifyname">图书</p>
-              </div>
-          </div>         
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/card.jpg">
-                <p class ="classifyname">卡券</p>
-              </div>
-          </div>
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/cloth.jpg">
-                <p class ="classifyname">服装</p>
-              </div>
-          </div>
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/gift.jpg">
-                <p class ="classifyname">礼品</p>
-              </div>
-          </div>
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/sport.jpg">
-                <p class ="classifyname">运动装备</p>
-              </div>
-          </div>
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/electronics.jpg">
-                <p class ="classifyname">电子设备</p>
-              </div>
-          </div>
-         <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/commodity.jpg">
-                <p class ="classifyname">日用百货</p>
-              </div>
-          </div>
-          <div class="classifyitem"  @click="seeClassify()">
-              <div>
-                <img class="classifyimg" src="../assets/other.jpg">
-                <p class ="classifyname">其他</p>
-              </div>
-          </div>
-          
+      <div class="classifybox" >
+          <div v-for="type of typeitems">
+                <typeitem :typeimg="type.img" :typename="type.typename"></typeitem>
+          </div>          
       </div>
       <div v-for="recommenditem of recommendItems">
             <recommenitem :goodsimage ="recommenditem.img" :goodstype="recommenditem.goodstype" :goodsname="recommenditem.goodsname" :price="recommenditem.price" :goodsid ="recommenditem.id"></recommenitem>
@@ -76,6 +30,14 @@
 
 <script>
     import imgurl from './../assets/goods3.jpg';
+    import book from './../assets/book.jpg';
+    import card from './../assets/card.jpg';
+    import cloth from './../assets/cloth.jpg';
+    import gift from './../assets/gift.jpg';
+    import sport from './../assets/sport.jpg';
+    import electronics from './../assets/electronics.jpg';
+    import commodity from './../assets/commodity.jpg';
+    import other from './../assets/other.jpg';
     import {
         WEB_SERVER as port
     } from '../config';
@@ -84,7 +46,32 @@
         data() {
             return {
                 msg: '',
-                recommendItems: []
+                recommendItems: [],
+                typeitems: [{
+                    "img": book,
+                    "typename": "图书"
+                }, {
+                    "img": card,
+                    "typename": "卡券"
+                }, {
+                    "img": cloth,
+                    "typename": "服装"
+                }, {
+                    "img": gift,
+                    "typename": "礼品"
+                }, {
+                    "img": sport,
+                    "typename": "运动装备"
+                }, {
+                    "img": electronics,
+                    "typename": "电子设备"
+                }, {
+                    "img": commodity,
+                    "typename": "日用百货"
+                }, {
+                    "img": other,
+                    "typename": "其他"
+                }],
             }
         },
         created() {
@@ -92,9 +79,6 @@
             this.loadDownFn();
         },
         methods: {
-            seeClassify() {
-                this.$router.push('/ClassifyPage');
-            },
             loadDownFn: function(me) {
                 var _self = this;
                 $.ajax({

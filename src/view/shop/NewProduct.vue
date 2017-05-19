@@ -411,6 +411,7 @@
     .newproduct {
         width: 100%;
         max-width: 640px;
+        min-height: 400px;
     }
     
     .topbox {
