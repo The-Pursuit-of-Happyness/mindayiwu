@@ -14,6 +14,7 @@ import ManageShelf from 'view/shop/ManageShelf'
 import ShopMessage from 'view/shop/ShopMessage'
 import MyCollection from 'view/other/MyCollection'
 import Upload from 'view/other/Upload'
+import EditGoods from 'view/shop/EditGoods'
 Vue.use(Router)
 
 export default new Router({
@@ -69,5 +70,9 @@ export default new Router({
         path: '/Upload',
         name: 'Upload',
         component: Upload
+    }, {
+        path: '/EditGoods',
+        name: 'EditGoods',
+        component: EditGoods
     }]
 })

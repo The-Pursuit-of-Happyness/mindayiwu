@@ -1,6 +1,5 @@
-<!-- 上架新品  -->
-<template>
-    <div class="newproduct">       
+<template id="editgoods">
+    <div>
         <div class="topbox">
              <div class="shopbox">          
                 <img class="shopicon" src="../../assets/head.jpg">
@@ -74,21 +73,6 @@
                         <img class="imgadd" src="../../assets/addimg.png">
                         <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
                     </div>
-                    <!--
-                    <div class="imgbox">
-                        <img class="goodsimg" src="../../assets/addimg.png">
-                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    </div>               
-                    
-                    <div class="imgbox"> 
-                        <img class="goodsimg" src="../../assets/addimg.png">
-                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    </div>
-                    <div class="imgbox">
-                        <img class="goodsimg" src="../../assets/addimg.png">
-                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>
@@ -107,21 +91,21 @@
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
                 <li class="item" @click="backShop()">返回货架</li>
-                <li class="item border" @click="cancle()">放弃编辑</li>
-                <li class="item" @click="upload2()">上架</li>
+                <li class="item border" @click="cancle()">放弃修改</li>
+                <li class="item" @click="edit()">保存</li>
             </ul>
         </div>
         <div id="toast" style="opacity: 1; display: none;">
             <div class="weui-mask_transparent"></div>
             <div class="weui-toast">
                 <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-                <p class="weui-toast__content">上架成功！</p>
+                <p class="weui-toast__content">修改成功！</p>
             </div>
         </div>
         <div v-if="isuploadfaild" class="js_dialog" id="iosDialog2" style="opacity: 1;">
             <div class="weui-mask"></div>
             <div class="weui-dialog">
-                <div class="weui-dialog__bd">{{filedmsg}},商品添加失败，请重新添加</div>
+                <div class="weui-dialog__bd">{{filedmsg}},商品修改失败，请重新添加</div>
                 <div class="weui-dialog__ft">
                     <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isuploadfaild=false;">知道了</a>
                 </div>
@@ -181,18 +165,6 @@
                     this.imgs[i].remove(this.imgs[i]);
                 };
             },
-            // viewimg($event) {
-            //     var currentObj = event.currentTarget; //获取当前的input标签
-            //     var img = currentObj.parentNode.children[0]; //找到要预览的图片img标签，亦可动态生成
-            //     setImagePreview(currentObj, img);
-
-            //     function setImagePreview(docObj, imgObjPreview) {
-            //         if (docObj.files && docObj.files[0]) {
-            //             imgObjPreview.style.display = 'block';
-            //             imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-            //         }
-            //     }
-            // },
             viewimg($event) {
                 var _self = this;
                 var currentObj = event.currentTarget; //获取当前的input标签
@@ -208,9 +180,6 @@
                     img.onclick = function() {
                         for (var i = 0; i < _self.photosUrl.length; i++) {
                             if (this.src == _self.photosUrl[i]) {
-                                // _self.photosUrl.splice(i, 1);
-                                // _self.photos.splice(i, 1);
-                                // this.remove(this);
                                 _self.isdelete = true;
                                 _self.currentindex = i;
                                 _self.currentimg = this;
@@ -231,167 +200,7 @@
                 this.isdelete = false;
             },
             /*采用formData形式上传图片和表单数据*/
-            upload: function() {
-                var _self = this;
-                var formData = new FormData();
-                var inputs = $("input.fileupload");
-                for (var i = 0; i < inputs.length; i++) {
-                    /*
-                    //图片转base64上传
-                    var file = inputs[i].files;
-                    var leng = file.length;
-                    for (var i = 0; i < leng; i++) {
-                        var reader = new FileReader();
-                        reader.readAsDataURL(file[i]);
-                        reader.onload = function(e) {
-                            _self.photos.push(this.result);
-                        }
-                    }*/
-                    var file = inputs[i];
-                    if (inputs[i].files[0]) {
-                        formData.append("file", file.files[0], file.files[0].name);
-                        //this.photos.push(file.files[0]);
-                        console.log(file.files[0]);
-                    }
-                }
-                console.log(this.photos);
-
-                //formData.append("file", $("form").getFormData());
-                formData.append('barterCommodityname', _self.goodsname);
-                formData.append('barterSellingprice', _self.price);
-                formData.append('barterContactinformation', _self.phone);
-                formData.append('barterCommodityquantity', _self.number);
-                formData.append('barterCommodityaddress', _self.address);
-                formData.append('barterDescriptioninform', _self.goodsinfo);
-                formData.append('barterCategoryid', _self.goodstype);
-                formData.append('barterUserid', _self.uuid);
-                var _self = this;
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://10.145.0.05/goods/addGoods',
-                    dataType: "json",
-                    data: formData,
-                    // data: {
-                    //     "barterCommodityname": _self.goodsname,
-                    //     "barterSellingprice": _self.price,
-                    //     "barterContactinformation": _self.phone,
-                    //     "barterCommodityquantity": _self.number,
-                    //     "barterCommodityaddress": _self.address,
-                    //     "multipartFile": obj,
-                    //     "barterDescriptioninform": _self.goodsinfo,
-                    //     "barterCategoryid": _self.goodstype,
-                    // },
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        console.log(data);
-                        if (data.code == 200) {
-                            console.log("success");
-                            // _self.$router.push('/');
-                        } else {
-                            alert(data.message);
-                        }
-                    }
-                });
-            },
-            uploadtest: function() {
-                var _self = this;
-                /*单张图片上传
-                var inputs = $("input.fileupload");
-                for (var i = 0; i < inputs.length; i++) {
-                    //图片转base64上传
-                    var file = inputs[i].files;
-                    var leng = file.length;
-                    for (var i = 0; i < leng; i++) {
-                        if (file[i]) {
-                            var reader = new FileReader();
-                            reader.readAsDataURL(file[i]);
-                            reader.onload = function(e) {
-                                var event = this;
-                                _self.photos.push(JSON.stringify(this.result));
-                                console.log(event.result);
-                                $.ajax({
-                                    type: 'POST',
-                                    url: 'http://10.145.0.05/goods/addGoodsBase64',
-                                    dataType: "json",
-                                    data: {
-                                        "base64": event.result,
-                                    },
-                                    success: function(data) {
-                                        console.log(data);
-                                    }
-                                });
-                            }
-                        }
-
-                    }
-                }*/
-                $.ajax({
-                    async: false,
-                    beforeSend: function() {
-                        var inputs = $("input.fileupload");
-                        _self.photos = [];
-                        for (var i = 0; i < inputs.length; i++) {
-                            //图片转base64上传
-                            var file = inputs[i].files;
-                            if (file[0]) {
-                                var reader = new FileReader();
-                                reader.readAsDataURL(file[0]);
-                                reader.onload = function(e) {
-                                    //var URL = window.URL || window.webkitURL;
-                                    // var blob = URL.createObjectURL(file);
-                                    // var base64;
-
-                                    // var img = new Image();
-                                    // img.src = blob;
-                                    // img.onload = function() {
-                                    //     var that = this;
-
-                                    //     //生成比例
-                                    //     var w = that.width,
-                                    //         h = that.height,
-                                    //         scale = w / h;
-                                    //         w = wid || w;
-                                    //         h = w / scale;
-
-                                    //     //生成canvas
-                                    //     var canvas = document.createElement('canvas');
-                                    //     var ctx = canvas.getContext('2d');
-                                    //     $(canvas).attr({
-                                    //         width: w,
-                                    //         height: h
-                                    //     });
-                                    //     ctx.drawImage(that, 0, 0, w, h);
-
-                                    //     // 生成base64            
-                                    //     base64 = canvas.toDataURL('image/jpeg', quality || 0.8);
-                                    _self.photos.push(e.target.result);
-                                }
-                            }
-                        }
-                        console.log(_self.photos);
-                    },
-                    type: 'POST',
-                    url: 'http://10.145.0.05/goods/addGoodsBase64',
-                    dataType: "json",
-                    traditional: true,
-                    data: {
-                        "base64": _self.photos,
-                    },
-                    // processData: false,
-                    // contentType: false,
-                    success: function(data) {
-                        console.log(data);
-                        if (data.code == 200) {
-                            console.log("success");
-                        } else {
-                            alert(data.message);
-                        }
-                    }
-                });
-            },
-            /*采用formData形式上传图片和表单数据*/
-            upload2: function() {
+            edit: function() {
                 var _self = this;
                 var formData = new FormData();
                 var images = _self.photos;
@@ -440,13 +249,8 @@
         }
     }
 </script>
+
 <style scoped>
-    .newproduct {
-        width: 100%;
-        max-width: 640px;
-        min-height: 400px;
-    }
-    
     .topbox {
         width: 100%;
         height: 60px;
