@@ -3,7 +3,7 @@ let testserver = fc_host === 'dev-cdn-m.fengchaohuzhu.com' || fc_host === 'local
 export const API_SERVER = testserver ? 'http://10.145.0.05/' : 'http://10.203.87.61/';
 export const REDIRECT_URL = API_SERVER + '/wx/login2';
 export const RPC_SERVER_URL = API_SERVER + 'api/';
-export const WEB_SERVER = testserver ? 'http://10.145.0.08/' : 'http://10.203.87.61/';
+export const WEB_SERVER = testserver ? 'http://10.145.0.05/' : 'http://10.203.87.61/';
 export const ALIYUN_OSS_SERVER = 'http://hive-data.oss-cn-beijing.aliyuncs.com/';
 export const APP_ID = testserver ? 'wx41acdf257bb0648e' : 'wx2fd5eca80acdaec8';
 export const PAY_DEBUG_OPTION = testserver;

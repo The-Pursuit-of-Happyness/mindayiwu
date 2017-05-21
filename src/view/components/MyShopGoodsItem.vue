@@ -3,37 +3,73 @@
 <template>
   <div class ="myshopgoodsitem">
     <div class="topbox">
-        <p class="name"> 彩色荧光笔</p>
+        <p class="name"> {{goodsitem.name}}</p>
         <p class="editbutton" @click="edit()">编辑</p>
     </div>
     <div class="contentbox">
-        <img class="goodsimg" src="../../assets/goods3.jpg">
+        <img class="goodsimg" :src="goodsitem.img">
         <div class="messagebox">
-            <p>类型：日用百货</p>
-            <p class="info">描述：一款彩虹签字笔，时尚清新的化生</p>
-            <p>单价：$ 3.50</p>
-            <p>数量：5件</p>
+            <p>类型：{{goodsitem.type}}</p>
+            <p class="info">描述：{{goodsitem.info}}</p>
+            <p>单价：$ {{goodsitem.price}}</p>
+            <p>数量：{{goodsitem.number}}件</p>
         </div>
     </div>    
     <div class="bottom">
-       <p class="button">下架商品</p>
+       <p class="button"@click="deleteGoods()">下架商品</p>
        <p class="button" @click="seeDetails()">查看详情</p>
     </div>   
   </div>
 </template>
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
     export default ({
+        props: ['goodsitem'],
         data: function() {
             return {}
         },
-        mounted: function() {
-
-        },
+        mounted: function() {},
         methods: {
+            deleteGoods() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + _self.goodsitem.id + '/deleteGoods',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            console.log("delete success");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
             seeDetails() {
+                var thiz = this;
+                console.log("------" + this.goodsitem.id);
+                this.$store.dispatch("saveGoodsId", thiz.goodsitem.id).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    console.log("数据保存失败");
+                    Toast('保存数据失败');
+                });
                 this.$router.push('/ProductDetailsPage');
             },
             edit() {
+                var thiz = this;
+                console.log("------" + this.goodsitem.id);
+                this.$store.dispatch("saveGoodsId", thiz.goodsitem.id).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    console.log("数据保存失败");
+                    Toast('保存数据失败');
+                });
                 this.$router.push('/EditGoods');
             },
         }

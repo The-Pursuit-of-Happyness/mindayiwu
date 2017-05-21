@@ -29,9 +29,11 @@
             return {
                 height: window.clientHeight,
                 type: '其他',
+                page: 1,
             }
         },
         created() {
+            this.initData();
             if (Number.parseInt(this.currenttype)) {
                 switch (Number.parseInt(this.currenttype)) {
                     case 1:
@@ -60,13 +62,27 @@
                         break;
                 }
             }
-
             console.log(this.type);
         },
         computed: mapGetters({
             currenttype: 'currenttype',
         }),
         methods: {
+            initData() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList' + this.page,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            console.log("success");
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
             backhome: function() {
                 this.$router.replace("/");
             }

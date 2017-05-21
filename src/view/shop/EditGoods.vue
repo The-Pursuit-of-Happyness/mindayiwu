@@ -59,7 +59,7 @@
             </div>
             <div class="messagebox">        
                 <div class="startleft describebox">
-                    <label class="title">商品描述</label>              
+                    <label class="title">商品描述</label>     
                 </div>
                 <textarea class="describeinfo" v-model="goodsinfo"></textarea>
             </div>
@@ -69,7 +69,7 @@
                     <p class="deleteinfo">(点击选中的图片即可删除)</p> 
                 </div>            
                 <div class="addimg" id="addimg">
-                    <div v-if="photos.length<3" class="imgbox">
+                    <div v-if="photos.length+oldimgs.length-deleteOldImg.length<3" class="imgbox">
                         <img class="imgadd" src="../../assets/addimg.png">
                         <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
                     </div>
@@ -119,6 +119,9 @@
     import {
         WEB_SERVER as port
     } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         data() {
             return {
@@ -135,6 +138,9 @@
                 photos: [],
                 photosUrl: [],
                 imgs: [],
+                oldimgs: [],
+                isdeleteOldImg: false,
+                deleteOldImg: [],
                 isdelete: false,
                 currentimg: null,
                 currentindex: -1,
@@ -142,8 +148,65 @@
                 isuploadfaild: false,
             }
         },
-        created() {},
+        computed: mapGetters({
+            currentgoodsid: 'currentgoodsid',
+        }),
+        created() {
+            this.getGoodsInfo();
+        },
         methods: {
+            getGoodsInfo: function() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + _self.currentgoodsid + "/lookupId",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data.data);
+                            var data = data.data;
+                            _self.goodsname = data.barter_commodityname;
+                            _self.goodstype = data.barter_categoryid;
+                            _self.goodsinfo = data.barter_descriptioninform;
+                            _self.price = data.barter_sellingprice;
+                            _self.number = data.barter_commodityquantity;
+                            _self.phone = data.barter_contactinformation;
+                            _self.address = data.barter_commodityaddress;
+                            _self.secondhand = data.barter_severalnew;
+                            _self.oldimgs = data.barter_files;
+                            for (var tempimg of _self.oldimgs) {
+                                var img = new Image();
+                                img.className = "imgstyle";
+                                img.style.width = "90%";
+                                img.style.height = "auto";
+                                img.style.marginBottom = "5px";
+                                img.style.maxHeight = "300px";
+                                //var urls = window.URL.createObjectURL(currentObj.files[0]);
+                                img.src = tempimg.barter_showpictures;
+                                img.onclick = function() {
+                                    for (var i = 0; i < _self.photosUrl.length; i++) {
+                                        if (this.src == _self.photosUrl[i]) {
+                                            _self.isdelete = true;
+                                            _self.currentindex = i;
+                                            _self.currentimg = this;
+                                            _self.deleteOldImg.push(this.src);
+                                            _self.isdeleteOldImg = true;
+                                            console.log("delete");
+                                        }
+                                    }
+                                };
+                                _self.imgs.push(img);
+                                // _self.photos.push(currentObj.files[0]);
+                                _self.photosUrl.push(tempimg.barter_showpictures);
+                                $("#addimg").prepend(img);
+                            }
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
             backHome: function() {
                 this.$router.replace("/");
             },
@@ -195,7 +258,10 @@
             },
             deleteimg: function() {
                 this.photosUrl.splice(this.currentindex, 1);
-                this.photos.splice(this.currentindex, 1);
+                if (!this.isdeleteOldImg) {
+                    this.photos.splice(this.currentindex, 1);
+                }
+                this.isdeleteOldImg = false;
                 this.currentimg.remove(this.currentimg);
                 this.isdelete = false;
             },
@@ -207,6 +273,11 @@
                 for (var i = 0; i < images.length; i++) {
                     formData.append("file", images[i], images[i].name);
                 }
+                for (var i = 0; i < _self.deleteOldImg.length; i++) {
+                    console.log(_self.deleteOldImg[i]);
+                    formData.append('barterShowpictures', _self.deleteOldImg[i]);
+                }
+                //formData.append('barterShowpictures', 'abc');
                 formData.append('barterCommodityname', _self.goodsname);
                 formData.append('barterSellingprice', _self.price);
                 formData.append('barterContactinformation', _self.phone);
@@ -216,13 +287,15 @@
                 formData.append('barterCategoryid', _self.goodstype);
                 formData.append('barterUserid', _self.uuid);
                 formData.append('barterSeveralnew', _self.secondhand);
-                console.log(_self.photos);
+
+                //console.log(_self.photos);
                 var _self = this;
                 $.ajax({
                     type: 'POST',
-                    url: port + 'goods/addGoods',
+                    url: port + 'goods/updateGoods',
                     dataType: "json",
                     data: formData,
+                    traditional: true,
                     processData: false,
                     contentType: false,
                     success: function(data) {

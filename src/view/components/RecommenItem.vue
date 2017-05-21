@@ -34,21 +34,24 @@
         created() {
             switch (this.goodstype) {
                 case 1:
-                    this.goodtype = "九九新";
+                    this.goodtype = "全新";
                     break;
                 case 2:
-                    this.goodtype = "九五新";
+                    this.goodtype = "九九新";
                     break;
                 case 3:
-                    this.goodtype = "九成新";
+                    this.goodtype = "九五新";
                     break;
                 case 4:
-                    this.goodtype = "八成新";
+                    this.goodtype = "九成新";
                     break;
                 case 5:
-                    this.goodtype = "七成新";
+                    this.goodtype = "八成新";
                     break;
                 case 6:
+                    this.goodtype = "七成新";
+                    break;
+                case 7:
                     this.goodtype = "六成新";
                     break;
                 default:
