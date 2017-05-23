@@ -1,7 +1,7 @@
 <!--商家商品分类组件 -->
 
 <template>
-  <div class ="myshopgoodsitem">
+  <div class ="myshopgoodsitem" v-if="isshow">
     <div class="topbox">
         <p class="name"> {{goodsitem.name}}</p>
         <p class="editbutton" @click="edit()">编辑</p>
@@ -16,9 +16,19 @@
         </div>
     </div>    
     <div class="bottom">
-       <p class="button"@click="deleteGoods()">下架商品</p>
+       <p class="button"@click="showdialog = true;">下架商品</p>
        <p class="button" @click="seeDetails()">查看详情</p>
-    </div>   
+    </div> 
+    <space></space>
+    <div class="weui-dialog weui-skin_android" v-if="showdialog">
+            <div class="weui-dialog__bd">                
+                   确定下架商品？                
+            </div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="deleteGoods()">确定</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="showdialog = false;">取消</a>
+            </div>
+        </div>
   </div>
 </template>
 <script>
@@ -31,7 +41,10 @@
     export default ({
         props: ['goodsitem'],
         data: function() {
-            return {}
+            return {
+                isshow: true,
+                showdialog: false,
+            }
         },
         mounted: function() {},
         methods: {
@@ -43,6 +56,7 @@
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
+                            _self.isshow = false;
                             console.log("delete success");
                         } else {
                             alert(data.message);

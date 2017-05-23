@@ -3,23 +3,29 @@
       <p class="title">{{type}}</p>
       <div class="filltop"></div>
       <div></div>
-        <div class="items">
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
-            <classifyitem></classifyitem>
+        <div class="items" > 
+            <div v-for="item of items">
+                <classifyitem :goodsimage='item.img' :goodstype='item.type' :goodsname='item.name' :price='item.price' :goodsid='item.id'></classifyitem>
+            </div>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <p class="backhome" @click="backhome()">返回首页</p>
         </div> 
         <div class="fillbottom"></div>
+         <div v-if="isloading" id="loadingToast" style="opacity: 1;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">数据加载中</p>
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     import {
         mapGetters
     } from 'vuex';
@@ -27,9 +33,11 @@
         name: 'classifypage',
         data() {
             return {
+                isloading: false,
                 height: window.clientHeight,
                 type: '其他',
                 page: 1,
+                items: [],
             }
         },
         created() {
@@ -68,18 +76,50 @@
             currenttype: 'currenttype',
         }),
         methods: {
-            initData() {
+            loadDownFn: function(me) {
                 var _self = this;
                 $.ajax({
                     type: 'GET',
-                    url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList' + this.page,
+                    url: './static/json/goodsinfo.json',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data);
+                            _self.items = data.data.recommendItems;
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
+            initData() {
+                this.isloading = true;
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList/' + this.page,
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
-                            console.log("success");
+                            for (var obj of data.data.record_list) {
+                                var goods = {};
+                                goods.img = obj.barter_showpictures;
+                                goods.goodstype = obj.barter_severalnew;
+                                goods.goodsname = obj.barter_commodityname;
+                                goods.price = obj.barter_sellingprice;
+                                goods.id = obj.barter_commoditynumber;
+                                _self.items.push(goods);
+                            }
+                            console.log(data.data.record_list);
+                            _self.isloading = false;
                         } else {
                             alert(data.message);
                         }
+                    },
+                    error: function(xhr, type) {
+                        _self.loadDownFn();
+                        console.log('Ajax error!');
                     }
                 });
             },

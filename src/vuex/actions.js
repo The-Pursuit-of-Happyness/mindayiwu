@@ -22,6 +22,12 @@ export const saveType = ({ commit, state }, typeid) => {
     });
 };
 
+export const saveShopId = ({ commit, state }, shopid) => {
+    return new Promise((resolve, reject) => {
+        console.log("action:" + shopid);
+        commit(types.CURRENT_SHOP_ID, { shopid });
+    });
+};
 
 
 //cookie

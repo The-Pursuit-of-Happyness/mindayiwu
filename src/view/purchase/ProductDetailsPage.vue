@@ -1,11 +1,14 @@
 <template>   
   <div class="productdetailspage">
-        <div class="swiper-container">
+      <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img class="productimage" src="../../assets/goods1.jpg"></div>
-                <div class="swiper-slide"><img class="productimage" src="../../assets/goods2.jpg"></div>
-                <div class="swiper-slide"><img class="productimage" src="../../assets/goods3.jpg"></div>
-                <div class="swiper-slide"><img class="productimage" src="../../assets/goods4.png"></div>
+                    <div class="swiper-slide" v-if="photos.length>0" v-for="img of photos"><img class="productimage" :src="img"></div>
+                    <div class="swiper-wrapper" v-else-if="photos.length==0">
+                        <div class="swiper-slide"><img class="productimage" src="../../assets/goods1.jpg"></div>
+                        <div class="swiper-slide"><img class="productimage" src="../../assets/goods2.jpg"></div>
+                        <div class="swiper-slide"><img class="productimage" src="../../assets/goods3.jpg"></div>
+                        <div class="swiper-slide"><img class="productimage" src="../../assets/goods4.png"></div>
+                    </div>
             </div>
             <!-- 分页器 -->
             <div class="swiper-pagination"></div>
@@ -15,11 +18,11 @@
             <img class="productimage" src="../../assets/goods3.jpg">
         </div>
         -->
-        <p class="name">精品签字笔，七彩炫酷，秀出时尚</p>
+        <p class="name">{{goodsname}}</p>
         <div class="pricebox">
-            <p class="price">$ 3.50</p>
-            <p class="address">地址：金石滩校区</p>
-            <P class="number">共 2件</P>
+            <p class="price">$ {{price}}</p>
+            <p class="address">地址：{{address}}</p>
+            <P class="number">共 {{number}}件</P>
         </div>
         <space></space>
         <p class="titlebox">评价/留言</p>
@@ -78,9 +81,16 @@
         name: 'productdetailspage',
         data() {
             return {
+                goodsname: '精品签字笔，七彩炫酷，秀出时尚',
+                price: 3.50,
+                address: '金石滩校区',
+                number: '2',
+                photos: [],
+                second: '九成新',
                 currentpage: 0,
                 height: window.clientHeight,
                 goodsid: '',
+                shopid: 'abcdefg123456',
             }
         },
         computed: mapGetters({
@@ -96,6 +106,13 @@
                 this.$router.replace('/');
             },
             enterShop() {
+                var thiz = this;
+                this.$store.dispatch("saveShopId", thiz.shopid).then(() => {
+                    Toast("保存数据成功！！！");
+                    console.log("数据保存成功！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.replace('/ShopPage');
             },
 
@@ -108,6 +125,39 @@
                     success: function(data) {
                         if (data.code == 200) {
                             console.log(data.data);
+                            var data = data.data;
+                            switch (data.barter_severalnew) {
+                                case 1:
+                                    _self.second = "全新";
+                                    break;
+                                case 2:
+                                    _self.second = "九九新";
+                                    break;
+                                case 3:
+                                    _self.second = "九五新";
+                                    break;
+                                case 4:
+                                    _self.second = "九成新";
+                                    break;
+                                case 5:
+                                    _self.second = "八成新";
+                                    break;
+                                case 6:
+                                    _self.second = "七成新";
+                                    break;
+                                case 7:
+                                    _self.second = "六成新";
+                                    break;
+                                default:
+                                    _self.second = "经典款";
+                            }
+                            _self.goodsname = '[' + _self.second + ']:' + data.barter_commodityname;
+                            _self.price = data.barter_sellingprice;
+                            _self.address = data.barter_commodityaddress;
+                            _self.number = data.barter_commodityquantity;
+                            for (var img of data.barter_files) {
+                                _self.photos.push(img.barter_showpictures);
+                            }
                         }
                     },
                     error: function(xhr, type) {
@@ -123,13 +173,13 @@
                 pagination: '.swiper-pagination',
                 autoplay: 2000,
                 autoplayDisableOnInteraction: false,
-                effect: 'cube',
-                cube: {
-                    slideShadows: false,
-                    shadow: false,
-                    shadowOffset: 100,
-                    shadowScale: 0.6
-                }
+                //effect: 'cube',
+                // cube: {
+                //     slideShadows: false,
+                //     shadow: false,
+                //     shadowOffset: 100,
+                //     shadowScale: 0.6
+                // }
             })
         }
     }

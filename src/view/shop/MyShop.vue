@@ -7,8 +7,7 @@
             </div>
         </div>
         <div class="goodsbox" v-for="goodsitem of goodsitems">
-            <myshopgoodsitem :goodsitem = "goodsitem"></myshopgoodsitem>
-            <space></space>
+            <myshopgoodsitem :goodsitem = "goodsitem"></myshopgoodsitem>            
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
@@ -71,6 +70,7 @@
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
+                            _self.goodsitems = [];
                             console.log("success");
                             for (data of data.data.record_list) {
                                 var obj = {};

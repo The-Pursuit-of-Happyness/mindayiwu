@@ -25,6 +25,13 @@
             <space></space>
       </div>
       <div class="bottombox"></div>
+      <div v-if="isloading" id="loadingToast" style="opacity: 1;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">数据加载中</p>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +53,7 @@
         data() {
             return {
                 msg: '',
+                isloading: false,
                 recommendItems: [],
                 typeitems: [{
                     "img": book,
@@ -76,7 +84,7 @@
         },
         created() {
             this.getRecommend();
-            this.loadDownFn();
+            // this.loadDownFn();
         },
         methods: {
             loadDownFn: function(me) {
@@ -96,6 +104,7 @@
                 });
             },
             getRecommend: function() {
+                this.isloading = true;
                 var _self = this;
                 $.ajax({
                     type: 'GET',
@@ -113,9 +122,12 @@
                                 _self.recommendItems.push(goods);
                             }
                             console.log(data.data.record_list);
+                            _self.isloading = false;
                         }
                     },
                     error: function(xhr, type) {
+                        _self.isloading = false;
+                        _self.loadDownFn();
                         console.log('Ajax error!');
                     }
                 });

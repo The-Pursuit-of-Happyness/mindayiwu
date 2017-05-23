@@ -144,6 +144,7 @@
                 isdelete: false,
                 currentimg: null,
                 currentindex: -1,
+                goodsid: '',
                 filedmsg: '失败',
                 isuploadfaild: false,
             }
@@ -174,6 +175,7 @@
                             _self.address = data.barter_commodityaddress;
                             _self.secondhand = data.barter_severalnew;
                             _self.oldimgs = data.barter_files;
+                            _self.goodsid = data.barter_commoditynumber;
                             for (var tempimg of _self.oldimgs) {
                                 var img = new Image();
                                 img.className = "imgstyle";
@@ -287,6 +289,7 @@
                 formData.append('barterCategoryid', _self.goodstype);
                 formData.append('barterUserid', _self.uuid);
                 formData.append('barterSeveralnew', _self.secondhand);
+                formData.append('barterCommoditynumber', _self.goodsid);
 
                 //console.log(_self.photos);
                 var _self = this;
@@ -314,8 +317,12 @@
                         } else {
                             _self.filedmsg = data.message;
                             this.isuploadfaild = true;
-                            alert(data.message);
+                            //alert(data.message);
                         }
+                    },
+                    error: function(xhr, type) {
+                        alert("网络异常，请稍后重试！");
+                        console.log('Ajax error!');
                     }
                 });
             },

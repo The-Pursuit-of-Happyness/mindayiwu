@@ -7,6 +7,9 @@ const state = {
 
     //存储当前类型
     currenttype: null,
+
+    //存储当前店铺id
+    currentshopid: null,
     // 
     // getCurrentGoods: null,
     // getCurrentGoodsStatus: null,
@@ -34,6 +37,11 @@ const mutations = {
     [types.CURRENT_TYPE](state, { typeid }) {
         state.currenttype = typeid;
         console.log("modules--typeid" + typeid)
+    },
+
+    [types.CURRENT_SHOP_ID](state, { shopid }) {
+        state.currentshopid = shopid;
+        console.log("modules--typeid" + shopid)
     },
 };
 
