@@ -1,11 +1,12 @@
 <template>
-    <div id="searchgoods">        
+    <div id="searchgoods" style="height:height;">        
         <mt-search
             v-model="searchtext"
             cancel-text="取消"
             placeholder="搜索商品"
-            style="height:6vh;">
+            style="height:45px;">
             <mt-cell
+                style="text-align:left;"
                 v-for="item in result"
                 :title="item.title"
                 :value="item.value">
@@ -20,14 +21,12 @@
                     </a>
                 </div>
             </div>
-            <div class="rightbox">
-                <div v-for="type of types">
-                    <p class="typesname">{{type.name}}</p>
-                    <div v-for="item of items" class="items">
-                        <div class="itembox">
-                            <img :src="item.iconurl" class="itemicon">
-                            <p>{{item.name}}</p>                            
-                        </div>
+            <div class="rightbox">                
+                <p class="typesname">{{types[currentitem].name}}</p>
+                <div v-for="item of items" class="items">
+                    <div class="itembox">
+                        <img :src="item.iconurl" class="itemicon">
+                        <p>{{item.name}}</p>                            
                     </div>
                 </div>
             </div>
@@ -37,6 +36,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from 'vuex';
     import {
         WEB_SERVER as port
     } from '../config';
@@ -90,26 +92,26 @@
                     index: 7,
                 }],
                 items: [{
-                    name: '衣服',
+                    name: '签字笔',
                     iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '太阳镜',
+                    iconurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492841632622&di=4498d7f118f1775ea86972fa1806862e&imgtype=0&src=http%3A%2F%2Fimg.yichao.cn%2Fuploads%2Fgoods%2F2016041616161133_sml.jpg'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '牛仔裤',
+                    iconurl: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=109796721,3925504117&fm=23&gp=0.jpg'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '美元',
+                    iconurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492849509349&di=bc81461e0e463ab02318bd1d5f2bc2a8&imgtype=0&src=http%3A%2F%2Fi.ebayimg.com%2F00%2Fs%2FNjQwWDYzNw%3D%3D%2Fz%2FKDQAAOSw-KFXdKjf%2F%2524_1.JPG%3Fset_id%3D880000500F'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '滑板车',
+                    iconurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492849614782&di=57eeb49150328849aa7bf3289b7b1f23&imgtype=0&src=http%3A%2F%2Fwww.kidel.net%2FeBusiness%2Fproduct_images%2Fb%2Fcn_b_4_180.jpg'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '水晶球',
+                    iconurl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2816780034,3222183663&fm=23&gp=0.jpg'
                 }, {
-                    name: '衣服',
-                    iconurl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg'
+                    name: '手表',
+                    iconurl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1527382830,1701498629&fm=23&gp=0.jpg'
                 }, ],
                 result: [{
                     title: 'item1',
@@ -117,16 +119,7 @@
                 }, {
                     title: 'item2',
                     value: 'link2'
-                }, {
-                    title: 'item3',
-                    value: 'link3'
-                }, {
-                    title: 'item4',
-                    value: 'link4'
-                }, {
-                    title: 'item5',
-                    value: 'link5'
-                }, ],
+                }],
                 page: 0,
                 currentitem: 0,
             }
@@ -134,28 +127,28 @@
         methods: {
             selectTab() {
                 var _self = this;
-                // $.ajax({
-                //     type: 'GET',
-                //     url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList/' + this.page,
-                //     success: function(data) {
-                //         console.log(data);
-                //         if (data.code == 200) {
-                //             for (var i = 0; i < 16 && i < data.data.record_list.length; i++) {
-                //                 var obj = data.data.record_list[i];
-                //                 var goods = {};
-                //                 goods.img = obj.barter_showpictures;                                
-                //                 goods.goodsname = obj.barter_commodityname;                               
-                //                 goods.id = obj.barter_commoditynumber;
-                //                 _self.items.push(goods);
-                //             }
-                //         } else {
-                //             alert(data.message);
-                //         }
-                //     },
-                //     error: function(xhr, type) {
-                //         console.log('Ajax error!');
-                //     }
-                // });
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + (_self.currentitem + 1) + '/categoryList/' + this.page,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            for (var i = 0; i < 16 && i < data.data.record_list.length; i++) {
+                                var obj = data.data.record_list[i];
+                                var goods = {};
+                                goods.img = obj.barter_showpictures;
+                                goods.goodsname = obj.barter_commodityname;
+                                goods.id = obj.barter_commoditynumber;
+                                _self.items.push(goods);
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
                 console.log(this.currentitem);
             },
             search() {
@@ -176,7 +169,7 @@
                                 obj.title = data.barter_commodityname;
                                 obj.value = data.barter_descriptioninform;
                                 if (obj.value.length > 15) {
-                                    obj.value = obj.value.slice(0, 15) + '...';
+                                    obj.value = obj.value.slice(0, 10) + '...';
                                 }
                                 _self.result.push(obj);
                             }
@@ -237,9 +230,11 @@
     }
     
     .contentbox {
+        position: absolute;
+        top: 43px;
         width: 100%;
         max-width: 640px;
-        height: 100%;
+        height: 90%;
     }
     
     .leftbox {
@@ -276,6 +271,7 @@
     }
     
     .rightbox {
+        padding-left: 10px;
         width: 70%;
         height: 100%;
         max-height: 85vh;
@@ -285,17 +281,18 @@
     
     .typesname {
         font-size: 15px;
-        padding-left: 15px;
-        text-align: left;
+        text-align: center;
         display: block;
         width: 100%;
         height: 40px;
+        line-height: 40px;
         clear: both;
     }
     
     .items {
-        width: 25%;
+        width: 45%;
         float: left;
+        border: solid 5px #f1f1f1;
     }
     
     .itembox {
@@ -313,8 +310,8 @@
     }
     
     .itemicon {
-        width: 40px;
-        height: 40px;
+        width: 120px;
+        height: 120px;
     }
     
     .bottombox {

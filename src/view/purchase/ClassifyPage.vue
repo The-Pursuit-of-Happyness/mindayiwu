@@ -118,6 +118,7 @@
                         }
                     },
                     error: function(xhr, type) {
+                        _self.isloading = false;
                         _self.loadDownFn();
                         console.log('Ajax error!');
                     }

@@ -65,10 +65,10 @@
             initData: function() {
                 var _self = this;
                 //当发送 ajax 请求开始时， 将 cookie 中的 token 与 username 放入 request header 中
-                $(document).ajaxSend(function(event, xhr) {
-                    xhr.setRequestHeader("token", $.cookie("token"));
-                    xhr.setRequestHeader("barterUserid", $.cookie("barterUserid"));
-                });
+                // $(document).ajaxSend(function(event, xhr) {
+                //     xhr.setRequestHeader("token", $.cookie("token"));
+                //     xhr.setRequestHeader("username", $.cookie("username"));
+                // });
                 console.log($.cookie("token"));
                 $.ajax({
                     // headers: {
