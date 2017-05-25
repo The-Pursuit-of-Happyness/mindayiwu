@@ -70,8 +70,11 @@
                                 console.log(data);
                                 if (data.code == 200) {
                                     _self.message = JSON.stringify(data);
-                                    sessionStorage.setItem('accessToken', data.data.token);
-                                    sessionStorage.setItem('useremail', _self.useremail);
+                                    //sessionStorage.setItem('accessToken', data.data.token);
+                                    // sessionStorage.setItem('useremail', _self.useremail);
+                                    $.cookie("token", data.data.token);
+                                    $.cookie("barterUserid", data.data.barter_userid);
+                                    console.log(document.cookie);
                                     _self.$router.push('/');
                                 } else {
                                     alert(data.message);

@@ -14,7 +14,7 @@
         <div v-if="isshowcontent" class="contentbox">
             <div class="leftbox">
                 <div v-for="type of types">
-                    <a class="typeitem">
+                    <a class="typeitem" v-bind:class="[{ 'typeitem-active': currentitem ==  type.index  }, 'typeitem']" @click="currentitem=type.index;selectTab();">
                         <p class="typename">{{type.name}}</p>
                         <img :src="type.imgurl" class="typeicon">
                     </a>
@@ -37,6 +37,18 @@
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../config';
+    import imgurl from './../assets/goods3.jpg';
+    import book from './../assets/book.jpg';
+    import card from './../assets/card.jpg';
+    import cloth from './../assets/cloth.jpg';
+    import gift from './../assets/gift.jpg';
+    import sport from './../assets/sport.jpg';
+    import electronics from './../assets/electronics.jpg';
+    import commodity from './../assets/commodity.jpg';
+    import other from './../assets/other.jpg';
     export default {
         name: "searchgoods",
         data() {
@@ -45,23 +57,37 @@
                 isshowcontent: true,
                 height: window.clientHeight,
                 types: [{
-                    name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
+                    name: '图书',
+                    imgurl: book,
+                    index: 0,
+                }, {
+                    name: '卡卷',
+                    imgurl: card,
+                    index: 1,
+                }, {
+                    name: '服装',
+                    imgurl: cloth,
+                    index: 2,
+                }, {
+                    name: '礼品',
+                    imgurl: gift,
+                    index: 3,
+                }, {
+                    name: '运动装备',
+                    imgurl: sport,
+                    index: 4,
+                }, {
+                    name: '电子设备',
+                    imgurl: electronics,
+                    index: 5,
                 }, {
                     name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
+                    imgurl: commodity,
+                    index: 6,
                 }, {
-                    name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
-                }, {
-                    name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
-                }, {
-                    name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
-                }, {
-                    name: '日用百货',
-                    imgurl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1432781925,4087601980&fm=23&gp=0.jpg"
+                    name: '其他',
+                    imgurl: other,
+                    index: 7,
                 }],
                 items: [{
                     name: '衣服',
@@ -101,10 +127,67 @@
                     title: 'item5',
                     value: 'link5'
                 }, ],
+                page: 0,
+                currentitem: 0,
             }
         },
         methods: {
+            selectTab() {
+                var _self = this;
+                // $.ajax({
+                //     type: 'GET',
+                //     url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList/' + this.page,
+                //     success: function(data) {
+                //         console.log(data);
+                //         if (data.code == 200) {
+                //             for (var i = 0; i < 16 && i < data.data.record_list.length; i++) {
+                //                 var obj = data.data.record_list[i];
+                //                 var goods = {};
+                //                 goods.img = obj.barter_showpictures;                                
+                //                 goods.goodsname = obj.barter_commodityname;                               
+                //                 goods.id = obj.barter_commoditynumber;
+                //                 _self.items.push(goods);
+                //             }
+                //         } else {
+                //             alert(data.message);
+                //         }
+                //     },
+                //     error: function(xhr, type) {
+                //         console.log('Ajax error!');
+                //     }
+                // });
+                console.log(this.currentitem);
+            },
+            search() {
+                var _self = this;
+                this.searchtext
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + _self.searchtext + '/lookupList/' + _self.page,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            _self.result = [];
+                            console.log(data.data);
+                            //_self.recommendItems = data.data.recommendItems;
+                            var datas = data.data.record_list;
+                            for (var data of datas) {
+                                var obj = {};
+                                obj.title = data.barter_commodityname;
+                                obj.value = data.barter_descriptioninform;
+                                if (obj.value.length > 15) {
+                                    obj.value = obj.value.slice(0, 15) + '...';
+                                }
+                                _self.result.push(obj);
+                            }
 
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            }
         },
         created() {
 
@@ -113,6 +196,7 @@
             // 如果 question 发生改变，这个函数就会运行
             searchtext: function() {
                 this.isshowcontent = this.searchtext.length == '' ? true : false;
+                this.search();
             }
         },
     }
@@ -163,7 +247,7 @@
         background: #f1f1f1;
         width: 30%;
         height: auto;
-        max-height: 85vh;
+        max-height: 80vh;
     }
     
     .typename {
@@ -177,6 +261,7 @@
     }
     
     .typeitem {
+        color: black;
         padding-left: 15px;
         width: 100%;
         height: 60px;
@@ -185,7 +270,7 @@
         justify-content: flex-start;
     }
     
-    .typeitem:active {
+    .typeitem-active {
         background: white;
         color: #2ad2c9;
     }

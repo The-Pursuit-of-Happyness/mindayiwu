@@ -11,7 +11,11 @@
 <script>
     import store from 'vuex/store'
     export default {
-        store: store
+        store: store,
+        created() {
+            this.$store.dispatch('fetchCookie', document.cookie);
+            console.log(document.cookie);
+        }
     }
 </script>
 <style>

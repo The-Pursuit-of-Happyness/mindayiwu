@@ -20,6 +20,7 @@
         <div class="topbox">
             <img class="headimage"src="../assets/shopicon.jpg">
             <p class="username">轻轻的我走了</p>
+            <p class="edit" @click="edit()">编辑</p>
         </div>
         <space></space>
         <div class="shopandcart">
@@ -60,6 +61,9 @@
             }
         },
         methods: {
+            edit() {
+                this.$router.push("MyMessage");
+            },
             shoppingcart() {
                 this.$router.replace("ShoppingCart");
             },
@@ -120,6 +124,22 @@
     .username {
         margin-left: 15px;
         font-size: 16px;
+        color: #2ad2c9;
+    }
+    
+    .edit {
+        margin-left: 50px;
+        font-size: 16px;
+        border-radius: 5px;
+        line-height: 30px;
+        height: 30px;
+        width: 60px;
+        color: black;
+        border: solid 1px #ccc;
+    }
+    
+    .edit:hover {
+        background: #f1f1f1;
         color: #2ad2c9;
     }
     

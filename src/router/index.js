@@ -15,6 +15,7 @@ import ShopMessage from 'view/shop/ShopMessage'
 import MyCollection from 'view/other/MyCollection'
 import Upload from 'view/other/Upload'
 import EditGoods from 'view/shop/EditGoods'
+import MyMessage from 'view/other/MyMessage'
 Vue.use(Router)
 
 export default new Router({
@@ -74,5 +75,9 @@ export default new Router({
         path: '/EditGoods',
         name: 'EditGoods',
         component: EditGoods
+    }, {
+        path: '/MyMessage',
+        name: 'MyMessage',
+        component: MyMessage
     }]
 })
