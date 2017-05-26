@@ -18,8 +18,8 @@
         -->
         <!-- usericon userid userName userqrcode  -->
         <div class="topbox">
-            <img class="headimage"src="../assets/shopicon.jpg">
-            <p class="username">轻轻的我走了</p>
+            <img class="headimage" :src="usericon">
+            <p class="username">{{username}}</p>
             <p class="edit" @click="edit()">编辑</p>
         </div>
         <space></space>
@@ -50,15 +50,24 @@
 <script>
     import shopIcon from '../assets/shop.png';
     import saveIcon from '../assets/save.png';
+    import shopimg from '../assets/shopicon.jpg';
+    import {
+        WEB_SERVER as port
+    } from '../config';
     export default {
         name: 'mypage',
         data() {
             return {
+                username: '轻轻的我走了',
+                usericon: shopimg,
                 shopicon: shopIcon,
                 saveicon: saveIcon,
                 msg: '',
                 userIcon: '',
             }
+        },
+        created() {
+            this.initData();
         },
         methods: {
             edit() {
@@ -81,7 +90,26 @@
             },
             toupload() {
                 this.$router.replace("Upload");
-            }
+            },
+            initData: function() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + $.cookie("username") + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.username = data.data.barter_username;
+                            _self.usericon = data.data.barter_userface;
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
         }
     }
 </script>

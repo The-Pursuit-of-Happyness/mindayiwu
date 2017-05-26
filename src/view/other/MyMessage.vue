@@ -4,21 +4,28 @@
         <div class="topbox">
             <p class="itemname">用户头像：</p>
             <div class="inline">
-                <img id="headimg" class="userimg" src="../../assets/head.jpg"></img>
+                <img id="headimg" class="userimg" :src="userimg"></img>
                 <a href="javascript:;" class="file">选择图片
                     <input id = "file" type="file" accept="image/*" capture="camera" @change="viewimg()">
                 </a>
             </div> 
-            <p class="itemname">详细信息</p>
+            <p class="itemname">用户信息</p>
             <div class="messagebox">          
-            <p class="itemname">用户名：</p>
-            <input class="inputinfo inline" value="萌娃家的小店">
-             <p class="itemname">用户邮箱：</p>
-            <input class="inputinfo inline" value="萌娃家的小店">
-             <p class="itemname">用户地址：</p>
-            <input class="inputinfo inline" value="萌娃家的小店">
-             <p class="itemname">用户电话：</p>
-            <input class="inputinfo inline" value="萌娃家的小店">
+                <p class="itemname">用户名：</p>
+                <input class="inputinfo inline" v-model = "username">                
+                <p class="itemname">用户邮箱：</p>
+                <input class="inputinfo inline" v-model="useremail">
+                <p class="itemname">用户电话：</p>
+                <input class="inputinfo inline" v-model="userphone">
+                <p class="itemname">用户介绍信息：</p>
+                <textarea class="infoarea" v-model="userinfo"></textarea>
+            </div>
+            <p class="itemname">店铺信息</p>
+            <div class="messagebox">
+                <p class="itemname">店铺名：</p>
+                <input class="inputinfo inline" v-model = "usershopname">
+                 <p class="itemname">店铺介绍信息：</p>
+                <textarea class="infoarea" v-model="usershopinfo"></textarea>
             </div>
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
@@ -27,31 +34,118 @@
                 <li class="item" @click="saveInfo()">保存</li>
             </ul>
         </div>
+        <div class="fillbottom"></div>
+        <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">上架成功！</p>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import userimg from '../../assets/head.jpg';
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {
-                userimg: '',
+                userimg: userimg,
+                username: '萌娃',
+                usershopname: '萌娃家的小店',
+                useremail: '123456@qq.com',
+                userphone: '15640928579',
+                usershopinfo: '萌娃家的小店，主营各类萌物，萌翻你的心。',
+                userinfo: '阳光帅气的小哥',
+                tempimg: '',
                 height: window.clientHeight,
             }
+        },
+        created() {
+            this.initData();
         },
         methods: {
             viewimg($event) {
                 var _self = this;
                 var currentObj = event.currentTarget; //获取当前的input标签
                 if (currentObj.files && currentObj.files[0]) {
-                    _self.userimg = currentObj.files[0];
+                    _self.tempimg = currentObj.files[0];
                     $("#headimg")[0].src = window.URL.createObjectURL(currentObj.files[0]);
                 }
             },
             backHome() {
                 this.$router.back();
             },
+            initData: function() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + $.cookie("username") + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.username = data.data.barter_username;
+                            _self.userimg = data.data.barter_userface;
+                            _self.usershopname = data.data.barter_storename;
+                            _self.useremail = data.data.barter_useremail;
+                            _self.userphone = data.data.barter_userphone;
+                            _self.usershopinfo = data.data.barter_storebewrite;
+                            _self.userinfo = data.data.barter_userinformation;
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
+            /*采用formData形式上传图片和表单数据*/
             saveInfo: function() {
-                console.log('保存信息成功');
+                var _self = this;
+                var formData = new FormData();
+                formData.append("file", _self.tempimg);
+
+                formData.append('barterUserid', $.cookie("username"));
+                formData.append('barterUsername', _self.username);
+                formData.append('barterUserphone', _self.userphone);
+                formData.append('barterUseremail', _self.useremail);
+                formData.append('barterUserinformation', _self.userinfo);
+
+                formData.append('barterStorename', _self.usershopname);
+                formData.append('barterStorebewrite', _self.usershopinfo);
+                console.log(_self.photos);
+                var _self = this;
+                $.ajax({
+                    type: 'POST',
+                    url: port + 'user/update',
+                    dataType: "json",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            //成功提示
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
+                            console.log("success");
+                        } else {
+                            _self.filedmsg = data.message;
+                            this.isuploadfaild = true;
+                            alert(data.message);
+                        }
+                    }
+                });
             },
         },
     }
@@ -151,6 +245,15 @@
         padding-bottom: 10px;
     }
     
+    .infoarea {
+        width: 90%;
+        height: 80px;
+        border: none;
+        border: solid 1px #ccc;
+        border-radius: 3px;
+        text-indent: 20px;
+    }
+    
     .bottombox {
         z-index: 1;
         height: 60px;
@@ -201,5 +304,11 @@
     .border {
         width: 50%;
         border-right: solid 1px #cacaca;
+    }
+    
+    .fillbottom {
+        width: 100%;
+        max-width: 640px;
+        height: 75px;
     }
 </style>

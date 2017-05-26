@@ -64,20 +64,12 @@
         methods: {
             initData: function() {
                 var _self = this;
-                //当发送 ajax 请求开始时， 将 cookie 中的 token 与 username 放入 request header 中
-                // $(document).ajaxSend(function(event, xhr) {
-                //     xhr.setRequestHeader("token", $.cookie("token"));
-                //     xhr.setRequestHeader("username", $.cookie("username"));
-                // });
                 console.log($.cookie("token"));
+                console.log($.cookie("username"));
                 $.ajax({
-                    // headers: {
-                    //     'token': $.cookie("token")
-                    // },
-                    // headers: {
-                    //     "Access-Control-Allow-Credentials": true,
-                    //     "Access-Control-Allow-Origin": "http://10.145.0.2/",
-                    // },
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
                     type: 'GET',
                     url: port + 'goods/' + _self.uid + '/personStoreList/' + _self.page,
                     success: function(data) {

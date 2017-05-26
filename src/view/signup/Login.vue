@@ -73,7 +73,7 @@
                                     //sessionStorage.setItem('accessToken', data.data.token);
                                     // sessionStorage.setItem('useremail', _self.useremail);
                                     $.cookie("token", data.data.token);
-                                    $.cookie("username", data.data.barter_userid);
+                                    $.cookie("username", data.data.baruserid);
                                     console.log(document.cookie);
                                     _self.$router.push('/');
                                 } else {
