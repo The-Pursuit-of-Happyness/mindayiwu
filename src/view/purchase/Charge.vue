@@ -1,0 +1,324 @@
+<template>
+    <div id="charge">
+      <p class="title">商品购买</p>      
+      <div class="filltop"></div>
+      <p>商品信息</p>
+        <div class="goodsbox">
+            <div class="leftbox">
+            <img class="goodsimg" src="../../assets/goods1.jpg">    
+            </div>
+            <div class="rightbox">
+                 <div class="messageitem rightitem"> 
+                    <label class="messagelable">商品名称：</label>
+                    <p class="messagetext">精品收纳盒</p>
+                </div>
+                <div class="messageitem rightitem">
+                    <label class="messagelable">商品成色:</label>
+                    <p class="messagetext">九成新</p>
+                </div>
+                <div class=" rightitem">
+                    <label class="messageitem messagelable">单价：</label>
+                    <p class="messagetext"><span class="price">5.50</span>元/件</p>
+                </div>
+            </div> 
+        </div>
+        <p>购买信息</p>
+        <div class="buyerbox">
+            <div class="messageitem">
+                <label class="messagelable">购买数量：</label>
+                <input class="messageinput" type="number" min="0"></input>
+            </div>
+            <div class="messageitem"> 
+                <label  class="messagelable">购买地址：</label>
+                <input  class="messageinput"></input>
+            </div>
+            <div class="messageitem">
+                <label class="messagelable">联系电话：</label>
+                <input  class="messageinput"></input>
+            </div>
+            <div>
+                <p class="messageitem messagelable">买家留言：</p>
+                <textarea class="note" placeholder="可以给卖家留言哦！！！"></textarea>
+            </div>
+        </div>
+        <div class="pricebox">
+            <label   class="messagelable">金额：</label>
+            <p class="price">22.00元</p>
+        </div>
+
+       <div class="bottombox" :style="{'top':(height-12) + 'px'}">
+            <ul class="bottommenu">
+                <li class="item" @click="backHome()">首页</li>
+                <li class="item border">放弃购买</li>
+                <li class="item">提交订单</li>
+            </ul>
+        </div>
+        <div class="fillbottom"></div>
+    </div>
+</template>
+
+<script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
+    export default {
+        data() {
+            return {
+                goodsid: '',
+                height: window.clientHeight,
+            }
+        },
+        computed: mapGetters({
+            currentgoodsid: 'currentgoodsid',
+        }),
+        creaed() {
+            this.goodsid = this.currentgoodsid;
+            this.getGoodsInfo();
+        },
+        methods: {
+            getGoodsInfo: function() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'goods/' + _self.goodsid + "/lookupId",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data.data);
+                            var data = data.data;
+                            switch (data.barter_severalnew) {
+                                case 1:
+                                    _self.second = "全新";
+                                    break;
+                                case 2:
+                                    _self.second = "九九新";
+                                    break;
+                                case 3:
+                                    _self.second = "九五新";
+                                    break;
+                                case 4:
+                                    _self.second = "九成新";
+                                    break;
+                                case 5:
+                                    _self.second = "八成新";
+                                    break;
+                                case 6:
+                                    _self.second = "七成新";
+                                    break;
+                                case 7:
+                                    _self.second = "六成新";
+                                    break;
+                                default:
+                                    _self.second = "经典款";
+                            }
+                            _self.goodsname = '[' + _self.second + ']:' + data.barter_commodityname;
+                            _self.price = data.barter_sellingprice;
+                            _self.address = data.barter_commodityaddress;
+                            _self.number = data.barter_commodityquantity;
+                            for (var img of data.barter_files) {
+                                _self.photos.push(img.barter_showpictures);
+                            }
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
+            backHome: function() {
+                this.$router.replace("/");
+            },
+        }
+    }
+</script>
+
+<style scoped>
+    #charge {
+        width: 100%;
+        max-width: 640px;
+    }
+    
+    .title {
+        height: 40px;
+        width: 100%;
+        max-width: 640px;
+        font-size: 16px;
+        background: #2ad2c9;
+        border-bottom: medium none #ECEDED;
+        position: fixed;
+        z-index: 1;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
+        justify-content: center;
+        /* android 4.4 */
+    }
+    
+    .filltop {
+        height: 40px;
+        width: 100%;
+        max-width: 640px;
+    }
+    
+    .goodsbox {
+        border: solid 1px #ccc;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        max-width: 640px;
+        height: 200px;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .leftbox {
+        margin: 10px;
+        width: 50%;
+    }
+    
+    .rightbox {
+        width: 50%;
+        margin-left: 5px;
+    }
+    
+    .rightitem {
+        width: 100%;
+    }
+    
+    .goodsimg {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .buyerbox {
+        width: 90%;
+        margin-left: 5%;
+        border: solid 1px #ccc;
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+    }
+    
+    .messageitem {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .messagelable {
+        font-size: 16px;
+    }
+    
+    .messagetext {
+        font-size: 16px;
+    }
+    
+    .messageinput {
+        font-size: 16px;
+        border: none;
+        border-bottom: solid 1px #ccc;
+    }
+    
+    .note {
+        width: 90%;
+        height: 120px;
+        border: none;
+        border: solid 1px #ccc;
+    }
+    
+    .price {
+        color: red;
+        font-size: 20px;
+        margin-right: 15px;
+        margin-left: 10px;
+    }
+    
+    .pricebox {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    
+    .bottombox {
+        z-index: 1;
+        height: 60px;
+        width: 100%;
+        max-width: 640px;
+        background: white;
+        position: fixed;
+        bottom: 0;
+        overflow: hidden;
+        border-top: medium none #ECEDED;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+    }
+    
+    .bottommenu {
+        height: 60px;
+        margin-left: 15px;
+        margin-right: 15px;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
+        justify-content: space-between;
+        /* android 4.4 */
+    }
+    
+    .item {
+        width: 33%;
+        font-size: 16px;
+        display: flex;
+        -webkit-box-align: center;
+        /* android 2.1-3.0, ios 3.2-4.3 */
+        -webkit-align-items: center;
+        /* Chrome 21+ */
+        -ms-flex-align: center;
+        /* WP IE 10 */
+        align-items: center;
+        /* android 4.4 */
+        justify-content: center;
+        /* android 4.4 */
+    }
+    
+    .border {
+        width: 40%;
+        border-left: solid 1px #cacaca;
+        border-right: solid 1px #cacaca;
+    }
+    
+    .fillbottom {
+        height: 60px;
+        width: 100%;
+    }
+</style>

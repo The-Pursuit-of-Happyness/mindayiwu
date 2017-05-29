@@ -6,6 +6,7 @@ import Register from 'view/signup/Register'
 import Footermenu from 'view/Footermenu'
 import ProductDetailsPage from 'view/purchase/ProductDetailsPage'
 import ClassifyPage from 'view/purchase/ClassifyPage'
+import Charge from 'view/purchase/Charge'
 import ShopPage from 'view/shop/ShopPage'
 import ShoppingCart from 'view/purchase/ShoppingCart'
 import MyShop from 'view/shop/MyShop'
@@ -16,6 +17,7 @@ import MyCollection from 'view/other/MyCollection'
 import Upload from 'view/other/Upload'
 import EditGoods from 'view/shop/EditGoods'
 import MyMessage from 'view/other/MyMessage'
+import OrderInfo from 'view/purchase/OrderInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -79,5 +81,13 @@ export default new Router({
         path: '/MyMessage',
         name: 'MyMessage',
         component: MyMessage
+    }, {
+        path: '/Charge',
+        name: 'Charge',
+        component: Charge
+    }, {
+        path: '/OrderInfo',
+        name: 'OrderInfo',
+        component: OrderInfo
     }]
 })

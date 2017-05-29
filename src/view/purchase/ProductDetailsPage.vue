@@ -64,7 +64,7 @@
                 <div class="entershop"></div>
                 <p>店铺</p>
             </div>
-            <p class="buy">立即购买</p>
+            <p class="buy" @click="charge">立即购买</p>
         </div>
         <div class="bottombox"></div>
   </div>
@@ -115,7 +115,9 @@
                 });
                 this.$router.replace('/ShopPage');
             },
-
+            charge() {
+                this.$router.push('Charge');
+            },
             getGoodsInfo: function() {
                 var _self = this;
                 $.ajax({

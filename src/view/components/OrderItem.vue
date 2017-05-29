@@ -18,7 +18,7 @@
         </div>
         <p class="status">{{orderstate}}</p>
      </div>
-     <div class ="contentbox">
+     <div class ="contentbox" @click="seeDetails()">
         <div class="goodsbox">
             <img class="goodsimg" :src="orderitem.goodsimg">
             <div class="goodsinfobox">
@@ -64,6 +64,11 @@
             return {
                 totalprice: '',
                 orderstate: '',
+            }
+        },
+        methods: {
+            seeDetails: function() {
+                this.$router.push('OrderInfo');
             }
         },
         created() {
