@@ -36,6 +36,9 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         name: 'footermenu',
         data() {
@@ -48,6 +51,12 @@
                 currentpage: 0,
                 height: window.clientHeight,
             }
+        },
+        computed: mapGetters({
+            currenttab: 'currenttab',
+        }),
+        created() {
+            this.currentpage = this.currenttab ? this.currenttab : this.currentpage;
         }
     }
 </script>

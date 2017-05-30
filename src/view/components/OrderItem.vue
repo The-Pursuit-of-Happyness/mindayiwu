@@ -31,7 +31,7 @@
             <p>数量：x {{orderitem.number}}</p>
         </div>
      </div>
-     <div class ="bottombox">
+     <div class ="itembottombox">
         <p class="sumbox">共{{orderitem.number}}件商品 合计：￥{{totalprice}}</p>
         <div>
             <div class="operatebox" v-if="orderitem.status==1">
@@ -68,6 +68,14 @@
         },
         methods: {
             seeDetails: function() {
+                var thiz = this;
+                console.log("OrderItem-orderid:" + thiz.orderitem.orderid);
+                var thiz = this;
+                this.$store.dispatch("saveOrderId", thiz.orderitem.orderid).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.push('OrderInfo');
             }
         },
@@ -200,7 +208,7 @@
         font-size: 16px;
     }
     
-    .bottombox {
+    .itembottombox {
         width: 100%;
         max-width: 640px;
         height: 50px;

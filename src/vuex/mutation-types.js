@@ -9,6 +9,11 @@ export const CURRENT_GOODS_ID = 'CURRENT_GOODS_ID';
 export const CURRENT_TYPE = "CURRENT_TYPE";
 //currentshopid
 export const CURRENT_SHOP_ID = "CURRENT_SHOP_ID";
+//currenttab
+export const CURRENT_TAB = 'CURRENT_TAB';
+
+//currentorderid
+export const CURRENT_ORDER_ID = 'CURRENT_ORDER_ID';
 
 //cookie
 export const RECEIVE_COOKIE = 'RECEIVE_COOKIE';

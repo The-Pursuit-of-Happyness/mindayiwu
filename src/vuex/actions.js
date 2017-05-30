@@ -29,6 +29,19 @@ export const saveShopId = ({ commit, state }, shopid) => {
     });
 };
 
+export const saveTab = ({ commit, state }, tabid) => {
+    return new Promise((resolve, reject) => {
+        console.log("action:" + tabid);
+        commit(types.CURRENT_TAB, { tabid });
+    });
+};
+
+export const saveOrderId = ({ commit, state }, orderid) => {
+    return new Promise((resolve, reject) => {
+        console.log("action:" + orderid);
+        commit(types.CURRENT_ORDER_ID, { orderid });
+    });
+};
 
 //cookie
 export const fetchCookie = ({ commit, state }, cookies) => {

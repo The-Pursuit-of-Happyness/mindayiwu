@@ -7,7 +7,7 @@
             <ul class="bottommenu">
                 <!--<li class="item" >首页</li>-->
                 <li class="item border" @click="backHome()">返回首页</li>
-                <li class="item">返回订单</li>
+                <li class="item" @click="backOrder">返回订单</li>
             </ul>
         </div>
         <div class="fillbottom"></div>
@@ -15,15 +15,34 @@
 </template>
 
 <script>
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         data() {
             return {
                 height: window.clientHeight,
             }
         },
+        computed: mapGetters({
+            currentorderid: 'currentorderid',
+        }),
+        created() {
+            console.log(this.currentorderid);
+        },
         methods: {
+            backOrder: function() {
+                console.log("OrderInfo-tabid:2");
+                var thiz = this;
+                this.$store.dispatch("saveTab", 2).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
+                this.$router.push('/');
+            },
             backHome: function() {
-                this.$router.push('/Orderpage');
+                this.$router.push('/');
             }
         },
     }
