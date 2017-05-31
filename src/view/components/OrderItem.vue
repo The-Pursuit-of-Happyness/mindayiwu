@@ -48,7 +48,7 @@
             </div>
             <div class="operatebox" v-if="orderitem.status==4">
                 <p class="button">删除订单</p>
-                <p class="button">评价</p>
+                <p class="button" @click="evaluate()">评价</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==5">
                 <p class="button">删除订单</p>
@@ -77,6 +77,9 @@
                     Toast('保存数据失败');
                 });
                 this.$router.push('OrderInfo');
+            },
+            evaluate: function() {
+                this.$router.push('Evaluate');
             }
         },
         created() {

@@ -18,6 +18,8 @@ import Upload from 'view/other/Upload'
 import EditGoods from 'view/shop/EditGoods'
 import MyMessage from 'view/other/MyMessage'
 import OrderInfo from 'view/purchase/OrderInfo'
+import Evaluate from 'view/other/Evaluate'
+import LeaveMessage from 'view/other/LeaveMessage'
 Vue.use(Router)
 
 export default new Router({
@@ -89,5 +91,13 @@ export default new Router({
         path: '/OrderInfo',
         name: 'OrderInfo',
         component: OrderInfo
+    }, {
+        path: '/Evaluate',
+        name: 'Evaluate',
+        component: Evaluate
+    }, {
+        path: '/LeaveMessage',
+        name: 'LeaveMessage',
+        component: LeaveMessage,
     }]
 })

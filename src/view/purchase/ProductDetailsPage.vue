@@ -52,7 +52,7 @@
                 <div class="backhome" ></div>
                 <p>首页</p> 
             </div>
-            <div>
+            <div @click="leaveMessage()">
                 <div class="note"></div>
                 <p>留言</p>
             </div>
@@ -117,6 +117,9 @@
             },
             charge() {
                 this.$router.push('Charge');
+            },
+            leaveMessage() {
+                this.$router.push('LeaveMessage');
             },
             getGoodsInfo: function() {
                 var _self = this;

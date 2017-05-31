@@ -28,8 +28,12 @@
                 <label class="messagelable">购买数量：</label>
                 <input class="messageinput" type="number" min="0"></input>
             </div>
+             <div class="messageitem"> 
+                <label  class="messagelable">收货人：</label>
+                <input  class="messageinput"></input>
+            </div>
             <div class="messageitem"> 
-                <label  class="messagelable">购买地址：</label>
+                <label  class="messagelable">收货地址：</label>
                 <input  class="messageinput"></input>
             </div>
             <div class="messageitem">
