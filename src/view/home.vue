@@ -109,6 +109,7 @@
                 $.ajax({
                     type: 'GET',
                     url: port + '/goods/diagramList',
+                    timeout: 1000, //超时时间设置，单位毫秒
                     dataType: 'json',
                     success: function(data) {
                         if (data.code == 200) {

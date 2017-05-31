@@ -197,7 +197,6 @@
     
     .border {
         width: 40%;
-        border-left: solid 1px #cacaca;
         border-right: solid 1px #cacaca;
     }
     

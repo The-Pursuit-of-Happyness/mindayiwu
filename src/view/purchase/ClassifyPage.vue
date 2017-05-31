@@ -98,6 +98,7 @@
                 var _self = this;
                 $.ajax({
                     type: 'GET',
+                    timeout: 1000,
                     url: port + 'goods/' + Number.parseInt(_self.currenttype) + '/categoryList/' + this.page,
                     success: function(data) {
                         console.log(data);
@@ -125,6 +126,13 @@
                 });
             },
             backhome: function() {
+                console.log("OrderInfo-tabid:0");
+                var thiz = this;
+                this.$store.dispatch("saveTab", 0).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.replace("/");
             }
         }

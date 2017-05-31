@@ -314,9 +314,9 @@
     }
     
     .items {
-        width: 45%;
+        width: 110px;
         float: left;
-        border: solid 5px #f1f1f1;
+        border: solid 3px #f1f1f1;
     }
     
     .itembox {
@@ -334,7 +334,7 @@
     }
     
     .itemicon {
-        width: 120px;
+        width: 105px;
         height: 120px;
     }
     

@@ -75,6 +75,11 @@
                                     $.cookie("token", data.data.token);
                                     $.cookie("username", data.data.baruserid);
                                     console.log(document.cookie);
+                                    _self.$store.dispatch("saveTab", 0).then(() => {
+                                        console.log("保存数据成功！！！");
+                                    }).catch(err => {
+                                        Toast('保存数据失败');
+                                    });
                                     _self.$router.push('/');
                                 } else {
                                     alert(data.message);

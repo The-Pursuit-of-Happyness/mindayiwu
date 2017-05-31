@@ -1,6 +1,6 @@
 <template>
     <div id="mymessage">
-        <p class="title">个人信息编辑</p>
+        <p class="title">个人信息</p>
         <div class="topbox">
             <p class="itemname">用户头像：</p>
             <div class="inline">
@@ -12,7 +12,7 @@
             <p class="itemname">用户信息</p>
             <div class="messagebox">          
                 <p class="itemname">用户名：</p>
-                <input class="inputinfo inline" v-model = "username">                
+                <input class="inputinfo inline" v-model = "username"> 
                 <p class="itemname">用户邮箱：</p>
                 <input class="inputinfo inline" v-model="useremail">
                 <p class="itemname">用户电话：</p>
@@ -30,7 +30,7 @@
         </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
-                <li class="item border" @click="backHome()">首页</li>
+                <li class="item border" @click="backHome()">返回</li>
                 <li class="item" @click="saveInfo()">保存</li>
             </ul>
         </div>
@@ -77,7 +77,14 @@
                 }
             },
             backHome() {
-                this.$router.back();
+                console.log("OrderInfo-tabid:3");
+                var thiz = this;
+                this.$store.dispatch("saveTab", 3).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
+                this.$router.push('/');
             },
             initData: function() {
                 var _self = this;
@@ -120,6 +127,9 @@
                 console.log(_self.photos);
                 var _self = this;
                 $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
                     type: 'POST',
                     url: port + 'user/update',
                     dataType: "json",
