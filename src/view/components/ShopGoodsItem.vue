@@ -8,7 +8,7 @@
     <p class="name"> {{goodsitem.name}}</p>
     <div class="bottom">
         <p class="price">$ {{goodsitem.price}}</p>
-        <div class="button">
+        <div class="button" @click="addtocart()">
             <img class="nexticon" src="../../assets/shopcar.png">
         </div>
     </div>   
@@ -18,6 +18,9 @@
     import {
         mapGetters
     } from 'vuex';
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default ({
         props: ['goodsitem'],
         data: function() {
@@ -37,6 +40,30 @@
                 });
                 this.$router.push('/ProductDetailsPage');
             },
+            addtocart() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'POST',
+                    data: {
+                        barterUserid: $.cookie("username"),
+                        barterCommoditynumber: _self.goodsitem.id,
+                        barterGoodscount: '1',
+                    },
+                    url: port + 'shopping/addshopping',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {} else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            }
         }
     })
 </script>
