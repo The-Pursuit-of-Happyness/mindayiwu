@@ -4,12 +4,12 @@
   <div class ="shoppingcartitem">
      <div class="topbox">
         <div class="shopbox">
-            <input class="radio" type="radio"></input>
+            <!--<input class="radio" type="radio"></input>-->
             <img class="shopicon" :src="shoppingcartitem.shopimg">
             <p class="shopname">{{shoppingcartitem.shopname}}</p>
             <img class="nexticon" src="../../assets/next.png">
         </div>
-        <p class="edit">编辑</p>
+        <!--<p class="edit">编辑</p>-->
      </div>
     <div class="contentbox" v-for="cartitem of shoppingcartitem.cartitems">
         <cartitem :cartitem = "cartitem"></cartitem>

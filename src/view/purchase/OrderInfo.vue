@@ -5,10 +5,13 @@
       <p class="status">{{orderstate}}</p>
       <div class="addressbox">
           <div class="oneitem">
-               <label>收货人：</label><p>小黑</p>
+               <label>收货人：</label><p>{{buyername}}</p>
           </div>
           <div class="oneitem">
-               <label>收货地址：</label><p>大连市大连民族大学金石滩校区</p>
+               <label>收货地址：</label><p>{{buyeraddress}}</p>
+          </div>
+          <div class="oneitem">
+               <label>联系电话：</label><p>{{buyerphone}}</p>
           </div>
       </div>
       <space></space>
@@ -58,10 +61,10 @@
       <space></space>
       <div class="orderbox">
           <div class="oneitem">
-              <label>订单编号:</label><p>96759</p>
+              <label>订单编号:</label><p>{{orderid}}</p>
           </div>
           <div class="oneitem">
-              <label>创建时间:</label><p>2017-5-20</p>
+              <label>创建时间:</label><p>{{createtime}}</p>
           </div>
       </div>
       <div class="bottombox" :style="{'top':(height-12) + 'px'}">
@@ -82,6 +85,9 @@
     import {
         mapGetters
     } from 'vuex';
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {
@@ -96,6 +102,11 @@
                 price: '12.50',
                 number: 5,
                 totalprice: '52.50',
+                buyernme: '小米',
+                buyeraddress: '大连市金石滩民族大学',
+                buyerphone: '15640928579',
+                createtime: '2017-5-30',
+                orderid: '9527',
             }
         },
         computed: mapGetters({
@@ -120,10 +131,10 @@
                     this.orderstate = "交易完成";
                     break;
             }
+            this.getDate();
         },
         methods: {
             backOrder: function() {
-                console.log("OrderInfo-tabid:2");
                 var thiz = this;
                 this.$store.dispatch("saveTab", 2).then(() => {
                     console.log("保存数据成功！！！");
@@ -133,8 +144,36 @@
                 this.$router.push('/');
             },
             backHome: function() {
+                var thiz = this;
+                this.$store.dispatch("saveTab", 0).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.push('/');
-            }
+            },
+            getDate() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    //timeout: 1000,
+                    type: 'GET',
+                    url: port + 'order/' + _self.currentorderid + '/getOrder',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            },
         },
     }
 </script>

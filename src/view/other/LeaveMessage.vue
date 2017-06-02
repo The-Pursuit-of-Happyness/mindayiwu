@@ -14,6 +14,9 @@
     </div>    
 </template>
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {

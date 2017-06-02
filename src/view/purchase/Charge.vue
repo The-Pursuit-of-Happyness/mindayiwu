@@ -5,20 +5,20 @@
       <p>商品信息</p>
         <div class="goodsbox">
             <div class="leftbox">
-            <img class="goodsimg" src="../../assets/goods1.jpg">    
+            <img class="goodsimg" :src="goodsicon">    
             </div>
             <div class="rightbox">
                  <div class="messageitem rightitem"> 
                     <label class="messagelable">商品名称：</label>
-                    <p class="messagetext">精品收纳盒</p>
+                    <p class="messagetext">{{goodsname}}</p>
                 </div>
                 <div class="messageitem rightitem">
                     <label class="messagelable">商品成色:</label>
-                    <p class="messagetext">九成新</p>
+                    <p class="messagetext">{{second}}</p>
                 </div>
                 <div class=" rightitem">
                     <label class="messageitem messagelable">单价：</label>
-                    <p class="messagetext"><span class="price">5.50</span>元/件</p>
+                    <p class="messagetext"><span class="price">{{price}}</span>元/件</p>
                 </div>
             </div> 
         </div>
@@ -26,35 +26,35 @@
         <div class="buyerbox">
             <div class="messageitem">
                 <label class="messagelable">购买数量：</label>
-                <input class="messageinput" type="number" min="0"></input>
+                <input class="messageinput" type="number" min="0" v-model = "number"></input>
             </div>
              <div class="messageitem"> 
                 <label  class="messagelable">收货人：</label>
-                <input  class="messageinput"></input>
+                <input  class="messageinput" v-model="buyername"></input>
             </div>
             <div class="messageitem"> 
                 <label  class="messagelable">收货地址：</label>
-                <input  class="messageinput"></input>
+                <input  class="messageinput" v-model="buyeraddress"></input>
             </div>
             <div class="messageitem">
                 <label class="messagelable">联系电话：</label>
-                <input  class="messageinput"></input>
+                <input  class="messageinput" v-model="buyerphone"></input>
             </div>
             <div>
                 <p class="messageitem messagelable">买家留言：</p>
-                <textarea class="note" placeholder="可以给卖家留言哦！！！"></textarea>
+                <textarea class="note" placeholder="可以给卖家留言哦！！！" v-model="buyernote"></textarea>
             </div>
         </div>
         <div class="pricebox">
             <label   class="messagelable">金额：</label>
-            <p class="price">22.00元</p>
+            <p class="price">{{price*number}}元</p>
         </div>
 
        <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <li class="item border">放弃购买</li>
-                <li class="item">提交订单</li>
+                <li class="item border" @click="cancle()">放弃购买</li>
+                <li class="item" @click="purchase()">提交订单</li>
             </ul>
         </div>
         <div class="fillbottom"></div>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+    import goodsicon from '../../assets/goods1.jpg';
     import {
         WEB_SERVER as port
     } from '../../config';
@@ -71,6 +72,16 @@
     export default {
         data() {
             return {
+                goodsicon: goodsicon,
+                goodsname: '精品收纳盒',
+                second: '九成新',
+                price: 5.50,
+                ownerid: '',
+                number: 4,
+                buyername: '张三',
+                buyeraddress: '大连民族大学金石滩校区',
+                buyerphone: '15640928579',
+                buyernote: '挑一个好点的',
                 goodsid: '',
                 height: window.clientHeight,
             }
@@ -78,7 +89,7 @@
         computed: mapGetters({
             currentgoodsid: 'currentgoodsid',
         }),
-        creaed() {
+        created() {
             this.goodsid = this.currentgoodsid;
             this.getGoodsInfo();
         },
@@ -118,13 +129,10 @@
                                 default:
                                     _self.second = "经典款";
                             }
-                            _self.goodsname = '[' + _self.second + ']:' + data.barter_commodityname;
+                            _self.goodsname = data.barter_commodityname;
                             _self.price = data.barter_sellingprice;
-                            _self.address = data.barter_commodityaddress;
-                            _self.number = data.barter_commodityquantity;
-                            for (var img of data.barter_files) {
-                                _self.photos.push(img.barter_showpictures);
-                            }
+                            _self.goodsicon = data.barter_files[0].barter_showpictures;
+                            _self.owner = data.barter_userid;
                         }
                     },
                     error: function(xhr, type) {
@@ -133,8 +141,50 @@
                 });
             },
             backHome: function() {
+                console.log("OrderInfo-tabid:0");
+                var thiz = this;
+                this.$store.dispatch("saveTab", 0).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.replace("/");
             },
+            cancle() {
+                this.number = '';
+                this.buyername = '';
+                this.buyeraddress = '';
+                this.buyerphone = '';
+                this.buyernote = '';
+            },
+            purchase: function() {
+                var _self = this;
+                var obj = {};
+                obj.barterSellernumber = _self.owner;
+                obj.barterBuyernumber = $.cookie("username");
+                obj.barterOrdername = this.buyername;
+                obj.barterTransactionprice = this.price * this.number;
+                obj.barterCommoditynumber = this.goodsid;
+                obj.barterOrderphone = this.buyerphone;
+                obj.barterOrdercount = this.number;
+                obj.barterOrdermessage = this.buyernote;
+                obj.barterUseraddress = this.buyeraddress;
+                $.ajax({
+                    type: 'POST',
+                    url: port + 'order/add',
+                    dataType: 'json',
+                    data: obj,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            console.log("success!");
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            }
         }
     }
 </script>

@@ -1,8 +1,8 @@
 <!--购物车单条商品组件 -->
 
 <template>
-  <div class ="cartitem">   
-    <input class="reaio" type="radio"></input>
+  <div class ="cartitem" v-if="isshow">   
+    <!--<input class="reaio" type="radio"></input>-->
     <img class="goodsimg" :src="cartitem.goodsimg">    
     <div class="goodsmessagebox">
         <p class="name">{{cartitem.goodsname}}</p>
@@ -12,13 +12,30 @@
             <p class="number">X {{cartitem.number}}</p>
         </div>        
     </div>
+    <button class="delete" @click="deleteitem()">删除</button>
+    <div class="weui-mask" v-if="isdelete"></div>
+        <div class="weui-dialog weui-skin_android" v-if="isdelete">
+            <div class="weui-dialog__bd">                
+                   确定删除该商品？                
+            </div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="todelete()">确定</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isdelete = false;">取消</a>
+            </div>
+        </div>
   </div>
 </template>
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default ({
         props: ['cartitem'],
         data: function() {
-            return {}
+            return {
+                isshow: true,
+                isdelete: false,
+            }
         },
         mounted: function() {
 
@@ -27,6 +44,32 @@
             seeDetails() {
                 this.$router.push('/ProductDetailsPage');
             },
+            deleteitem: function() {
+                this.isdelete = true;
+            },
+            todelete: function() {
+                this.isdelete = false;
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + '/shopping/' + _self.cartitem.shoppingid + '/shopping/0',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.isshow = false;
+                        } else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+                console.log("delete");
+            }
         }
     })
 </script>
@@ -100,5 +143,11 @@
     .number {
         margin-right: 5px;
         font-size: 16px;
+    }
+    
+    .delete {
+        margin-left: 10px;
+        font-size: 14px;
+        color: #2ad2c9;
     }
 </style>

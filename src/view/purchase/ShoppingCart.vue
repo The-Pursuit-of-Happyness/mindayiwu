@@ -12,9 +12,9 @@
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <li class="item">宝贝分类</li>
-                <li class="item border">店铺简介</li>
-                <li class="item">联系卖家</li>
+                <!--<li class="item">宝贝分类</li>
+                <li class="item border">店铺简介</li>-->
+                <li class="item">结算</li>
             </ul>
         </div>        
     </div>
@@ -40,6 +40,7 @@
                         price: '55.00',
                         number: 2,
                         id: 'abcd123',
+                        shopping: '2'
                     }, {
                         goodsimg: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=841688564,2911971417&fm=23&gp=0.jpg',
                         goodsname: '8G U盘',
@@ -47,6 +48,7 @@
                         price: '42.00',
                         number: 1,
                         id: 'abcd124',
+                        shopping: '1'
                     }],
                 }],
             }
@@ -80,6 +82,7 @@
                                             obj.price = datas.barter_sellingprice;
                                             obj.number = datas.barter_goodscount;
                                             obj.id = datas.barter_commoditynumber;
+                                            obj.shoppingid = datas.barter_shoppingid;
                                             items[i].cartitems.push(obj);
                                             ishave = true;
                                         }
@@ -102,6 +105,13 @@
                 });
             },
             backHome: function() {
+                console.log("OrderInfo-tabid:0");
+                var thiz = this;
+                this.$store.dispatch("saveTab", 0).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.replace("/");
             },
             addData(target, datas) {
@@ -116,6 +126,7 @@
                 obj.price = datas.barter_sellingprice;
                 obj.number = datas.barter_goodscount;
                 obj.id = datas.barter_commoditynumber;
+                obj.shoppingid = datas.barter_shoppingid;
                 item.cartitems = [];
                 item.cartitems.push(obj);
                 target.push(item);
@@ -196,6 +207,7 @@
     }
     
     .item {
+        width: 50%;
         font-size: 16px;
         display: flex;
         -webkit-box-align: center;

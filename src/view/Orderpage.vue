@@ -1,13 +1,13 @@
 <template>
-  <div class="orderpage">
+  <div class="orderpage" v-scroll="getMoreData">
         <div class="filltop"></div>
         <div class="titlebox">
             <ul class="items">
-                <li class="itemname" @click="currenttab =0;" v-bind:class="{ 'items-active': currenttab ==0 }">全部</li>
-                <li class="itemname" @click="currenttab =1;" v-bind:class="{ 'items-active': currenttab ==1 }">待支付</li>
-                <li class="itemname" @click="currenttab =2;" v-bind:class="{ 'items-active': currenttab ==2 }">待发货</li>
-                <li class="itemname" @click="currenttab =3;" v-bind:class="{ 'items-active': currenttab ==3 }">待收货</li>
-                <li class="itemname" @click="currenttab =4;" v-bind:class="{ 'items-active': currenttab ==4 }">待评价</li>
+                <li class="itemname" @click="selecttab(0)" v-bind:class="{ 'items-active': currenttab ==0 }">全部</li>
+                <li class="itemname" @click="selecttab(1)" v-bind:class="{ 'items-active': currenttab ==1 }">待支付</li>
+                <li class="itemname" @click="selecttab(2)" v-bind:class="{ 'items-active': currenttab ==2 }">待发货</li>
+                <li class="itemname" @click="selecttab(3)" v-bind:class="{ 'items-active': currenttab ==3 }">待收货</li>
+                <li class="itemname" @click="selecttab(4)" v-bind:class="{ 'items-active': currenttab ==4 }">待评价</li>
             </ul>
         </div>
         <space></space>
@@ -33,8 +33,11 @@
         name: 'orderpage',
         data() {
             return {
+                status: 0,
                 currenttab: 0,
                 orderItems: [],
+                currentpage: 1,
+                istoload: true,
             }
         },
         created() {
@@ -43,10 +46,29 @@
             } else {
                 console.log("未登录");
             }
-            // this.getDate();
-            this.getOrderInfo();
+            this.getDate(this.currenttab, this.currentpage);
+            //this.getOrderInfo();
+        },
+        directives: { // 自定义指令
+            scroll: {
+                bind: function(el, binding) {
+                    window.addEventListener('scroll', function() {
+                        if (document.body.scrollTop + window.innerHeight >= el.clientHeight) {
+                            var fnc = binding.value;
+                            fnc();
+                        }
+                    })
+                }
+            }
         },
         methods: {
+            getMoreData: function() {
+                if (this.istoload) {
+                    console.log("获取数据！！！");
+                    this.currentpage++;
+                    this.getDate();
+                }
+            },
             getOrderInfo() {
                 var _self = this;
                 $.ajax({
@@ -59,23 +81,50 @@
                         }
                     },
                     error: function(xhr, type) {
+                        _self.getOrderInfo();
                         console.log('Ajax error!');
                     }
                 });
             },
+            selecttab(tab) {
+                if (this.currenttab != 0) this.istoload = true;
+                this.currenttab = tab;
+                this.status = this.currenttab == 0 ? 10 : this.currenttab;
+                this.currentpage = 1;
+                this.orderItems = [];
+                this.getDate();
+            },
             getDate() {
+                this.status = this.currenttab == 0 ? 10 : this.currenttab;
                 var _self = this;
                 $.ajax({
                     headers: {
                         'X-Token': $.cookie("token"),
                     },
-                    timeout: 1000,
+                    //timeout: 1000,
                     type: 'GET',
-                    url: port + 'shopping/' + $.cookie("username") + '/getShopping/' + _self.page,
+                    url: port + 'order/' + $.cookie("username") + '/getOrderById/' + _self.currentpage + '/' + _self.status,
                     success: function(data) {
                         console.log(data);
-                        if (data.code == 200) {} else {
-                            alert(data.message);
+                        if (data.code == 200) {
+                            var datas = data.data.record_list;
+                            for (var data of datas) {
+                                var obj = {};
+                                obj.goodsname = data.barter_commodityname;
+                                obj.goodsinfo = data.barter_descriptioninform;
+                                obj.number = data.barter_ordercount;
+                                obj.orderid = data.barter_orderid;
+                                obj.status = data.barter_orderstatus;
+                                obj.goodsimg = data.barter_showpictures;
+                                obj.shopname = data.barter_storename;
+                                obj.price = data.barter_transactionprice / data.barter_ordercount;;
+                                obj.shopicon = data.barter_userface;
+                                _self.orderItems.push(obj);
+                            }
+                        } else if (data.code == 4) {
+                            _self.istoload = false;
+                        } else {
+                            console.log(data.message);
                         }
                     },
                     error: function() {

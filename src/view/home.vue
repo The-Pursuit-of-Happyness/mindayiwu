@@ -52,6 +52,7 @@
         name: 'home',
         data() {
             return {
+                pgNo: 0,
                 msg: '',
                 isloading: false,
                 recommendItems: [],

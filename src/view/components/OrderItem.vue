@@ -86,19 +86,19 @@
             this.totalprice = parseFloat((this.orderitem.price * this.orderitem.number)).toFixed(2);
             //set order state
             switch (this.orderitem.status) {
-                case "1":
+                case 1:
                     this.orderstate = "待支付";
                     break;
-                case "2":
+                case 2:
                     this.orderstate = "待发货";
                     break;
-                case "3":
+                case 3:
                     this.orderstate = "待收货";
                     break;
-                case "4":
+                case 4:
                     this.orderstate = "待评价";
                     break;
-                case "5":
+                case 5:
                     this.orderstate = "交易完成";
                     break;
             }
