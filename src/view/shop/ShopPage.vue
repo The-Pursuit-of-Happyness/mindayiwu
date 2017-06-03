@@ -19,8 +19,8 @@
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item" @click="backHome()">首页</li>
-                <!--<li class="item">宝贝分类</li>
-                <li class="item border">店铺简介</li>-->
+                <!--<li class="item">宝贝分类</li>-->
+                <li class="item border" @click="goshop()">店铺简介</li>
                 <li class="item">联系卖家</li>
             </ul>
         </div>
@@ -76,6 +76,9 @@
             },
             backHome: function() {
                 this.$router.replace("/");
+            },
+            goshop() {
+                this.$router.push("ShopMessage");
             }
         }
     }

@@ -101,7 +101,7 @@
                     headers: {
                         'X-Token': $.cookie("token"),
                     },
-                    //timeout: 1000,
+                    timeout: 1000,
                     type: 'GET',
                     url: port + 'order/' + $.cookie("username") + '/getOrderById/' + _self.currentpage + '/' + _self.status,
                     success: function(data) {
@@ -128,6 +128,7 @@
                         }
                     },
                     error: function() {
+                        _self.getOrderInfo();
                         console.log("error");
                     }
                 });

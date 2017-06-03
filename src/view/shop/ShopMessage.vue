@@ -2,43 +2,82 @@
     <div class="shopmessage">       
         <div class="topbox">
              <div class="shopbox">          
-                <img class="shopicon" src="../../assets/head.jpg">
-                <p class="shopname">开心就好的小店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
         </div>
+
+        <p class="itemname">店铺信息</p>
+            <div class="messagebox">
+                <p class="itemname">店铺介绍信息：</p>
+                <p class="leftp">{{shopinfo}}</p>
+                <p class="itemname">店铺联系电话：</p>
+                <p class="leftp">{{shopphone}}</p>
+                <p class="itemname">店铺联系地址：</p>
+                <p class="leftp">{{shopemail}}</p>
+                <p class="itemname">店铺开业时间：</p>
+                <p class="leftp">{{opentime}}</p>
+            </div>
         
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <p class="backhome" @click="backshelf()">返回货架</p>
         </div> 
         <div class="fillbottom"></div>
-         <div v-if="isloading" id="loadingToast" style="opacity: 1;">
-            <div class="weui-mask_transparent"></div>
-            <div class="weui-toast">
-                <i class="weui-loading weui-icon_toast"></i>
-                <p class="weui-toast__content">数据加载中</p>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
+    import shopicon from '../../assets/head.jpg'
+    import {
+        WEB_SERVER as port
+    } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         data() {
             return {
                 height: window.clientHeight,
-                isloading: false,
+                shopname: '开心就好的小店',
+                shopicon: shopicon,
+                shopinfo: '本店以诚信为本，良心经营。。',
+                shopphone: '15640928579',
+                shopemail: '123456@qq.com',
+                opentime: '2017-5-20'
             }
         },
+        computed: mapGetters({
+            currentshopid: 'currentshopid',
+        }),
+        created() {
+            this.initData();
+        },
         methods: {
-            backshelf: function() {
-                console.log("OrderInfo-tabid:0");
-                var thiz = this;
-                this.$store.dispatch("saveTab", 0).then(() => {
-                    console.log("保存数据成功！！！");
-                }).catch(err => {
-                    Toast('保存数据失败');
+            initData: function() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + _self.currentshopid + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.shopimg = data.data.barter_userface;
+                            _self.shopname = data.data.barter_storename;
+                            _self.shopphone = data.data.barter_userphone;
+                            _self.shopemail = data.data.barter_useremail;
+                            _self.shopinfo = data.data.barter_storebewrite;
+                            _self.opentime = data.data.barter_userregistrationtime;
+                        } else {
+                            alert(data.message);
+                        }
+                    }
                 });
-                this.$router.replace("/");
+            },
+            backshelf: function() {
+                this.$router.replace("ShopPage");
             }
         }
     }
@@ -89,6 +128,30 @@
         margin-left: 15px;
         font-size: 16px;
         font-weight: bold;
+    }
+    
+    .itemname {
+        text-align: left;
+        margin-left: 15px;
+        font-size: 16px;
+        height: 25px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .leftp {
+        font-size: 14px;
+        text-align: left;
+        margin-left: 30px;
+    }
+    
+    .messagebox {
+        border: solid 1px #ccc;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-bottom: 10px;
     }
     
     .goodsbox {

@@ -1,24 +1,27 @@
 <template>
   <div class="manageshelf">
+      <div class="filltop"></div>
         <div class="titlebox">
             <ul class="items">
-                <li class="itemname" @click="currenttab =0;" v-bind:class="{ 'items-active': currenttab ==0 }">全部</li>
-                <li class="itemname" @click="currenttab =1;" v-bind:class="{ 'items-active': currenttab ==1 }">最新上架</li>
-                <li class="itemname" @click="currenttab =2;" v-bind:class="{ 'items-active': currenttab ==2 }">已发货</li>
-                <li class="itemname" @click="currenttab =3;" v-bind:class="{ 'items-active': currenttab ==3 }">待收货</li>
-                <li class="itemname" @click="currenttab =4;" v-bind:class="{ 'items-active': currenttab ==4 }">已下架</li>
+                <li class="itemname" @click="selecttab(0)" v-bind:class="{ 'items-active': currenttab ==0 }">全部</li>
+                <li class="itemname" @click="selecttab(1);" v-bind:class="{ 'items-active': currenttab ==1 }">已预订</li>
+                <li class="itemname" @click="selecttab(2);" v-bind:class="{ 'items-active': currenttab ==2 }">待发货</li>
+                <li class="itemname" @click="selecttab(3);" v-bind:class="{ 'items-active': currenttab ==3 }">待收货</li>
+                <li class="itemname" @click="selecttab(4);" v-bind:class="{ 'items-active': currenttab ==4 }">已收货</li>
             </ul>
         </div>
-        <!--<space></space>
-        <orderitem></orderitem>
-        <space></space>
-        <orderitem></orderitem>
-        <space></space>
-        <orderitem></orderitem>
-        <space></space>
-        <orderitem></orderitem>-->
+        <div v-for = "orderitem of orderItems">
+            <div v-if="orderitem.status == currenttab">
+                <shelfitem :orderitem = "orderitem"></shelfitem>
+                <smallspace></smallspace>
+            </div>
+            <div v-if="currenttab == '0'">
+                <shelfitem :orderitem = "orderitem"></shelfitem>
+                <smallspace></smallspace>
+            </div>
+        </div>
          <div class="bottombox" :style="{'top':(height-12) + 'px'}">
-            <p class="backhome" @click="backHome()">返回首页</p>
+            <p class="backhome" @click="backHome()">返回货架</p>
         </div> 
         <div class="fillbottom"></div>
          <div v-if="isloading" id="loadingToast" style="opacity: 1;">
@@ -32,6 +35,9 @@
 </template>
 
 <script>
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         name: 'manageshelf',
         data() {
@@ -39,19 +45,81 @@
                 height: window.clientHeight,
                 isloading: false,
                 currenttab: 0,
+                orderItems: [],
             }
         },
+        created() {
+            this.getData();
+            //this.getOrderInfo();
+        },
         methods: {
+            selecttab(tab) {
+                if (this.currenttab != 0) this.istoload = true;
+                this.currenttab = tab;
+                this.status = this.currenttab == 0 ? 10 : this.currenttab;
+                this.currentpage = 1;
+                this.orderItems = [];
+                this.getDate();
+            },
             backHome() {
-                console.log("OrderInfo-tabid:0");
-                var thiz = this;
-                this.$store.dispatch("saveTab", 0).then(() => {
-                    console.log("保存数据成功！！！");
-                }).catch(err => {
-                    Toast('保存数据失败');
+                this.$router.push('ShopPage');
+            },
+            getOrderInfo() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: './static/json/orderitem.json',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            _self.orderItems = data.data.orderItems;
+                        }
+                    },
+                    error: function(xhr, type) {
+                        _self.getOrderInfo();
+                        console.log('Ajax error!');
+                    }
                 });
-                this.$router.push('/');
-            }
+            },
+            getData() {
+                this.status = this.currenttab == 0 ? 10 : this.currenttab;
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    timeout: 1000,
+                    type: 'GET',
+                    url: port + 'order/' + $.cookie("username") + '/getOrderById/' + _self.currentpage + '/' + _self.status,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            var datas = data.data.record_list;
+                            for (var data of datas) {
+                                var obj = {};
+                                obj.goodsname = data.barter_commodityname;
+                                obj.goodsinfo = data.barter_descriptioninform;
+                                obj.number = data.barter_ordercount;
+                                obj.orderid = data.barter_orderid;
+                                obj.status = data.barter_orderstatus;
+                                obj.goodsimg = data.barter_showpictures;
+                                obj.shopname = data.barter_storename;
+                                obj.price = data.barter_transactionprice / data.barter_ordercount;;
+                                obj.shopicon = data.barter_userface;
+                                _self.orderItems.push(obj);
+                            }
+                        } else if (data.code == 4) {
+                            _self.istoload = false;
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        _self.getOrderInfo();
+                        console.log("error");
+                    }
+                });
+            },
         }
     }
 </script>
@@ -64,8 +132,21 @@
         margin: 0 auto;
     }
     
+    .filltop {
+        width: 100%;
+        max-width: 640px;
+        height: 42px;
+    }
+    
     .titlebox {
         width: 100%;
+        position: fixed;
+        background: white;
+        top: 0;
+        z-index: 1;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        border-bottom: medium none #ECEDED;
     }
     
     .items {

@@ -64,7 +64,7 @@
                         'X-Token': $.cookie("token"),
                     },
                     type: 'GET',
-                    url: port + 'shopping/' + $.cookie("username") + '/getShopping/' + _self.page,
+                    url: port + 'shopping/' + $.cookie("username") + '/getShopping/' + _self.page + '1',
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {

@@ -6,17 +6,17 @@
         "orderItems": [{
                 "shopicon": "http://a1.att.hudong.com/56/70/01200000031761134399700658652_s.jpg",
                 "shopname": "良心铺子",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492841930458&di=9d96abba3e0554a18db52b91fa2559d9&imgtype=0&src=http%3A%2F%2Fimg2.gomein.net.cn%2Fimage%2Fprodimg%2Fproduction_image%2F201211%2F1104960555%2F1000221605_210.jpg",
                 "goodsname": "签字笔",
                 "goodsinfo": "来自韩国的工艺",
                 "price": "2.50",
-                "number": "2",
+                "number": 2,
                 "orderid": "12345"
             }, {
                 "shopicon": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494913965002&di=628ca533e79ee9bdbf7dd7ebe752c98b&imgtype=0&src=http%3A%2F%2Fimg5.duitang.com%2Fuploads%2Fitem%2F201502%2F13%2F20150213205325_SVXWE.png",
                 "shopname": "怪蜀黍家的小店",
-                "status": "2",
+                "status": 2,
                 "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492841632622&di=4498d7f118f1775ea86972fa1806862e&imgtype=0&src=http%3A%2F%2Fimg.yichao.cn%2Fuploads%2Fgoods%2F2016041616161133_sml.jpg",
                 "goodsname": "时尚太阳镜",
                 "goodsinfo": "炎炎夏日，秀出你的时尚，爱眼镜，更眼睛",
@@ -27,7 +27,7 @@
             {
                 "shopicon": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3791903511,510996417&fm=23&gp=0.jpg",
                 "shopname": "牛衣库",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=109796721,3925504117&fm=23&gp=0.jpg",
                 "goodsname": "蓝色牛仔连衣裙",
                 "goodsinfo": "展现你的魔鬼身",
@@ -38,7 +38,7 @@
             {
                 "shopicon": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1213543713,1532217172&fm=23&gp=0.jpg",
                 "shopname": "收藏协会",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492849509349&di=bc81461e0e463ab02318bd1d5f2bc2a8&imgtype=0&src=http%3A%2F%2Fi.ebayimg.com%2F00%2Fs%2FNjQwWDYzNw%3D%3D%2Fz%2FKDQAAOSw-KFXdKjf%2F%2524_1.JPG%3Fset_id%3D880000500F",
                 "goodsname": "美元 硬币",
                 "goodsinfo": "九成新",
@@ -49,7 +49,7 @@
             {
                 "shopicon": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1749359133,2892754553&fm=23&gp=0.jpg",
                 "shopname": "如风行",
-                "status": "4",
+                "status": 4,
                 "goodsimg": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492849614782&di=57eeb49150328849aa7bf3289b7b1f23&imgtype=0&src=http%3A%2F%2Fwww.kidel.net%2FeBusiness%2Fproduct_images%2Fb%2Fcn_b_4_180.jpg",
                 "goodsname": "滑板车",
                 "goodsinfo": "可折叠款",
@@ -60,7 +60,7 @@
             {
                 "shopicon": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2284777634,1413439974&fm=23&gp=0.jpg",
                 "shopname": "星星的小屋",
-                "status": "4",
+                "status": 4,
                 "goodsimg": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2816780034,3222183663&fm=23&gp=0.jpg",
                 "goodsname": "魔力水晶球",
                 "goodsinfo": "经典浪漫款",
@@ -71,7 +71,7 @@
             {
                 "shopicon": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=977492066,3643772559&fm=23&gp=0.jpg",
                 "shopname": "苹果粉",
-                "status": "2",
+                "status": 2,
                 "goodsimg": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3513972870,886168001&fm=23&gp=0.jpg",
                 "goodsname": "iPhone 6S",
                 "goodsinfo": "国行标配",
@@ -82,7 +82,7 @@
             {
                 "shopicon": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=718767203,3423749743&fm=23&gp=0.jpg",
                 "shopname": "总有刁民想害朕",
-                "status": "2",
+                "status": 2,
                 "goodsimg": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1527382830,1701498629&fm=23&gp=0.jpg",
                 "goodsname": "手表",
                 "goodsinfo": "全新 金属",
@@ -93,7 +93,7 @@
             {
                 "shopicon": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3295883250,3515988233&fm=23&gp=0.jpg",
                 "shopname": "爱运动",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2796666273,70119325&fm=23&gp=0.jpg",
                 "goodsname": "新百伦运动鞋",
                 "goodsinfo": "小号 九成新",
@@ -104,7 +104,7 @@
             {
                 "shopicon": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1530507245,2712757121&fm=23&gp=0.jpg",
                 "shopname": "真水无香",
-                "status": "5",
+                "status": 5,
                 "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1893684893,466077857&fm=23&gp=0.jpg",
                 "goodsname": "画",
                 "goodsinfo": "带款",
@@ -115,7 +115,7 @@
             {
                 "shopicon": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1554732900,3381305786&fm=23&gp=0.jpg",
                 "shopname": "运动酷",
-                "status": "5",
+                "status": 5,
                 "goodsimg": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2811547890,3642733360&fm=23&gp=0.jpg",
                 "goodsname": "单车",
                 "goodsinfo": "黑色，九成新",
@@ -126,7 +126,7 @@
             {
                 "shopicon": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=492801528,4269604968&fm=23&gp=0.jpg",
                 "shopname": "别看不买",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2252817288,1175252680&fm=23&gp=0.jpg",
                 "goodsname": "四六级专用耳机",
                 "goodsinfo": "八成新",
@@ -137,7 +137,7 @@
             {
                 "shopicon": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=394665992,584341698&fm=23&gp=0.jpg",
                 "shopname": "电子狗",
-                "status": "4",
+                "status": 4,
                 "goodsimg": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=881643614,1483396459&fm=23&gp=0.jpg",
                 "goodsname": "高保真耳机",
                 "goodsinfo": "全新 磨砂",
@@ -148,7 +148,7 @@
             {
                 "shopicon": "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=437372157,2675111310&fm=23&gp=0.jpg",
                 "shopname": "衣心衣意",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2471091561,544631539&fm=23&gp=0.jpg",
                 "goodsname": "灰色外套",
                 "goodsinfo": "黑色桃心花纹",
@@ -159,7 +159,7 @@
             {
                 "shopicon": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1882243725,3291657674&fm=23&gp=0.jpg",
                 "shopname": "萌萌哒",
-                "status": "1",
+                "status": 1,
                 "goodsimg": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4189529634,3151803078&fm=23&gp=0.jpg",
                 "goodsname": "毛绒熊",
                 "goodsinfo": "珊瑚绒 超柔",
@@ -170,7 +170,7 @@
             {
                 "shopicon": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=394665992,584341698&fm=23&gp=0.jpg",
                 "shopname": "电子狗",
-                "status": "3",
+                "status": 3,
                 "goodsimg": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=841688564,2911971417&fm=23&gp=0.jpg",
                 "goodsname": "8G U盘",
                 "goodsinfo": "银白色 金属外壳",

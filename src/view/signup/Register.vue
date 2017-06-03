@@ -3,7 +3,10 @@
         <img  class ="logobox" src="../../assets/logo.png">
         <p class ="title">欢迎注册</p>
         <div>
-            <input class ="nameinput" placeholder ="请输入邮箱" v-model="username" maxlength="20"></input>
+            <input class ="nameinput" placeholder ="请输入用户名" v-model="username" maxlength="15"></input>
+        </div>
+        <div>
+            <input class ="nameinput" placeholder ="请输入邮箱" v-model="useremal" maxlength="20"></input>
         </div>
         <div>
              <input class ="nameinput" type ="password" placeholder ="请输入密码" v-model="password" maxlength="20" minlength="6">
@@ -21,6 +24,9 @@
 
 <script>
     import {
+        WEB_SERVER as port
+    } from '../../config';
+    import {
         mapGetters
     } from 'vuex';
     export default {
@@ -29,6 +35,7 @@
                 action_option1: '否',
                 code: "",
                 username: '',
+                useremal: '',
                 password: '',
                 repassword: '',
                 piccode: '',
@@ -63,23 +70,32 @@
                     this.createCode(); //刷新验证码  
                     this.piccode = '';
                 } else { //输入正确时  
-                    var _self = this;
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://xxxx/login/register',
-                        data: {
-                            'username': _self.username,
-                            'password': _self.password
-                        },
-                        success: function(data) {
-                            _self.message = JSON.stringify(data);
-                            sessionStorage.setItem('accessToken', data.access_token)
-                            sessionStorage.setItem('userName', _self.username)
-                            console.log("hello !!!!!!!");
-                            console.log(_self.message);
-                            alert("^-^"); //弹出^-^  
-                        }
-                    });
+                    var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;
+                    var email = "example@qq.com";
+                    console.log(reg.test(email)); // true
+                    if (reg.test(this.useremal)) {
+                        var _self = this;
+                        $.ajax({
+                            type: 'POST',
+                            url: port + 'user/add',
+                            data: {
+                                'barterusername': _self.username,
+                                'useremail': _self.useremal,
+                                'userpassword': _self.password,
+                            },
+                            success: function(data) {
+                                if (data.code == 200) {
+                                    this.$router.push('Login');
+                                }
+                                _self.message = JSON.stringify(data);
+                                // sessionStorage.setItem('accessToken', data.access_token)
+                                // sessionStorage.setItem('userName', _self.username)
+                                console.log(_self.message);
+                            }
+                        });
+                    } else {
+                        alert("邮箱格式不正确！！！");
+                    }
                 }
             },
         },

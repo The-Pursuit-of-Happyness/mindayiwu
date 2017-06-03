@@ -1,4 +1,4 @@
-<!--订单组件 -->
+<!--店家订单组件 -->
 
 <!--订单状态
 1-待支付
@@ -13,8 +13,8 @@
   <div class ="orderitem" v-if="isshow">
      <div class="topbox">
      <div class="shopbox">
-        <img class="shopicon" :src="orderitem.shopicon">
-        <p class="shopname">{{orderitem.shopname}}</p>
+        <img class="shopicon" :src="orderitem.usericon">
+        <p class="shopname">{{orderitem.username}}</p>
         <img class="nexticon" src="../../assets/next.png"> 
         </div>
         <p class="status">{{orderstate}}</p>
@@ -36,11 +36,10 @@
         <p class="sumbox">共{{orderitem.number}}件商品 合计：￥{{totalprice}}</p>
         <div>
             <div class="operatebox" v-if="orderitem.status==1">
-                <p class="button">立即支付</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==2">
-                <p class="button">提醒发货</p>
+                <p class="button">发货</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==3">
@@ -49,7 +48,6 @@
             </div>
             <div class="operatebox" v-if="orderitem.status==4">
                 <p class="button" @click="deleteOrder()">删除订单</p>
-                <p class="button" @click="evaluate()">评价</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==5">
                 <p class="button" @click="deleteOrder()">删除订单</p>
@@ -94,7 +92,7 @@
                 isshow: true,
                 wronmessage: '确定删除订单？',
                 totalprice: '',
-                orderstate: '',
+                orderstate: '待发货',
             }
         },
         methods: {
@@ -174,7 +172,7 @@
             //set order state
             switch (this.orderitem.status) {
                 case 1:
-                    this.orderstate = "待支付";
+                    this.orderstate = "已预订";
                     break;
                 case 2:
                     this.orderstate = "待发货";
@@ -183,7 +181,7 @@
                     this.orderstate = "待收货";
                     break;
                 case 4:
-                    this.orderstate = "待评价";
+                    this.orderstate = "已收货";
                     break;
                 case 5:
                     this.orderstate = "交易完成";

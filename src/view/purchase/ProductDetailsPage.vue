@@ -25,27 +25,32 @@
             <P class="number">共 {{number}}件</P>
         </div>
         <space></space>
-        <p class="titlebox">评价/留言</p>
+        <p class="titlebox">评价</p>
         <evaluate></evaluate>
+        <space></space>
+         <p class="titlebox">留言</p>
+        <leavemessageitem></leavemessageitem>
         <space></space>
         <p class="titlebox">详情</p>
         <div class="detialbox">           
-            <p class="detialmessage">这是一款不错的签字笔，来自的德国的先进工艺生产。。。。。</p>
-            <img class="detialimg" src="../../assets/goods3.jpg">
+            <p class="detialmessage">{{goodsinfo}}</p>
+            <div v-for="img of photos">
+                <img class="detialimg" :src="img">
+            </div>
         </div>
         <space></space>
         <p class="titlebox">店家信息</p>
         <div class="shop">
             <div class="shopbox">
-                <img class="shopicon" src="../../assets/shopicon.jpg">
-                <p class="shopname">萌仔家的小商店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
             <p class="left">全部物品：5</p>
             <p class="right">已售物品：2</p>
             <p class="left">待售物品：3</p>
-            <p class="right">信用评分:5.0分</p>
-            <p class="tel">联系电话:1582343434242</p>
-            <p class="tel">地址:金石滩校区</p>            
+            <p class="right">信用评分:{{shopstar}}分</p>
+            <p class="tel">联系电话:{{shopphone}}</p>
+            <p class="tel">地址:{{shopaddress}}</p>            
         </div>
         <div class="footer" :style="{'top':(height-12) + 'px'}">
             <div class="backhomebox" @click="backHome">            
@@ -56,7 +61,7 @@
                 <div class="note"></div>
                 <p>留言</p>
             </div>
-            <div>
+            <div @click="saveGoods()">
                 <div class="save"></div>
                 <p>收藏</p>
             </div>
@@ -77,6 +82,7 @@
     import {
         mapGetters
     } from 'vuex';
+    import shopicon from '../../assets/shopicon.jpg'
     export default {
         name: 'productdetailspage',
         data() {
@@ -91,6 +97,12 @@
                 height: window.clientHeight,
                 goodsid: '',
                 shopid: 'abcdefg123456',
+                goodsinfo: '这是一款不错的签字笔，来自的德国的先进工艺生产。',
+                shopstar: '5',
+                shopicon: shopicon,
+                shopname: '开心就好家的店铺',
+                shopphone: '15640928579',
+                shopaddress: '金石滩校区',
             }
         },
         computed: mapGetters({
@@ -103,6 +115,11 @@
         },
         methods: {
             backHome() {
+                this.$store.dispatch("saveTab", 0).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.replace('/');
             },
             enterShop() {
@@ -120,6 +137,30 @@
             },
             leaveMessage() {
                 this.$router.push('LeaveMessage');
+            },
+            saveGoods: function() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'POST',
+                    data: {
+                        barterUserid: $.cookie("username"),
+                        barterCommoditynumber: _self.goodsid,
+                        status: '6',
+                    },
+                    url: port + 'shopping/addshopp',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {} else {
+                            alert(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             },
             getGoodsInfo: function() {
                 var _self = this;
@@ -160,6 +201,10 @@
                             _self.price = data.barter_sellingprice;
                             _self.address = data.barter_commodityaddress;
                             _self.number = data.barter_commodityquantity;
+                            _self.goodsinfo = data.barter_descriptioninform;
+                            _self.shopstar = data.barter_userstar;
+                            _self.shopname = data.barter_storename;
+                            _self.shopicon = data.barter_userface;
                             for (var img of data.barter_files) {
                                 _self.photos.push(img.barter_showpictures);
                             }

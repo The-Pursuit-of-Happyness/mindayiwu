@@ -158,7 +158,7 @@
                     headers: {
                         'X-Token': $.cookie("token"),
                     },
-                    //timeout: 1000,
+                    timeout: 1000,
                     type: 'GET',
                     url: port + 'order/' + _self.currentorderid + '/getOrder',
                     success: function(data) {

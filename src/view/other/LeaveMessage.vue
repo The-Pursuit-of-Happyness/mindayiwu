@@ -3,7 +3,7 @@
     <div class="leavemessage">
         <p class="title">买家留言</p>
         <div class="filltop"></div>
-        <textarea class="message" placeholder="说点什么吧~~"></textarea>
+        <textarea class="message" placeholder="说点什么吧~~" v-model="message"></textarea>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item border" @click="backDetails()">返回详情</li>
@@ -11,24 +11,71 @@
             </ul>
         </div>        
         <div class="fillbottom"></div>
+        <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">留言成功！</p>
+            </div>
+        </div>
     </div>    
 </template>
 <script>
     import {
         WEB_SERVER as port
     } from '../../config';
+    import {
+        mapGetters
+    } from 'vuex';
     export default {
         data() {
             return {
+                message: '这个商品可以以物易物么？',
                 height: window.clientHeight,
             }
         },
+        computed: mapGetters({
+            currentgoodsid: 'currentgoodsid',
+        }),
         methods: {
             backDetails: function() {
                 this.$router.push('ProductDetailsPage');
             },
             submit() {
                 console.log('提交留言');
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    timeout: 1000,
+                    type: 'POST',
+                    data: {
+                        userId: $.cookie("username"),
+                        goodsId: _self.currentgoodsid,
+                        message: _self.message
+                    },
+                    url: port + 'message/addMessage/',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            //成功提示
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             }
         },
     }
