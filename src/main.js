@@ -16,7 +16,6 @@ Vue.component('searchgoods', searchgoods); //statement searchgoods
 Vue.component('orderpage', orderpage); //statement orderpage
 Vue.component('mypage', mypage); //statement mypage
 
-import slider from './view/components/Slider';
 import orderitem from './view/components/OrderItem';
 import space from './view/components/Space';
 import recommenitem from './view/components/RecommenItem';
@@ -32,7 +31,6 @@ import smallspace from './view/components/Smallspace';
 import typeitem from './view/components/Typeitem';
 import shelfitem from './view/components/ShelfItem';
 import leavemessageitem from './view/components/LeaveMessageItem'
-Vue.component('slider', slider);
 Vue.component('orderitem', orderitem);
 Vue.component('space', space);
 Vue.component('recommenitem', recommenitem);

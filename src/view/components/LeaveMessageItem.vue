@@ -1,45 +1,106 @@
 <!--留言记录组件 -->
 
 <template>
-  <div class ="evaluate">
-     <div class="topbox">
-        <div class="shopbox">
-            <img class="shopicon" src="../../assets/shopicon.jpg">
-            <p class="shopname">我就看看，不买</p>
+  <div class ="leavemessageitem">    
+    <div class="topbox">
+        <p class="username">{{messageitem.name}}:</p>
+        <p class="evaluatemessage">{{messageitem.message}}</p>
+    </div>
+    <div class="bottombox">
+        <div class="buttonbox">
+            <p class="button" @click="seeDetail()">{{opera}}</p>
         </div>
-     </div>     
-     <div class ="contentbox">    
-        <p class="evaluatemessage">一次不错的购物，下次还会再来</p>
-     </div>
+        <div  v-if="isshow">
+            <div class="oneline" v-for="item of messageitem.sonmessage">
+                <p class="username">{{item.name}}:</p>
+                <p class="evaluatemessage">{{item.message}}</p>
+            </div>
+            <div  class="oneline">
+                <input class="inputmsg" v-model="msg" placeholder="我也说一句"></input>
+                <p class="button" @click="save()">保存</p>
+            </div>
+        </div>
+    </div>
+    <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">保存成功！</p>
+            </div>
+        </div>
   </div>
 </template>
 <script>
-    export default ({
-        data: function() {
-            return {}
+    import {
+        WEB_SERVER as port
+    } from '../../config';
+    export default {
+        props: ['messageitem'],
+        data() {
+            return {
+                opera: '详情',
+                isshow: false,
+                msg: '',
+            }
         },
         mounted: function() {
 
         },
         methods: {
-
+            seeDetail() {
+                this.isshow = !this.isshow;
+                this.opera = !this.isshow ? '详情' : '折叠';
+            },
+            save() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    //timeout: 1000,
+                    type: 'POST',
+                    data: {
+                        userId: $.cookie("username"),
+                        parenMessageId: _self.messageitem.id,
+                        message: _self.msg,
+                    },
+                    url: port + 'sonmessage/addSonMessage',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            //成功提示
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            }
         }
-    })
+    }
 </script>
 <style scoped>
-    .evaluate {
+    .leavemessageitem {
         width: 100%;
         max-width: 640px;
-        user-select: none;
-        -webkit-user-select: none;
         overflow: hidden;
-        position: relative;
     }
     
     .topbox {
         height: 40px;
         width: 100%;
         max-width: 640px;
+        margin-left: 15px;
         display: flex;
         -webkit-box-align: center;
         /* android 2.1-3.0, ios 3.2-4.3 */
@@ -53,7 +114,8 @@
         /* android 4.4 */
     }
     
-    .shopbox {
+    .oneline {
+        margin-left: 15px;
         display: flex;
         -webkit-box-align: center;
         /* android 2.1-3.0, ios 3.2-4.3 */
@@ -63,59 +125,29 @@
         /* WP IE 10 */
         align-items: center;
         /* android 4.4 */
+        justify-content: flex-start;
+        /* android 4.4 */
     }
     
-    .shopicon {
-        margin-left: 15px;
-        width: 30px;
+    .inputmsg {
+        width: 300px;
         height: 30px;
-    }
-    
-    .shopname {
-        display: inline-block;
-        font-size: 14px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    
-    .contentbox {
-        width: 100%;
-        max-width: 640px;
-        background: #fafafa;
-    }
-    
-    .evaluatetime {
-        width: 100%;
-        max-width: 640px;
-        height: 25px;
-        color: gray;
-        font-size: 12px;
-        text-align: left;
-        padding-left: 15px;
+        border: none;
+        border: solid 1px #ccc;
     }
     
     .evaluatemessage {
-        text-align: left;
-        text-indent: 30px;
-        font-size: 15px;
-    }
-    
-    .goodsimg {
-        width: 80%;
-        height: auto;
-        min-height: 60px;
+        margin-left: 15px;
     }
     
     .bottombox {
-        width: 100%;
-        max-width: 640px;
-        height: 50px;
+        padding-bottom: 10px;
+        border-bottom: solid 1px #ccc;
     }
     
-    .operatebox {
-        height: 40px;
+    .buttonbox {
         width: 100%;
-        max-width: 640px;
+        text-align: right;
         display: flex;
         -webkit-box-align: center;
         /* android 2.1-3.0, ios 3.2-4.3 */

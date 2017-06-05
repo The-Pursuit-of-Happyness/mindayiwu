@@ -4,12 +4,12 @@
         <p class="title">用户评价</p>
         <div class="filltop"></div>
         <p>添加评论：</p>
-        <textarea  class="message" placeholder="说点什么吧~~"></textarea>
+        <textarea  class="message" placeholder="说点什么吧~~" v-model="message"></textarea>
         <p>添加图片：</p>
         <div class="addimg" id="addimg">
-            <div  class="imgbox">
+            <div  class="imgbox" v-if="istoaddimg">
                 <img class="imgadd" src="../../assets/addimg.png">
-                <input id="file" type="file" class="fileupload" accept="image/*" multiple capture="camera" @change="viewimg()"/>
+                <input id="file" type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
             </div>
         </div>
 
@@ -20,6 +20,13 @@
             </ul>
         </div>        
         <div class="fillbottom"></div>
+        <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">评价成功！</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,14 +34,21 @@
     import {
         mapGetters
     } from 'vuex';
+    import {
+        WEB_SERVER as port
+    } from '../../config';
     export default {
         data() {
             return {
                 height: window.clientHeight,
+                image: '',
+                message: '',
+                istoaddimg: true,
             }
         },
         computed: mapGetters({
             currentorderid: 'currentorderid',
+            currentgoodsid: 'currentgoodsid',
         }),
         created() {
 
@@ -51,7 +65,44 @@
                 this.$router.push('/');
             },
             submit() {
+                var _self = this;
                 console.log("提交评论");
+                var formData = new FormData();
+                formData.append("file", _self.image, _self.image.name);
+                formData.append('userId', $.cookie("username"));
+                formData.append('goodsId', _self.currentgoodsid);
+                formData.append('orderId', _self.currentorderid);
+                formData.append('message', _self.message);
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    // timeout: 1000,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    url: port + 'message/addAssess/',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            //成功提示
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             },
             viewimg($event) {
                 var _self = this;
@@ -65,19 +116,18 @@
                     img.style.maxHeight = "300px";
                     var urls = window.URL.createObjectURL(currentObj.files[0]);
                     img.src = urls;
-                    img.onclick = function() {
-                        for (var i = 0; i < _self.photosUrl.length; i++) {
-                            if (this.src == _self.photosUrl[i]) {
-                                _self.isdelete = true;
-                                _self.currentindex = i;
-                                _self.currentimg = this;
-                                console.log("delete");
-                            }
-                        }
-                    };
-                    this.imgs.push(img);
-                    this.photos.push(currentObj.files[0]);
-                    this.photosUrl.push(urls);
+                    // img.onclick = function() {
+                    //     for (var i = 0; i < _self.photosUrl.length; i++) {
+                    //         if (this.src == _self.photosUrl[i]) {
+                    //             _self.isdelete = true;
+                    //             _self.currentindex = i;
+                    //             _self.currentimg = this;
+                    //             console.log("delete");
+                    //         }
+                    //     }
+                    // };
+                    _self.istoaddimg = false;
+                    _self.image = currentObj.files[0];
                     $("#addimg").prepend(img);
                 }
             },
@@ -193,6 +243,20 @@
         /* android 4.4 */
         justify-content: center;
         /* android 4.4 */
+    }
+    
+    .imgadd {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .fileupload {
+        position: absolute;
+        left: 19%;
+        top: 0;
+        width: 180px;
+        height: 180px;
+        opacity: 0;
     }
     
     .border {

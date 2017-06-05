@@ -132,7 +132,7 @@
                             _self.goodsname = data.barter_commodityname;
                             _self.price = data.barter_sellingprice;
                             _self.goodsicon = data.barter_files[0].barter_showpictures;
-                            _self.owner = data.barter_userid;
+                            _self.ownerid = data.barter_commoditynumber;
                         }
                     },
                     error: function(xhr, type) {
@@ -160,7 +160,7 @@
             purchase: function() {
                 var _self = this;
                 var obj = {};
-                obj.barterSellernumber = _self.owner;
+                obj.barterSellernumber = _self.ownerid;
                 obj.barterBuyernumber = $.cookie("username");
                 obj.barterOrdername = this.buyername;
                 obj.barterTransactionprice = this.price * this.number;

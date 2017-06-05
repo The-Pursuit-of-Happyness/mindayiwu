@@ -2,13 +2,13 @@
   <div class="productdetailspage">
       <div class="swiper-container">
             <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-if="photos.length>0" v-for="img of photos"><img class="productimage" :src="img"></div>
-                    <div class="swiper-wrapper" v-else-if="photos.length==0">
+                    <div class="swiper-slide" v-if="photos!=null" v-for="icon of photos"><img class="productimage" :src="icon"></div>
+                    <!--<div class="swiper-wrapper" v-else>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods1.jpg"></div>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods2.jpg"></div>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods3.jpg"></div>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods4.png"></div>
-                    </div>
+                    </div>-->
             </div>
             <!-- 分页器 -->
             <div class="swiper-pagination"></div>
@@ -29,7 +29,9 @@
         <evaluate></evaluate>
         <space></space>
          <p class="titlebox">留言</p>
-        <leavemessageitem></leavemessageitem>
+         <div v-for="item of leaveMessageitems">
+            <leavemessageitem :messageitem=item></leavemessageitem>
+        </div>
         <space></space>
         <p class="titlebox">详情</p>
         <div class="detialbox">           
@@ -76,6 +78,10 @@
 </template>
 
 <script>
+    import goods1 from '../../assets/goods1.jpg';
+    import goods2 from '../../assets/goods2.jpg';
+    import goods3 from '../../assets/goods3.jpg';
+    import goods4 from '../../assets/goods4.png';
     import {
         WEB_SERVER as port
     } from '../../config';
@@ -91,7 +97,7 @@
                 price: 3.50,
                 address: '金石滩校区',
                 number: '2',
-                photos: [],
+                photos: [goods1],
                 second: '九成新',
                 currentpage: 0,
                 height: window.clientHeight,
@@ -103,6 +109,27 @@
                 shopname: '开心就好家的店铺',
                 shopphone: '15640928579',
                 shopaddress: '金石滩校区',
+                leaveMessageitems: [{
+                    name: '张三',
+                    message: '可以交换不?',
+                    sonmessage: [{
+                        name: '王五',
+                        message: '怎么可能啊?',
+                    }, {
+                        name: '小正',
+                        message: '同问?',
+                    }],
+                }, {
+                    name: '李四',
+                    message: '新旧程度如何啊?',
+                    sonmessage: [{
+                        name: '王五',
+                        message: '怎么可能啊?',
+                    }, {
+                        name: '小正',
+                        message: '同问?',
+                    }],
+                }],
             }
         },
         computed: mapGetters({
@@ -112,8 +139,59 @@
             console.log("商品详情页面：" + this.currentgoodsid);
             this.goodsid = this.currentgoodsid;
             this.getGoodsInfo();
+            this.getLeaveMessage();
+            //this.getEvalute();
         },
         methods: {
+            getEvalute() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'message/' + _self.goodsid + "/goodsId/1",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data);
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
+            getLeaveMessage() {
+                var _self = this;
+                $.ajax({
+                    type: 'GET',
+                    url: port + 'message/' + _self.goodsid + "/goodsId/1",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.code == 200) {
+                            console.log(data);
+                            _self.leaveMessageitems = [];
+                            var datas = data.data.record_list;
+                            for (data of datas) {
+                                var obj = {};
+                                obj.name = data.barter_sonmessage_dto_list[0].barter_username;
+                                obj.message = data.barter_message;
+                                obj.id = data.parent_id;
+                                obj.sonmessage = [];
+                                for (var i = 1; i < data.barter_sonmessage_dto_list.length; i++) {
+
+                                    var msg = {};
+                                    msg.name = data.barter_sonmessage_dto_list[i].barter_username;
+                                    msg.message = data.barter_sonmessage_dto_list[i].barter_sonmessage;
+                                    obj.sonmessage.push(msg);
+                                }
+                                _self.leaveMessageitems.push(obj);
+                            }
+                        }
+                    },
+                    error: function(xhr, type) {
+                        console.log('Ajax error!');
+                    }
+                });
+            },
             backHome() {
                 this.$store.dispatch("saveTab", 0).then(() => {
                     console.log("保存数据成功！！！");
@@ -197,6 +275,7 @@
                                 default:
                                     _self.second = "经典款";
                             }
+                            _self.photos = [];
                             _self.goodsname = '[' + _self.second + ']:' + data.barter_commodityname;
                             _self.price = data.barter_sellingprice;
                             _self.address = data.barter_commodityaddress;
@@ -223,13 +302,13 @@
                 pagination: '.swiper-pagination',
                 autoplay: 2000,
                 autoplayDisableOnInteraction: false,
-                //effect: 'cube',
-                // cube: {
-                //     slideShadows: false,
-                //     shadow: false,
-                //     shadowOffset: 100,
-                //     shadowScale: 0.6
-                // }
+                effect: 'cube',
+                cube: {
+                    slideShadows: false,
+                    shadow: false,
+                    shadowOffset: 100,
+                    shadowScale: 0.6
+                }
             })
         }
     }
@@ -422,7 +501,8 @@
         display: block;
         width: 100%;
         max-width: 640px;
-        height: 25px;
+        height: 40px;
+        line-height: 40px;
         border-bottom: solid 1px #e5e5e5;
     }
     

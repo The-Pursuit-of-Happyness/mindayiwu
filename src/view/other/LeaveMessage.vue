@@ -7,7 +7,7 @@
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item border" @click="backDetails()">返回详情</li>
-                <li class="item" @click="submit()">提交评价</li>
+                <li class="item" @click="submit()">提交留言</li>
             </ul>
         </div>        
         <div class="fillbottom"></div>

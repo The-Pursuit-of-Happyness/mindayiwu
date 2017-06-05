@@ -166,6 +166,14 @@
                 this.$router.push('OrderInfo');
             },
             evaluate: function() {
+                var thiz = this;
+                console.log("OrderItem-orderid:" + thiz.orderitem.orderid);
+                var thiz = this;
+                this.$store.dispatch("saveOrderId", thiz.orderitem.orderid).then(() => {
+                    console.log("保存数据成功！！！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.push('Evaluate');
             }
         },

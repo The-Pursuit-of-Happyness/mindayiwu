@@ -45,6 +45,7 @@
                 console.log("已经登录");
             } else {
                 console.log("未登录");
+                this.$router.push("WranPage");
             }
             this.getDate(this.currenttab, this.currentpage);
             //this.getOrderInfo();

@@ -20,6 +20,7 @@ import MyMessage from 'view/other/MyMessage'
 import OrderInfo from 'view/purchase/OrderInfo'
 import Evaluate from 'view/other/Evaluate'
 import LeaveMessage from 'view/other/LeaveMessage'
+import WranPage from 'view/other/WranPage'
 Vue.use(Router)
 
 export default new Router({
@@ -99,5 +100,9 @@ export default new Router({
         path: '/LeaveMessage',
         name: 'LeaveMessage',
         component: LeaveMessage,
+    }, {
+        path: '/WranPage',
+        name: 'WranPage',
+        component: WranPage,
     }]
 })
