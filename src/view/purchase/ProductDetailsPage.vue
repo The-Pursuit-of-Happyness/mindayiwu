@@ -95,7 +95,7 @@
         name: 'productdetailspage',
         data() {
             return {
-                goodsname: '精品签字笔，七彩炫酷，秀出时尚',
+                goodsname: '精品收纳箱',
                 price: 3.50,
                 address: '金石滩校区',
                 number: '2',

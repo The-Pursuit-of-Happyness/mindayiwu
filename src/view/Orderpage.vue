@@ -41,13 +41,13 @@
             }
         },
         created() {
+            this.getDate(this.currenttab, this.currentpage);
             if ($.cookie("token") != '') {
                 console.log("已经登录");
             } else {
                 console.log("未登录");
                 this.$router.push("WranPage");
             }
-            this.getDate(this.currenttab, this.currentpage);
             //this.getOrderInfo();
         },
         directives: { // 自定义指令
