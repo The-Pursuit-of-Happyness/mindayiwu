@@ -34,6 +34,14 @@
                 height: window.clientHeight,
             }
         },
+        created() {
+            if ($.cookie("token") != '') {
+                console.log("已经登录");
+            } else {
+                console.log("未登录");
+                this.$router.push("WranPage");
+            }
+        },
         computed: mapGetters({
             currentgoodsid: 'currentgoodsid',
         }),
@@ -48,12 +56,13 @@
                     headers: {
                         'X-Token': $.cookie("token"),
                     },
-                    timeout: 1000,
+                    // timeout: 1000,
                     type: 'POST',
                     data: {
                         userId: $.cookie("username"),
                         goodsId: _self.currentgoodsid,
-                        message: _self.message
+                        message: _self.message,
+                        status: '0'
                     },
                     url: port + 'message/addMessage/',
                     success: function(data) {
@@ -69,7 +78,7 @@
                                 }, 2000);
                             }
                         } else {
-                            console.log(data.message);
+                            alert(data.message);
                         }
                     },
                     error: function() {
@@ -156,7 +165,7 @@
     }
     
     .item {
-        width: 33%;
+        width: 48%;
         font-size: 16px;
         display: flex;
         -webkit-box-align: center;
@@ -172,7 +181,7 @@
     }
     
     .border {
-        width: 40%;
+        width: 50%;
         border-right: solid 1px #cacaca;
     }
     

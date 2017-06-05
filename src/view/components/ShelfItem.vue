@@ -39,11 +39,10 @@
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==2">
-                <p class="button">发货</p>
+                <p class="button"@click="sendgoods()">发货</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==3">
-                <p class="button">确认收货</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==4">
@@ -77,6 +76,16 @@
             <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isdelete = false;">取消</a>
         </div>
     </div>
+     <div class="weui-mask" v-if="issend"></div>
+    <div class="weui-dialog weui-skin_android" v-if="issend">
+        <div class="weui-dialog__bd">                
+                确定发货?              
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="sendto()">确定</a>
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="issend = false;">取消</a>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -90,12 +99,16 @@
                 iscancle: false,
                 isdelete: false,
                 isshow: true,
+                issend: false,
                 wronmessage: '确定删除订单？',
                 totalprice: '',
                 orderstate: '待发货',
             }
         },
         methods: {
+            sendgoods() {
+                this.issend = true;
+            },
             cancleOrder: function() {
                 this.iscancle = true;
                 console.log("取消订单");
@@ -103,6 +116,30 @@
             deleteOrder: function() {
                 this.isdelete = true;
                 console.log("删除订单");
+            },
+            sendto() {
+                this.issend = false;
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    timeout: 1000,
+                    type: 'GET',
+                    url: port + 'order/' + _self.orderitem.orderid + '/deleteOrderById/3',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.orderstate = "待收货";
+                            alert("发货成功！！");
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             },
             cancleto: function() {
                 this.iscancle = false;

@@ -73,6 +73,7 @@
                 formData.append('goodsId', _self.currentgoodsid);
                 formData.append('orderId', _self.currentorderid);
                 formData.append('message', _self.message);
+                formData.append("status", '1');
                 $.ajax({
                     headers: {
                         'X-Token': $.cookie("token"),
@@ -82,7 +83,7 @@
                     data: formData,
                     processData: false,
                     contentType: false,
-                    url: port + 'message/addAssess/',
+                    url: port + 'message/addAssess',
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {

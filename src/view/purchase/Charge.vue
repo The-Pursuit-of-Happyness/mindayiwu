@@ -58,6 +58,13 @@
             </ul>
         </div>
         <div class="fillbottom"></div>
+         <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">下单成功！</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -90,6 +97,12 @@
             currentgoodsid: 'currentgoodsid',
         }),
         created() {
+            if ($.cookie("token") != '') {
+                console.log("已经登录");
+            } else {
+                console.log("未登录");
+                this.$router.push("WranPage");
+            }
             this.goodsid = this.currentgoodsid;
             this.getGoodsInfo();
         },
@@ -177,6 +190,14 @@
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
                             console.log("success!");
                         }
                     },

@@ -68,6 +68,12 @@
             }
         },
         created() {
+            if ($.cookie("token") != '') {
+                console.log("已经登录");
+            } else {
+                console.log("未登录");
+                this.$router.push("WranPage");
+            }
             this.initData();
         },
         methods: {
@@ -87,8 +93,8 @@
                 this.$router.replace("Login");
             },
             logout() {
-                $.cookie("token", null);
-                $.cookie("username", null);
+                $.cookie("token", '');
+                $.cookie("username", '');
             },
             search() {
                 this.$router.replace("SearchGoods");

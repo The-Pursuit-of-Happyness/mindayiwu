@@ -36,15 +36,15 @@
         <p class="sumbox">共{{orderitem.number}}件商品 合计：￥{{totalprice}}</p>
         <div>
             <div class="operatebox" v-if="orderitem.status==1">
-                <p class="button">立即支付</p>
+                <p class="button" @click="paynow()">立即支付</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==2">
-                <p class="button">提醒发货</p>
+                <p class="button" @click="tosend()">提醒发货</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==3">
-                <p class="button">确认收货</p>
+                <p class="button" @click="surearrival()">确认收货</p>
                 <p class="button" @click="cancleOrder">取消订单</p>
             </div>
             <div class="operatebox" v-if="orderitem.status==4">
@@ -79,6 +79,26 @@
             <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isdelete = false;">取消</a>
         </div>
     </div>
+     <div class="weui-mask" v-if="isarrival"></div>
+    <div class="weui-dialog weui-skin_android" v-if="isarrival">
+        <div class="weui-dialog__bd">                
+                确定收货?              
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="arrivalto()">确定</a>
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="isarrival = false;">取消</a>
+        </div>
+    </div>
+     <div class="weui-mask" v-if="ispay"></div>
+    <div class="weui-dialog weui-skin_android" v-if="ispay">
+        <div class="weui-dialog__bd">                
+                确定支付订单?              
+        </div>
+        <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="payto()">确定</a>
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="ispay = false;">取消</a>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -92,12 +112,20 @@
                 iscancle: false,
                 isdelete: false,
                 isshow: true,
+                isarrival: false,
+                ispay: false,
                 wronmessage: '确定删除订单？',
                 totalprice: '',
                 orderstate: '',
             }
         },
         methods: {
+            paynow() {
+                this.ispay = true;
+            },
+            surearrival() {
+                this.isarrival = true;
+            },
             cancleOrder: function() {
                 this.iscancle = true;
                 console.log("取消订单");
@@ -105,6 +133,9 @@
             deleteOrder: function() {
                 this.isdelete = true;
                 console.log("删除订单");
+            },
+            tosend() {
+                alert('已提醒店家发货！');
             },
             cancleto: function() {
                 this.iscancle = false;
@@ -121,6 +152,54 @@
                         if (data.code == 200) {
                             _self.orderstate = "已取消";
                             alert("取消订单成功！！");
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            },
+            arrivalto() {
+                this.isarrival = false;
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    timeout: 1000,
+                    type: 'GET',
+                    url: port + 'order/' + _self.orderitem.orderid + '/deleteOrderById/4',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.orderstate = "待评价";
+                            alert("收货成功！！");
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
+            },
+            payto() {
+                this.ispay = false;
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    timeout: 1000,
+                    type: 'GET',
+                    url: port + 'order/' + _self.orderitem.orderid + '/deleteOrderById/2',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.orderstate = "待发货";
+                            alert("支付成功！！");
                         } else {
                             console.log(data.message);
                         }

@@ -52,39 +52,49 @@
                 this.opera = !this.isshow ? '详情' : '折叠';
             },
             save() {
-                var _self = this;
-                $.ajax({
-                    headers: {
-                        'X-Token': $.cookie("token"),
-                    },
-                    //timeout: 1000,
-                    type: 'POST',
-                    data: {
-                        userId: $.cookie("username"),
-                        parenMessageId: _self.messageitem.id,
-                        message: _self.msg,
-                    },
-                    url: port + 'sonmessage/addSonMessage',
-                    success: function(data) {
-                        console.log(data);
-                        if (data.code == 200) {
-                            //成功提示
-                            var $toast = $('#toast');
-                            if ($toast.css('display') != 'none') return;
-                            else {
-                                $toast.fadeIn(100);
-                                setTimeout(function() {
-                                    $toast.fadeOut(100);
-                                }, 2000);
+                if ($.cookie("token") != '') {
+                    console.log("已经登录");
+                    var _self = this;
+                    $.ajax({
+                        headers: {
+                            'X-Token': $.cookie("token"),
+                        },
+                        //timeout: 1000,
+                        type: 'POST',
+                        data: {
+                            userId: $.cookie("username"),
+                            parenMessageId: _self.messageitem.id,
+                            message: _self.msg,
+                        },
+                        url: port + 'sonmessage/addSonMessage',
+                        success: function(data) {
+                            console.log(data);
+                            if (data.code == 200) {
+                                var obj = {};
+                                obj.name = $.cookie("name");
+                                obj.message = _self.msg;
+                                _self.messageitem.sonmessage.push(obj);
+                                //成功提示
+                                var $toast = $('#toast');
+                                if ($toast.css('display') != 'none') return;
+                                else {
+                                    $toast.fadeIn(100);
+                                    setTimeout(function() {
+                                        $toast.fadeOut(100);
+                                    }, 2000);
+                                }
+                            } else {
+                                console.log(data.message);
                             }
-                        } else {
-                            console.log(data.message);
+                        },
+                        error: function() {
+                            console.log("error");
                         }
-                    },
-                    error: function() {
-                        console.log("error");
-                    }
-                });
+                    });
+                } else {
+                    console.log("未登录");
+                    this.$router.push("WranPage");
+                }
             }
         }
     }
@@ -115,6 +125,8 @@
     }
     
     .oneline {
+        margin-top: 10px;
+        margin-bottom: 10px;
         margin-left: 15px;
         display: flex;
         -webkit-box-align: center;
@@ -130,7 +142,8 @@
     }
     
     .inputmsg {
-        width: 300px;
+        margin-right: 10px;
+        width: 280px;
         height: 30px;
         border: none;
         border: solid 1px #ccc;

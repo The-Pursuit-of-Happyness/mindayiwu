@@ -74,6 +74,7 @@
                                     // sessionStorage.setItem('useremail', _self.useremail);
                                     $.cookie("token", data.data.token);
                                     $.cookie("username", data.data.baruserid);
+                                    $.cookie("name", data.data.name);
                                     console.log(document.cookie);
                                     _self.$store.dispatch("saveTab", 0).then(() => {
                                         console.log("保存数据成功！！！");

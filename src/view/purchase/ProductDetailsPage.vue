@@ -26,7 +26,9 @@
         </div>
         <space></space>
         <p class="titlebox">评价</p>
-        <evaluate></evaluate>
+        <div v-for="item of evaluateitems">
+            <evaluate :evaluateitem=item></evaluate>
+        </div>
         <space></space>
          <p class="titlebox">留言</p>
          <div v-for="item of leaveMessageitems">
@@ -109,6 +111,17 @@
                 shopname: '开心就好家的店铺',
                 shopphone: '15640928579',
                 shopaddress: '金石滩校区',
+                evaluateitems: [{
+                    name: '王五',
+                    message: '一次不错的购物，还行的',
+                    userimg: shopicon,
+                    createtime: '2017-5-20',
+                    goodsimg: goods1,
+                    sonevaluates: [{
+                        name: '小王',
+                        message: '确定不是坏的？？',
+                    }],
+                }],
                 leaveMessageitems: [{
                     name: '张三',
                     message: '可以交换不?',
@@ -140,17 +153,31 @@
             this.goodsid = this.currentgoodsid;
             this.getGoodsInfo();
             this.getLeaveMessage();
-            //this.getEvalute();
+            this.getEvalute();
         },
         methods: {
             getEvalute() {
                 var _self = this;
                 $.ajax({
                     type: 'GET',
-                    url: port + 'message/' + _self.goodsid + "/goodsId/1",
+                    url: port + 'message/' + _self.goodsid + "/goodsId/1/1",
                     dataType: 'json',
                     success: function(data) {
                         if (data.code == 200) {
+                            _self.evaluateitems = [];
+                            var datas = data.data.record_list;
+                            for (data of datas) {
+                                var obj = {};
+                                obj.name = data.barter_messagename;
+                                obj.message = data.barter_message;
+                                obj.createtime = data.barter_messagetime;
+                                obj.goodsimg = data.barter_messagephoto;
+                                // obj.sonevaluates: [{
+                                //     name: '小王',
+                                //     message: '确定不是坏的？？',
+                                // }],
+                                _self.evaluateitems.push(obj);
+                            }
                             console.log(data);
                         }
                     },
@@ -163,7 +190,7 @@
                 var _self = this;
                 $.ajax({
                     type: 'GET',
-                    url: port + 'message/' + _self.goodsid + "/goodsId/1",
+                    url: port + 'message/' + _self.goodsid + "/goodsId/1/0",
                     dataType: 'json',
                     success: function(data) {
                         if (data.code == 200) {
@@ -172,12 +199,11 @@
                             var datas = data.data.record_list;
                             for (data of datas) {
                                 var obj = {};
-                                obj.name = data.barter_sonmessage_dto_list[0].barter_username;
+                                obj.name = data.barter_messagename;
                                 obj.message = data.barter_message;
-                                obj.id = data.parent_id;
+                                obj.id = data.barter_messageid;
                                 obj.sonmessage = [];
-                                for (var i = 1; i < data.barter_sonmessage_dto_list.length; i++) {
-
+                                for (var i = 0; i < data.barter_sonmessage_dto_list.length; i++) {
                                     var msg = {};
                                     msg.name = data.barter_sonmessage_dto_list[i].barter_username;
                                     msg.message = data.barter_sonmessage_dto_list[i].barter_sonmessage;

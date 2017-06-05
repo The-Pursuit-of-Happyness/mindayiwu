@@ -41,7 +41,7 @@
             }
         },
         created() {
-            if ($.cookie("token")) {
+            if ($.cookie("token") != '') {
                 console.log("已经登录");
             } else {
                 console.log("未登录");

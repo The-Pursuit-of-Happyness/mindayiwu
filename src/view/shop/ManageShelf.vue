@@ -45,6 +45,7 @@
                 height: window.clientHeight,
                 isloading: false,
                 currenttab: 0,
+                currentpage: 1,
                 orderItems: [],
             }
         },
@@ -59,7 +60,7 @@
                 this.status = this.currenttab == 0 ? 10 : this.currenttab;
                 this.currentpage = 1;
                 this.orderItems = [];
-                this.getDate();
+                this.getData();
             },
             backHome() {
                 this.$router.push('ShopPage');
@@ -88,9 +89,9 @@
                     headers: {
                         'X-Token': $.cookie("token"),
                     },
-                    timeout: 1000,
+                    //timeout: 1000,
                     type: 'GET',
-                    url: port + 'order/' + $.cookie("username") + '/getOrderById/' + _self.currentpage + '/' + _self.status,
+                    url: port + 'order/' + $.cookie("username") + '/getOrderBySellerId/' + _self.currentpage + '/' + _self.status,
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
