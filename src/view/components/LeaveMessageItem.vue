@@ -52,7 +52,10 @@
                 this.opera = !this.isshow ? '详情' : '折叠';
             },
             save() {
-                if ($.cookie("token") != '') {
+                if ($.cookie("token") == '' || $.cookie("token") == undefined || $.cookie("token") == null) {
+                    console.log("未登录");
+                    this.$router.push("WranPage");
+                } else {
                     console.log("已经登录");
                     var _self = this;
                     $.ajax({
@@ -91,9 +94,6 @@
                             console.log("error");
                         }
                     });
-                } else {
-                    console.log("未登录");
-                    this.$router.push("WranPage");
                 }
             }
         }

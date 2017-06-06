@@ -109,6 +109,7 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.code == 200) {
+                            console.log(data.data);
                             for (var obj of data.data.record_list) {
                                 var goods = {};
                                 goods.img = obj.barter_showpictures;
