@@ -6,6 +6,7 @@
                 <div class="swiper-slide"><img class="productimage" src="../assets/lunbo2.jpg"></div>
                 <div class="swiper-slide"><img class="productimage" src="../assets/lunbo3.jpg"></div>
                 <div class="swiper-slide"><img class="productimage" src="../assets/lunbo4.jpg"></div>
+                <div class="swiper-slide"><img class="productimage" src="../assets/lunbo5.jpg"></div>
             </div>
             <!-- 分页器 -->
             <div class="swiper-pagination"></div>
@@ -105,7 +106,7 @@
                 $.ajax({
                     type: 'GET',
                     url: port + 'goods/diagramList',
-                    timeout: 1000, //超时时间设置，单位毫秒
+                    //timeout: 1000, //超时时间设置，单位毫秒
                     dataType: 'json',
                     success: function(data) {
                         if (data.code == 200) {
