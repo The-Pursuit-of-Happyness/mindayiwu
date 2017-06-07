@@ -13,11 +13,6 @@
             <!-- 分页器 -->
             <div class="swiper-pagination"></div>
         </div>
-        <!--
-        <div>
-            <img class="productimage" src="../../assets/goods3.jpg">
-        </div>
-        -->
         <p class="name">{{goodsname}}</p>
         <div class="pricebox">
             <p class="price">$ {{price}}</p>
@@ -59,20 +54,20 @@
             <p class="tel">地址:{{shopaddress}}</p>            
         </div>
         <div class="footer" :style="{'top':(height-12) + 'px'}">
-            <div class="backhomebox" @click="backHome">            
-                <div class="backhome" ></div>
+            <div class="backhomebox"   @click="backHome">            
+                <div class="backhome" :style ="backhome"></div>
                 <p>首页</p> 
             </div>
             <div @click="leaveMessage()">
-                <div class="note"></div>
+                <div class="note" :style ="note"></div>
                 <p>留言</p>
             </div>
             <div @click="saveGoods()">
-                <div class="save"></div>
+                <div class="save" :style ="save"></div>
                 <p>收藏</p>
             </div>
              <div @click="enterShop()">
-                <div class="entershop"></div>
+                <div class="entershop" :style ="shop"></div>
                 <p>店铺</p>
             </div>
             <p class="buy" @click="charge">立即购买</p>
@@ -145,6 +140,29 @@
                         message: '同问?',
                     }],
                 }],
+                backhome: {
+                    backgroundImage: "url(" + require("../../assets/backhome.png") + ")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "25px auto",
+                    marginTop: "5px",
+                },
+                note: {
+                    backgroundImage: "url(" + require("../../assets/save.png") + ")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "25px auto",
+                    marginTop: "5px",
+                },
+                save: {
+                    backgroundImage: "url(" + require("../../assets/note.png") + ")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "25px auto",
+                    marginTop: "5px",
+                },
+                shop: {
+                    backgroundImage: "url(" + require("../../assets/shop.png") + ")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "30px auto",
+                },
             }
         },
         computed: mapGetters({
@@ -490,33 +508,21 @@
     }
     
     .backhome {
-        background-image: url('./../../assets/backhome.png');
-        background-repeat: no-repeat;
-        background-size: 25px auto;
         height: 25px;
         margin-top: 5px;
     }
     
     .save {
-        background-image: url('./../../assets/save.png');
-        background-repeat: no-repeat;
-        background-size: 25px auto;
         height: 25px;
         margin-top: 5px;
     }
     
     .note {
-        background-image: url('./../../assets/note.png');
-        background-repeat: no-repeat;
-        background-size: 25px auto;
         height: 25px;
         margin-top: 5px;
     }
     
     .entershop {
-        background-image: url('../../assets/shop.png');
-        background-repeat: no-repeat;
-        background-size: 25px auto;
         height: 25px;
         margin-top: 5px;
     }

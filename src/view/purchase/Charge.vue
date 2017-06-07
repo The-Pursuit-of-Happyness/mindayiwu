@@ -80,15 +80,15 @@
         data() {
             return {
                 goodsicon: goodsicon,
-                goodsname: '精品收纳盒',
-                second: '九成新',
-                price: 5.50,
+                goodsname: '',
+                second: '',
+                price: 0,
                 ownerid: '',
-                number: 4,
-                buyername: '张三',
-                buyeraddress: '大连民族大学金石滩校区',
-                buyerphone: '15640928579',
-                buyernote: '挑一个好点的',
+                number: '',
+                buyername: '',
+                buyeraddress: '',
+                buyerphone: '',
+                buyernote: '',
                 goodsid: '',
                 height: window.clientHeight,
             }

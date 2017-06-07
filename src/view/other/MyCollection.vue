@@ -7,6 +7,10 @@
              <collectionitem :item = "collectionItem"></collectionitem>
              <smallspace></smallspace>
         </div>
+        <div v-if="collectionItems.length==0">
+            <img class="nodataimg"  src="../../assets/nodata.png">
+            <p class="nodatap">暂无数据</p>
+          </div>
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
                 <li class="item border" @click="backhome()">返回首页</li>
@@ -188,5 +192,16 @@
     .fillbottom {
         height: 60px;
         width: 100%;
+    }
+    
+    .nodataimg {
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 180px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>

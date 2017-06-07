@@ -6,6 +6,10 @@
           <div v-for="item of items">
               <classifyitem :goodsimage='item.img' :goodstype='item.type' :goodsname='item.name' :price='item.price' :goodsid='item.id'></classifyitem>
           </div>
+          <div  v-if="items.length==0">
+                <img class="nodataimg" src="../../assets/nodata.png">
+                <p class="nodatap">暂无数据</p>
+          </div>
            <div class="fillbottom"></div>
       </div>
      
@@ -214,5 +218,16 @@
         background: #2ad2c9;
         font-size: 20px;
         color: white;
+    }
+    
+    .nodataimg {
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 160px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>

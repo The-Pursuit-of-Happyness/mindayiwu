@@ -21,6 +21,10 @@
                 <smallspace></smallspace>
             </div>
         </div>
+         <div v-if="orderItems.length==0">
+                <img class="nodataimg" src="../assets/nodata.png">
+                <p class="nodatap">暂无数据</p>
+          </div>
         <div class="bottombox"></div>
   </div>
 </template>
@@ -209,5 +213,16 @@
         height: 60px;
         width: 100%;
         max-width: 640px;
+    }
+    
+    .nodataimg {
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 180px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>

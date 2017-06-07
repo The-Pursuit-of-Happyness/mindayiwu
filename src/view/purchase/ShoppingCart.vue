@@ -7,7 +7,11 @@
             <!--<shoppingcartitem></shoppingcartitem>
             <shoppingcartitem></shoppingcartitem>
             <shoppingcartitem></shoppingcartitem>-->
-        </div>    
+        </div>
+        <div v-if="shoppingcartitems.length==0">
+            <img class="nodataimg"  src="../../assets/nodata.png">
+            <p class="nodatap">暂无数据</p>
+          </div>  
         <div class="fillbottom"></div>    
         <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <ul class="bottommenu">
@@ -231,5 +235,16 @@
     .fillbottom {
         height: 60px;
         width: 100%;
+    }
+    
+    .nodataimg {
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 180px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>

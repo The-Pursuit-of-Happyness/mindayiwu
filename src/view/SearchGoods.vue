@@ -20,13 +20,17 @@
                 </div>
             </div>
             <div class="rightbox">                
-                <p class="typesname">{{types[currentitem].name}}</p>
-                <div v-for="item of items" class="items">
-                    <div class="itembox" @click="seeDetails(item.id)">
-                        <img :src="item.iconurl" class="itemicon">
-                        <p>{{item.name}}</p>                            
-                    </div>
+            <p class="typesname">{{types[currentitem].name}}</p>
+            <div v-for="item of items" class="items">
+                <div class="itembox" @click="seeDetails(item.id)">
+                    <img :src="item.iconurl" class="itemicon">
+                    <p>{{item.name}}</p>                            
                 </div>
+            </div>
+            <div v-if="items.length==0">
+                <img class="nodataimg" src="../assets/nodata.png">
+                <p class="nodatap">暂无数据</p>
+            </div>
             </div>
         </div>
         <div class="bottombox"></div>
@@ -345,5 +349,16 @@
         height: 60px;
         width: 100%;
         max-width: 640px;
+    }
+    
+    .nodataimg {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        width: 120px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>

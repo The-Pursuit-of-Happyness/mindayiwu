@@ -18,8 +18,12 @@
             <div v-if="currenttab == '0'">
                 <shelfitem :orderitem = "orderitem"></shelfitem>
                 <smallspace></smallspace>
-            </div>
+            </div>            
         </div>
+        <div v-if="orderItems.length==0">
+            <img class="nodataimg" src="../../assets/nodata.png">
+            <p class="nodatap">暂无数据</p>
+          </div>
          <div class="bottombox" :style="{'top':(height-12) + 'px'}">
             <p class="backhome" @click="backHome()">返回货架</p>
         </div> 
@@ -269,5 +273,16 @@
         background: #2ad2c9;
         font-size: 20px;
         color: white;
+    }
+    
+    .nodataimg {
+        margin-top: 60px;
+        margin-bottom: 40px;
+        width: 180px;
+        height: auto;
+    }
+    
+    .nodatap {
+        font-size: 16px;
     }
 </style>
