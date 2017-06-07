@@ -92,7 +92,7 @@
 <style scoped>
     .myshopgoodsitem {
         background: white;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         width: 100%;
         max-width: 640px;
         height: 230px;
@@ -100,6 +100,7 @@
         -webkit-user-select: none;
         overflow: hidden;
         position: relative;
+        border-bottom: solid 1px #ccc;
     }
     
     .topbox {

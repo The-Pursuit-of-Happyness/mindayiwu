@@ -3,8 +3,8 @@
     <div class="newproduct">       
         <div class="topbox">
              <div class="shopbox">          
-                <img class="shopicon" src="../../assets/head.jpg">
-                <p class="shopname">开心就好的小店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
         </div>
         <div class="goodsbox">
@@ -78,15 +78,6 @@
                     <div class="imgbox">
                         <img class="goodsimg" src="../../assets/addimg.png">
                         <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    </div>               
-                    
-                    <div class="imgbox"> 
-                        <img class="goodsimg" src="../../assets/addimg.png">
-                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
-                    </div>
-                    <div class="imgbox">
-                        <img class="goodsimg" src="../../assets/addimg.png">
-                        <input type="file" class="fileupload" accept="image/*" capture="camera" @change="viewimg()"/>
                     </div>
                     -->
                 </div>
@@ -142,18 +133,19 @@
     import {
         WEB_SERVER as port
     } from '../../config';
+    import shopicon from '../../assets/head.jpg';
     export default {
         data() {
             return {
                 height: window.clientHeight,
                 goodsname: '',
-                goodstype: 0,
+                goodstype: -1,
                 goodsinfo: '',
                 price: '',
                 number: '',
                 phone: '',
                 address: '',
-                secondhand: 0,
+                secondhand: -1,
                 photos: [],
                 photosUrl: [],
                 imgs: [],
@@ -163,10 +155,33 @@
                 filedmsg: '失败',
                 isuploadfaild: false,
                 isuploading: false,
+                shopname: '开心就好的小店',
+                shopicon: shopicon,
             }
         },
-        created() {},
+        created() {
+            this.initData();
+        },
         methods: {
+            initData() {
+                var _self = this;
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + $.cookie("username") + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.shopname = data.data.barter_storename;
+                            _self.shopicon = data.data.barter_userface;
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            },
             backHome: function() {
                 this.$router.replace("/");
             },
@@ -423,7 +438,7 @@
                     url: port + 'goods/addGoods',
                     dataType: "json",
                     data: formData,
-                    timeout: 4000,
+                    // timeout: 4000,
                     processData: false,
                     contentType: false,
                     success: function(data) {

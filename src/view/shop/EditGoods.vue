@@ -2,8 +2,8 @@
     <div>
         <div class="topbox">
              <div class="shopbox">          
-                <img class="shopicon" src="../../assets/head.jpg">
-                <p class="shopname">开心就好的小店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
         </div>
         <div class="goodsbox">
@@ -122,6 +122,7 @@
     import {
         mapGetters
     } from 'vuex';
+    import shopicon from '../../assets/head.jpg';
     export default {
         data() {
             return {
@@ -146,6 +147,8 @@
                 goodsid: '',
                 filedmsg: '失败',
                 isuploadfaild: false,
+                shopname: '开心就好的小店',
+                shopicon: shopicon,
             }
         },
         computed: mapGetters({
@@ -205,6 +208,22 @@
                     },
                     error: function(xhr, type) {
                         console.log('Ajax error!');
+                    }
+                });
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + $.cookie("username") + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.shopname = data.data.barter_storename;
+                            _self.shopicon = data.data.barter_userface;
+                        } else {
+                            alert(data.message);
+                        }
                     }
                 });
             },
