@@ -11,7 +11,14 @@
         <div class="button" @click="addtocart()">
             <img class="nexticon" src="../../assets/shopcar.png">
         </div>
-    </div>   
+    </div>
+    <div id="toast" style="opacity: 1; display: none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">添加购物车成功！</p>
+            </div>
+        </div>  
   </div>
 </template>
 <script>
@@ -55,7 +62,18 @@
                     url: port + 'shopping/addshopping',
                     success: function(data) {
                         console.log(data);
-                        if (data.code == 200) {} else {
+                        if (data.code == 200) {
+                            //成功提示
+                            var $toast = $('#toast');
+                            if ($toast.css('display') != 'none') return;
+                            else {
+                                $toast.fadeIn(100);
+                                setTimeout(function() {
+                                    $toast.fadeOut(100);
+                                }, 2000);
+                            }
+                            console.log("success");
+                        } else {
                             alert(data.message);
                         }
                     },

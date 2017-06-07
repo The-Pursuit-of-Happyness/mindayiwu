@@ -68,7 +68,7 @@
                 var _self = this;
                 console.log("提交评论");
                 var formData = new FormData();
-                formData.append("file", _self.image, _self.image.name);
+                formData.append("multipartFile", _self.image);
                 formData.append('userId', $.cookie("username"));
                 formData.append('goodsId', _self.currentgoodsid);
                 formData.append('orderId', _self.currentorderid);

@@ -4,9 +4,6 @@
         <div class="filltop"></div>
         <div class="topbox" v-for="shoppingcartitem of shoppingcartitems">
             <shoppingcartitem :shoppingcartitem = "shoppingcartitem"></shoppingcartitem>
-            <!--<shoppingcartitem></shoppingcartitem>
-            <shoppingcartitem></shoppingcartitem>
-            <shoppingcartitem></shoppingcartitem>-->
         </div>
         <div v-if="shoppingcartitems.length==0">
             <img class="nodataimg"  src="../../assets/nodata.png">
@@ -31,7 +28,7 @@
     export default {
         data() {
             return {
-                cartnum: 5,
+                cartnum: 0,
                 height: window.clientHeight,
                 page: 1,
                 shoppingcartitems: [{
@@ -68,7 +65,7 @@
                         'X-Token': $.cookie("token"),
                     },
                     type: 'GET',
-                    url: port + 'shopping/' + $.cookie("username") + '/getShopping/' + _self.page + '1',
+                    url: port + 'shopping/' + $.cookie("username") + '/getShopping/' + _self.page + '/1',
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
@@ -89,6 +86,7 @@
                                             obj.shoppingid = datas.barter_shoppingid;
                                             items[i].cartitems.push(obj);
                                             ishave = true;
+                                            _self.cartnum++;
                                         }
                                     }
                                     if (!ishave) {
@@ -134,6 +132,7 @@
                 item.cartitems = [];
                 item.cartitems.push(obj);
                 target.push(item);
+                this.cartnum++;
             }
         }
     }

@@ -30,7 +30,7 @@
     export default {
         data() {
             return {
-                message: '这个商品可以以物易物么？',
+                message: '',
                 height: window.clientHeight,
             }
         },

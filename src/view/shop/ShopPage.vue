@@ -2,12 +2,13 @@
     <div class="shoppage">       
         <div class="topbox">
              <div class="shopbox">          
-                <img class="shopicon" src="../../assets/head.jpg">
-                <p class="shopname">开心就好的小店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
         </div>
         <div class="goodsbox" v-for="goodsitem of goodsitems">
             <shopgoodsitem :goodsitem = "goodsitem"></shopgoodsitem>
+
         </div>
         <div v-if="goodsitems.length==0" >
             <img class="nodataimg" src="../../assets/nodata.png">
@@ -20,8 +21,8 @@
                 <li class="item border" @click="goshop()">店铺简介</li>
                 <li class="item">联系卖家</li>
             </ul>
-        </div>
-        <div class="fillbottom"></div>
+        </div> 
+        <div class="fillbottom"></div>      
     </div>
 </template>
 
@@ -29,6 +30,7 @@
     import {
         WEB_SERVER as port
     } from '../../config';
+    import shopicon from '../../assets/shopicon.jpg';
     import {
         mapGetters
     } from 'vuex';
@@ -38,6 +40,8 @@
                 height: window.clientHeight,
                 goodsitems: [],
                 page: 0,
+                shopname: "开心就好的小店",
+                shopicon: shopicon,
             }
         },
         created() {
@@ -65,6 +69,22 @@
                                 obj.id = data.barter_commoditynumber;
                                 _self.goodsitems.push(obj);
                             }
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + _self.currentshopid + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.shopname = data.data.barter_storename;
+                            _self.shopicon = data.data.barter_userface;
                         } else {
                             alert(data.message);
                         }
