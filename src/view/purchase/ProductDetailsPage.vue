@@ -1,8 +1,8 @@
 <template>   
   <div class="productdetailspage">
       <div class="swiper-container">
-            <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-if="photos!=null" v-for="icon of photos"><img class="productimage" :src="icon"></div>
+            <div class="swiper-wrapper" > 
+                <div class="swiper-slide" v-for="icon of photos"><img class="productimage" :src="icon"></div>
                     <!--<div class="swiper-wrapper" v-else>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods1.jpg"></div>
                         <div class="swiper-slide"><img class="productimage" src="../../assets/goods2.jpg"></div>
@@ -101,7 +101,7 @@
                 price: 3.50,
                 address: '金石滩校区',
                 number: '2',
-                photos: [goods1],
+                photos: [],
                 second: '九成新',
                 currentpage: 0,
                 height: window.clientHeight,
@@ -174,10 +174,6 @@
                                 obj.message = data.barter_message;
                                 obj.createtime = data.barter_messagetime;
                                 obj.goodsimg = data.barter_messagephoto;
-                                // obj.sonevaluates: [{
-                                //     name: '小王',
-                                //     message: '确定不是坏的？？',
-                                // }],
                                 _self.evaluateitems.push(obj);
                             }
                             console.log(data);
@@ -304,6 +300,7 @@
                                     _self.second = "经典款";
                             }
                             _self.photos = [];
+                            _self.photos.length = 0;
                             _self.goodsname = '[' + _self.second + ']:' + data.barter_commodityname;
                             _self.price = data.barter_sellingprice;
                             _self.address = data.barter_commodityaddress;
@@ -328,15 +325,15 @@
                 direction: 'horizontal',
                 loop: true,
                 pagination: '.swiper-pagination',
-                autoplay: 2000,
-                autoplayDisableOnInteraction: false,
-                effect: 'cube',
-                cube: {
-                    slideShadows: false,
-                    shadow: false,
-                    shadowOffset: 100,
-                    shadowScale: 0.6
-                }
+                //autoplay: 2000,
+                //autoplayDisableOnInteraction: false,
+                // effect: 'cube',
+                // cube: {
+                //     slideShadows: false,
+                //     shadow: false,
+                //     shadowOffset: 100,
+                //     shadowScale: 0.6
+                // }
             })
         }
     }
