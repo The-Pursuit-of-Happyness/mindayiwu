@@ -73,8 +73,8 @@
                 this.$router.push("WranPage");
             } else {
                 console.log("已经登录");
+                this.initData();
             }
-            this.initData();
         },
         methods: {
             edit() {

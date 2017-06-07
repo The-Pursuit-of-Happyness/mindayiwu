@@ -126,15 +126,14 @@
         data() {
             return {
                 height: window.clientHeight,
-                goodsname: '魅族手机',
-                goodstype: '8',
-                goodsinfo: '这是一款时尚而又新颖的手机，方便灵活，拍照神器。',
-                price: 2100.00,
-                number: '8',
-                phone: '15898195729',
-                address: '大连市大连民族大学金石滩校区',
+                goodsname: '',
+                goodstype: '',
+                goodsinfo: '',
+                price: 0,
+                number: '',
+                phone: '',
+                address: '',
                 secondhand: '2',
-                uuid: 'abcdefg123456',
                 photos: [],
                 photosUrl: [],
                 imgs: [],
@@ -287,7 +286,7 @@
                 formData.append('barterCommodityaddress', _self.address);
                 formData.append('barterDescriptioninform', _self.goodsinfo);
                 formData.append('barterCategoryid', _self.goodstype);
-                formData.append('barterUserid', _self.uuid);
+                formData.append('barterUserid', $.cookie("username"));
                 formData.append('barterSeveralnew', _self.secondhand);
                 formData.append('barterCommoditynumber', _self.goodsid);
 

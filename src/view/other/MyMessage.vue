@@ -114,7 +114,8 @@
             saveInfo: function() {
                 var _self = this;
                 var formData = new FormData();
-                formData.append("file", _self.tempimg);
+                formData.append("multipartFile", _self.tempimg);
+                console.log(_self.tempimg);
 
                 formData.append('barterUserid', $.cookie("username"));
                 formData.append('barterUsername', _self.username);
@@ -124,7 +125,6 @@
 
                 formData.append('barterStorename', _self.usershopname);
                 formData.append('barterStorebewrite', _self.usershopinfo);
-                console.log(_self.photos);
                 var _self = this;
                 $.ajax({
                     headers: {

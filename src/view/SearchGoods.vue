@@ -115,13 +115,15 @@
                     iconurl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1527382830,1701498629&fm=23&gp=0.jpg',
                     id: 'abcde12345',
                 }, ],
-                result: [{
-                    title: 'item1',
-                    value: 'link1'
-                }, {
-                    title: 'item2',
-                    value: 'link2'
-                }],
+                result: [
+                    //     {
+                    //     title: 'item1',
+                    //     value: 'link1'
+                    // }, {
+                    //     title: 'item2',
+                    //     value: 'link2'
+                    // }
+                ],
                 page: 0,
                 currentitem: 0,
             }

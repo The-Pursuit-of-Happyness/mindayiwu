@@ -54,7 +54,6 @@
                     "number": "1",
                     "id": ""
                 }],
-                uid: 'abcdefg123456',
                 page: '1'
             }
         },
@@ -71,7 +70,7 @@
                         'X-Token': $.cookie("token"),
                     },
                     type: 'GET',
-                    url: port + 'goods/' + _self.uid + '/personStoreList/' + _self.page,
+                    url: port + 'goods/' + $.cookie("username") + '/personStoreList/' + _self.page,
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
