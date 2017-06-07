@@ -127,6 +127,13 @@
                 </div>
             </div>
         </div>
+         <div v-if="isuploading" id="loadingToast" style="opacity: 1;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">数据加载中</p>
+        </div>
+    </div>
         <div class="fillbottom"></div>
     </div>
 </template>
@@ -155,6 +162,7 @@
                 currentindex: -1,
                 filedmsg: '失败',
                 isuploadfaild: false,
+                isuploading: false,
             }
         },
         created() {},
@@ -231,6 +239,7 @@
             },
             /*采用formData形式上传图片和表单数据*/
             upload: function() {
+
                 var _self = this;
                 var formData = new FormData();
                 var inputs = $("input.fileupload");
@@ -391,6 +400,7 @@
             },
             /*采用formData形式上传图片和表单数据*/
             upload2: function() {
+                this.isuploading = true;
                 var _self = this;
                 var formData = new FormData();
                 var images = _self.photos;
@@ -413,10 +423,12 @@
                     url: port + 'goods/addGoods',
                     dataType: "json",
                     data: formData,
+                    timeout: 4000,
                     processData: false,
                     contentType: false,
                     success: function(data) {
                         console.log(data);
+                        _self.isuploading = false;
                         if (data.code == 200) {
                             //成功提示
                             var $toast = $('#toast');
@@ -433,6 +445,9 @@
                             this.isuploadfaild = true;
                             alert(data.message);
                         }
+                    },
+                    error: function() {
+                        _self.isuploading = false;
                     }
                 });
             },

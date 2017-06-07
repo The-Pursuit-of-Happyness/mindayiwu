@@ -42,6 +42,13 @@
                 <p class="weui-toast__content">保存成功！</p>
             </div>
         </div>
+        <div v-if="isuploading" id="loadingToast" style="opacity: 1;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-loading weui-icon_toast"></i>
+                <p class="weui-toast__content">数据加载中</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -62,6 +69,7 @@
                 userinfo: '阳光帅气的小哥',
                 tempimg: '',
                 height: window.clientHeight,
+                isuploading: false,
             }
         },
         created() {
@@ -112,6 +120,7 @@
             },
             /*采用formData形式上传图片和表单数据*/
             saveInfo: function() {
+                this.isuploading = true;
                 var _self = this;
                 var formData = new FormData();
                 formData.append("multipartFile", _self.tempimg);
@@ -134,9 +143,11 @@
                     url: port + 'user/update',
                     dataType: "json",
                     data: formData,
+                    timeout: 3000,
                     processData: false,
                     contentType: false,
                     success: function(data) {
+                        _self.isuploading = false;
                         console.log(data);
                         if (data.code == 200) {
                             //成功提示
@@ -154,6 +165,10 @@
                             this.isuploadfaild = true;
                             alert(data.message);
                         }
+                    },
+                    error: function() {
+                        _self.isuploading = false;
+                        console.log("Ajax error");
                     }
                 });
             },

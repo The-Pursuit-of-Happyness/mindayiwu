@@ -40,8 +40,8 @@
         <space></space>
         <!--<linkitem title="我的货架" :imgurl="shopicon"></linkitem>-->
         <router-link to="/MyCollection" class="none"><linkitem  title="我的收藏" :imgurl="saveicon"></linkitem></router-link>
-        <button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>
-        <button class="weui-btn weui-btn_primary login"  @click ="logout()">退出登陆</button>
+        <!--<button class="weui-btn weui-btn_primary login"  @click ="login()">登陆</button>-->
+        <button class="weui-btn weui-btn_plain-primary login"  @click ="logout()">退出登陆</button>
         <!--<button class="weui-btn weui-btn_primary login"  @click ="search()">搜索</button> 
         <button class="weui-btn weui-btn_primary login"  @click ="toupload()">上传图片测试</button> -->
         <div class="bottombox"></div>

@@ -65,6 +65,13 @@
                 <p class="weui-toast__content">下单成功！</p>
             </div>
         </div>
+        <div v-if="isuploading" id="loadingToast" style="opacity: 1;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-loading weui-icon_toast"></i>
+                <p class="weui-toast__content">数据加载中</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -91,6 +98,7 @@
                 buyernote: '',
                 goodsid: '',
                 height: window.clientHeight,
+                isuploading: false,
             }
         },
         computed: mapGetters({
@@ -171,6 +179,7 @@
                 this.buyernote = '';
             },
             purchase: function() {
+                this.isuploading = true;
                 var _self = this;
                 var obj = {};
                 obj.barterSellernumber = _self.ownerid;
@@ -186,8 +195,10 @@
                     type: 'POST',
                     url: port + 'order/add',
                     dataType: 'json',
+                    timeout: 3000,
                     data: obj,
                     success: function(data) {
+                        _self.isuploading = false;
                         console.log(data);
                         if (data.code == 200) {
                             var $toast = $('#toast');
@@ -202,6 +213,7 @@
                         }
                     },
                     error: function(xhr, type) {
+                        _self.isuploading = false;
                         console.log('Ajax error!');
                     }
                 });
