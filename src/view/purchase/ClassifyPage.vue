@@ -2,22 +2,22 @@
   <div class="classifypage">
       <p class="title">{{type}}</p>
       <div class="filltop"></div>
-      <div></div>
-        <div class="items" > 
-            <div v-for="item of items">
-                <classifyitem :goodsimage='item.img' :goodstype='item.type' :goodsname='item.name' :price='item.price' :goodsid='item.id'></classifyitem>
-            </div>
-        </div>
-        <div class="bottombox" :style="{'top':(height-12) + 'px'}">
-            <p class="backhome" @click="backhome()">返回首页</p>
-        </div> 
-        <div class="fillbottom"></div>
-         <div v-if="isloading" id="loadingToast" style="opacity: 1;">
-        <div class="weui-mask_transparent"></div>
-        <div class="weui-toast">
-            <i class="weui-loading weui-icon_toast"></i>
-            <p class="weui-toast__content">数据加载中</p>
-        </div>
+      <div class="items" > 
+          <div v-for="item of items">
+              <classifyitem :goodsimage='item.img' :goodstype='item.type' :goodsname='item.name' :price='item.price' :goodsid='item.id'></classifyitem>
+          </div>
+           <div class="fillbottom"></div>
+      </div>
+     
+      <div class="bottombox" :style="{'top':(height-12) + 'px'}">
+          <p class="backhome" @click="backhome()">返回首页</p>
+      </div>         
+        <div v-if="isloading" id="loadingToast" style="opacity: 1;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+          <i class="weui-loading weui-icon_toast"></i>
+          <p class="weui-toast__content">数据加载中</p>
+      </div>
     </div>
   </div>
 </template>
@@ -177,10 +177,11 @@
     }
     
     .items {
-        background: #f1f1f1;
+        background: white;
         padding-left: 5px;
         padding-right: 5px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
+        height: 100%;
         clear: both;
     }
     
@@ -188,6 +189,7 @@
         height: 60px;
         width: 100%;
         max-width: 640px;
+        clear: both;
     }
     
     .bottombox {

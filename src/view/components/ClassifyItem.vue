@@ -106,7 +106,6 @@
         width: 100%;
         max-width: 320px;
         min-height: 120px;
-        height: auto;
     }
     
     .name {
@@ -116,7 +115,6 @@
         max-width: 320px;
         height: 30px;
         padding: 5px;
-        margin-left: 10px;
         font-size: 16px;
     }
     
@@ -142,8 +140,7 @@
     }
     
     .price {
-        margin-left: 15px;
-        font-size: 16px;
+        font-size: 14px;
         color: red;
         font-weight: bold;
     }
@@ -151,14 +148,13 @@
     .button {
         font-weight: bold;
         color: white;
-        width: 75px;
+        width: 60px;
         height: 25px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 30px;
         border-radius: 5px;
         background: #2ad2c9;
-        margin-right: 15px;
-        margin-bottom: 10px;
+        margin-left: 10px;
         text-align: center;
         display: flex;
         -webkit-box-align: center;

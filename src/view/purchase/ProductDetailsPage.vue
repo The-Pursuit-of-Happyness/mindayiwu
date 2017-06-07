@@ -27,13 +27,15 @@
         <space></space>
         <p class="titlebox">评价</p>
         <div v-for="item of evaluateitems">
-            <evaluate :evaluateitem=item></evaluate>
+            <evaluate :evaluateitem=item></evaluate>            
         </div>
+        <p v-if="evaluateitems.length==0">暂无评价</p>
         <space></space>
          <p class="titlebox">留言</p>
          <div v-for="item of leaveMessageitems">
             <leavemessageitem :messageitem=item></leavemessageitem>
         </div>
+        <p v-if="leaveMessageitems.length==0">暂无留言</p>
         <space></space>
         <p class="titlebox">详情</p>
         <div class="detialbox">           

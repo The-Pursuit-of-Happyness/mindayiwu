@@ -13,11 +13,11 @@
             <button class="qrcodeimg"  id="code" @click="createCode()">{{code}}</button>
         </div>
         <div class="pwdbox">
-            <div class="rememberpwd" >
+            <!--<div class="rememberpwd" >
                 <input type="checkbox" value="记住密码" id="awesome">
                 <label for="awesome">记住密码</label>
             </div>
-            <button class="forgetpwd">忘记密码？</button>
+            <button class="forgetpwd">忘记密码？</button>-->
         </div>
          <button class ="subbut" @click = "loginIn()">登陆</button>
          <button class="regbut" @click ="register()">注册</button>

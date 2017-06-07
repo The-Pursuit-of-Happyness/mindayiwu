@@ -19,6 +19,13 @@
             <button class="qrcodeimg"  id="code" @click="createCode()">{{code}}</button>
         </div>
          <button class="regbut" @click ="register()">注册</button>
+         <div v-if="isloading" id="loadingToast" style="opacity: 1;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+          <i class="weui-loading weui-icon_toast"></i>
+          <p class="weui-toast__content">数据提交中。。。</p>
+      </div>
+    </div>
 	</div>
 </template>
 
@@ -40,6 +47,7 @@
                 repassword: '',
                 piccode: '',
                 message: '',
+                isloading: false,
             }
         },
         created() {
@@ -74,23 +82,32 @@
                     var email = "example@qq.com";
                     console.log(reg.test(email)); // true
                     if (reg.test(this.useremal)) {
+                        this.isloading = true;
                         var _self = this;
                         $.ajax({
                             type: 'POST',
                             url: port + 'user/add',
+                            timeout: 2000,
                             data: {
                                 'barterusername': _self.username,
                                 'useremail': _self.useremal,
                                 'userpassword': _self.password,
                             },
                             success: function(data) {
+                                _self.isloading = false;
                                 if (data.code == 200) {
-                                    this.$router.push('Login');
+                                    _self.$router.push('Login');
+                                } else {
+                                    alert(data.message);
                                 }
                                 _self.message = JSON.stringify(data);
                                 // sessionStorage.setItem('accessToken', data.access_token)
                                 // sessionStorage.setItem('userName', _self.username)
                                 console.log(_self.message);
+                            },
+                            error: function(data) {
+                                _self.isloading = false;
+                                console.log("Ajax error");
                             }
                         });
                     } else {
