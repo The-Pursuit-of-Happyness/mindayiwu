@@ -77,7 +77,12 @@
                 });
             },
             backshelf: function() {
-                this.$router.replace("ShopPage");
+                if (this.currentshopid == $.cookie("username")) {
+                    this.$router.replace("MyShop");
+                } else {
+                    this.$router.replace("ShopPage");
+                }
+
             }
         }
     }

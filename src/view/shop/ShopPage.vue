@@ -78,6 +78,12 @@
                 this.$router.replace("/");
             },
             goshop() {
+                this.$store.dispatch("saveShopId", this.currentshopid).then(() => {
+                    Toast("保存数据成功！！！");
+                    console.log("数据保存成功！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.push("ShopMessage");
             }
         }

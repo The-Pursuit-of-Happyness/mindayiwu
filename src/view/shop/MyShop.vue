@@ -2,8 +2,8 @@
     <div class="myshop">       
         <div class="topbox">
              <div class="shopbox">          
-                <img class="shopicon" src="../../assets/head.jpg">
-                <p class="shopname">开心就好的小店</p>
+                <img class="shopicon" :src="shopicon">
+                <p class="shopname">{{shopname}}</p>
             </div>
         </div>
         <div class="goodsbox" v-for="goodsitem of goodsitems">
@@ -25,9 +25,12 @@
     import {
         WEB_SERVER as port
     } from '../../config';
+    import shopicon from "../../assets/head.jpg";
     export default {
         data() {
             return {
+                shopicon: shopicon,
+                shopname: '开心就好家的小店',
                 height: window.clientHeight,
                 goodsitems: [{
                     "name": "五彩签字笔",
@@ -92,6 +95,22 @@
                         }
                     }
                 });
+                $.ajax({
+                    headers: {
+                        'X-Token': $.cookie("token"),
+                    },
+                    type: 'GET',
+                    url: port + 'user/' + $.cookie("username") + '/lookupId',
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 200) {
+                            _self.shopname = data.data.barter_storename;
+                            _self.shopicon = data.data.barter_userface;
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
             },
             backHome: function() {
                 this.$router.replace("/");
@@ -103,6 +122,12 @@
                 this.$router.push('/ManageShelf');
             },
             shopMessage: function() {
+                this.$store.dispatch("saveShopId", $.cookie("username")).then(() => {
+                    Toast("保存数据成功！！！");
+                    console.log("数据保存成功！");
+                }).catch(err => {
+                    Toast('保存数据失败');
+                });
                 this.$router.push('/ShopMessage');
             }
         }

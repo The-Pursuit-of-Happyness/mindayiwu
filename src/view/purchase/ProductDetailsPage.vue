@@ -106,7 +106,7 @@
                 currentpage: 0,
                 height: window.clientHeight,
                 goodsid: '',
-                shopid: 'abcdefg123456',
+                shopid: '',
                 goodsinfo: '这是一款不错的签字笔，来自的德国的先进工艺生产。',
                 shopstar: '5',
                 shopicon: shopicon,
@@ -309,6 +309,7 @@
                             _self.shopstar = data.barter_userstar;
                             _self.shopname = data.barter_storename;
                             _self.shopicon = data.barter_userface;
+                            _self.shopid = data.barter_userid;
                             for (var img of data.barter_files) {
                                 _self.photos.push(img.barter_showpictures);
                             }

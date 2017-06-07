@@ -102,7 +102,7 @@
                 price: '12.50',
                 number: 5,
                 totalprice: '52.50',
-                buyernme: '小米',
+                buyername: '小米',
                 buyeraddress: '大连市金石滩民族大学',
                 buyerphone: '15640928579',
                 createtime: '2017-5-30',
@@ -164,7 +164,21 @@
                     success: function(data) {
                         console.log(data);
                         if (data.code == 200) {
-
+                            var data = data.data;
+                            _self.shopicon = data.barter_userface;
+                            _self.goodsimg = data.barter_showpictures;
+                            _self.shopname = data.barter_storename;
+                            _self.status = data.barter_orderstatus;
+                            _self.goodsname = data.barter_commodityname;
+                            _self.goodsinfo = data.barter_descriptioninform;
+                            _self.price = data.barter_transactionprice / data.barter_ordercount;
+                            _self.number = data.barter_ordercount;
+                            _self.totalprice = data.barter_transactionprice;
+                            _self.buyername = data.barter_ordername;
+                            _self.buyeraddress = data.barter_useraddress;
+                            _self.buyerphone = data.barter_orderphone;
+                            _self.createtime = data.barter_completiontime;
+                            _self.orderid = data.barter_orderid;
                         } else {
                             console.log(data.message);
                         }

@@ -63,7 +63,7 @@
                 this.getData();
             },
             backHome() {
-                this.$router.push('ShopPage');
+                this.$router.push('MyShop');
             },
             getOrderInfo() {
                 var _self = this;
@@ -104,9 +104,9 @@
                                 obj.orderid = data.barter_orderid;
                                 obj.status = data.barter_orderstatus;
                                 obj.goodsimg = data.barter_showpictures;
-                                obj.shopname = data.barter_storename;
+                                obj.username = data.barter_storename;
                                 obj.price = data.barter_transactionprice / data.barter_ordercount;;
-                                obj.shopicon = data.barter_userface;
+                                obj.usericon = data.barter_userface;
                                 _self.orderItems.push(obj);
                             }
                         } else if (data.code == 4) {
